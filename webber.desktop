@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Webber
+Exec=webber %U
+Icon=assets/icon.svg
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true

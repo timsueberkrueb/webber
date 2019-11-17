@@ -1,0 +1,19 @@
+[package]
+name = "webber"
+version = "0.1.0"
+authors = ["Tim Süberkrüb <dev@timsueberkrueb.io"]
+edition = "2018"
+build = "src/build.rs"
+
+[dependencies]
+qmetaobject = "0.1"
+cstr = "0.1"
+cpp = "0.5"
+url = "2.1"
+reqwest = "0.9"
+scraper = "0.11"
+ar = "0.8"
+xdg = "2.2"
+
+[build-dependencies]
+cpp_build = "0.5"

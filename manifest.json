@@ -1,0 +1,16 @@
+{
+    "name": "webber.timsueberkrueb",
+    "description": "The Webby Webapp Wrapper",
+    "architecture": "armhf",
+    "title": "Webber",
+    "hooks": {
+        "webber.timsueberkrueb": {
+            "apparmor": "webber.apparmor",
+            "desktop":  "webber.desktop",
+            "content-hub": "content-hub.json"
+        }
+    },
+    "version": "0.1.0",
+    "maintainer": "Tim Süberkrüb <dev@timsueberkrueb.io>",
+    "framework" : "ubuntu-sdk-16.04"
+}
