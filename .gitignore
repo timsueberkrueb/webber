@@ -1,4 +1,5 @@
 .clickable
 build/
 target/
+lib/
 Cargo.lock

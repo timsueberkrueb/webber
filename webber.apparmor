@@ -3,7 +3,8 @@
         "networking",
         "webview",
         "content_exchange",
-        "content_exchange_source"
+        "content_exchange_source",
+        "connectivity"
     ],
     "policy_version": 16.04
 }

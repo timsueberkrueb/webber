@@ -145,19 +145,25 @@ fn create_tar_gz(filepath: &Path, dir: &Path) -> io::Result<()> {
     // need to start with ./ and this seem to get normalized away in Rust paths.
     // This workaround should be okay because we control the filepath, but it is ugly
     // nevertheless.
-    Command::new("tar")
-        .args(&[
-            "--transform",
-            &format!(
-                "flags=r;s|{}|.|",
-                dir.file_name().unwrap().to_str().unwrap()
-            ),
-            "-czf",
-            filepath.to_str().unwrap(),
-            dir.file_name().unwrap().to_str().unwrap(),
-        ])
-        .current_dir(&dir.join(".."))
-        .output()?;
+    Command::new(
+        std::env::current_exe()
+            .unwrap()
+            .parent()
+            .unwrap()
+            .join("tar"),
+    )
+    .args(&[
+        "--transform",
+        &format!(
+            "flags=r;s|{}|.|",
+            dir.file_name().unwrap().to_str().unwrap()
+        ),
+        "-czf",
+        filepath.to_str().unwrap(),
+        dir.file_name().unwrap().to_str().unwrap(),
+    ])
+    .current_dir(&dir.join(".."))
+    .output()?;
     Ok(())
 }
 
