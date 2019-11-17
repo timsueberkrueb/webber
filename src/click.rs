@@ -197,7 +197,7 @@ fn control_manifest_content(appname: &str, title: &str) -> String {
     "description": "Shortcut",
     "framework": "ubuntu-sdk-16.04",
     "hooks": {{
-        "{}.webber": {{
+        "{}": {{
             "apparmor": "shortcut.apparmor",
             "desktop": "shortcut.desktop"
         }}
