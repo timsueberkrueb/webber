@@ -13,7 +13,7 @@ Dialog {
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2
 
-    title: "Install shortcut"
+    title: i18n.tr('Install shortcut')
 
     contentItem: Item {
         implicitWidth: dialog.contentWidth
