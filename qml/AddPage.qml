@@ -377,9 +377,9 @@ Page {
         id: scraper
         url: urlField.displayText
         onScraped: {
-            if (siteName != "" && nameField.text !== siteName) {
+            if (siteName != "") {
                 nameField.text = siteName;
-            } else if (title !== "" && nameField.text !== title) {
+            } else if (title !== "") {
                 nameField.text = title;
             }
             if (themeColor != "" && colorField.validator.regExp.test(themeColor)) {
