@@ -40,7 +40,7 @@ ApplicationWindow {
                     Item { Layout.fillWidth: true }
 
                     Button {
-                        text: "Add"
+                        text: i18n.tr('Add')
                         onClicked: stackView.push(addPage);
                     }
                 }
