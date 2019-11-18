@@ -36,7 +36,7 @@ Page {
 
                 Layout.fillWidth: true
 
-                placeholderText: "Url (e.g. https://example.com)"
+                placeholderText: i18n.tr('Url (e.g. https://example.com)')
                 inputMethodHints: Qt.ImhUrlCharactersOnly
                 onDisplayTextChanged: {
                     previousText = displayText;
@@ -136,7 +136,7 @@ Page {
                                 }
 
                                 Button {
-                                    text: "Refresh"
+                                    text: i18n.tr('Refresh')
                                     onClicked: {
                                         d.refresh();
                                     }
@@ -153,17 +153,17 @@ Page {
                         rowSpacing: Suru.units.gu(1)
 
                         Label {
-                            text: "Name"
+                            text: i18n.tr('Name')
                         }
 
                         TextField {
                             id: nameField
                             Layout.fillWidth: true
-                            placeholderText: "Web app name"
+                            placeholderText: i18n.tr('Web app name')
                         }
 
                         Label {
-                            text: "Color (hex)"
+                            text: i18n.tr('Color (hex)')
                         }
 
                         RowLayout {
@@ -189,7 +189,7 @@ Page {
                         }
 
                         Label {
-                            text: "Icon"
+                            text: i18n.tr('Icon')
                         }
 
                         Item {
@@ -216,14 +216,14 @@ Page {
                         Layout.fillWidth: true
 
                         Label {
-                            text: "Url patterns"
+                            text: i18n.tr('Url patterns')
                             font.bold: true
                         }
 
                         Item { Layout.fillWidth: true }
 
                         Button {
-                            text: "Add"
+                            text: i18n.tr('Add')
                             onClicked: urlPatterns.add("")
                         }
                     }
@@ -248,7 +248,7 @@ Page {
                                 TextField {
                                     Layout.fillWidth: true
                                     text: model.url
-                                    placeholderText: "http://*.example.com/*"
+                                    placeholderText: i18n.tr('http://*.example.com/*')
                                     onEditingFinished: {
                                         if (text === "") {
                                             urlPatterns.remove(index);
@@ -276,14 +276,14 @@ Page {
             Layout.fillWidth: true
 
             Button {
-                text: "Reset"
+                text: i18n.tr('Reset')
                 onClicked: d.loadDefaults()
             }
 
             Item { Layout.fillWidth: true }
 
             Button {
-                text: "Create"
+                text: i18n.tr('Create')
                 enabled: urlField.text !== "" && nameField.text !== ""
                 onClicked: {
                     addDialog.open();
