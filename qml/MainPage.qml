@@ -79,6 +79,12 @@ Page {
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Qt.AlignHCenter
                 }
+
+                Button {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Browse"
+                    onClicked: Qt.openUrlExternally("application:///morph-browser.desktop")
+                }
             }
         }
     }
