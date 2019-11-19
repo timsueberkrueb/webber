@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Suru 2.2
+import Ubuntu.Components 1.3 as UUITK
 
 Button {
     property string iconName: ""
@@ -11,14 +12,12 @@ Button {
     implicitHeight: Suru.units.gu(4)
     flat: true
 
-    Image {
+    UUITK.Icon {
         anchors {
             fill: parent
             margins: Suru.units.gu(1)
         }
 
-        sourceSize.width: width
-        sourceSize.height: height
-        source: "image://suru/" + iconName
+        name: iconName
     }
 }
