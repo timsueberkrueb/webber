@@ -222,7 +222,7 @@ Page {
 
                         Button {
                             text: "Add"
-                            onClicked: urlPatterns.add("")
+                            onClicked: appModel.urlPatterns.add("")
                         }
                     }
 
@@ -233,7 +233,7 @@ Page {
                         implicitHeight: contentHeight
                         interactive: false
 
-                        model: urlPatterns.model
+                        model: appModel.urlPatterns.model
                         clip: true
 
                         delegate: Item {
@@ -249,13 +249,62 @@ Page {
                                     placeholderText: "http://*.example.com/*"
                                     onEditingFinished: {
                                         if (text === "") {
-                                            urlPatterns.remove(index);
+                                            appModel.urlPatterns.remove(index);
                                         }
                                         if (text !== "") {
-                                            urlPatterns.setUrl(index, text);
+                                            appModel.urlPatterns.setUrl(index, text);
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+
+                    Label {
+                        text: "Permissions"
+                        font.bold: true
+                    }
+
+                    ListView {
+                        Layout.fillWidth: true
+                        implicitHeight: contentHeight
+                        interactive: false
+
+                        model: appModel.permissions.model
+                        clip: true
+
+                        delegate: ItemDelegate {
+                            width: parent.width
+                            height: Suru.units.gu(5)
+
+                            onClicked: {
+                                checkbox.toggle();
+                                appModel.permissions.setEnabled(index, checkbox.checked);
+                            }
+
+                            RowLayout {
+                                anchors.fill: parent
+
+                                CheckBox {
+                                    id: checkbox
+                                    checked: model.enabled
+                                    onToggled: {
+                                        appModel.permissions.setEnabled(index, checked);
+                                    }
+
+                                    Connections {
+                                        target: model
+                                        onEnabledChanged: {
+                                            checkbox.checked = model.enabled;
+                                        }
+                                    }
+                                }
+
+                                Label {
+                                    text: model.description
+                                }
+
+                                Item { Layout.fillWidth: true }
                             }
                         }
                     }
@@ -289,8 +338,7 @@ Page {
                         urlField.text,
                         nameField.text,
                         colorField.text,
-                        scraper.iconUrl,
-                        urlPatterns.getPatternsString()
+                        scraper.iconUrl
                     );
                 }
             }
@@ -341,7 +389,8 @@ Page {
             colorField.text = "#ffffff";
             urlField.text = "";
             iconImage.source = "";
-            urlPatterns.clear();
+            appModel.urlPatterns.clear();
+            appModel.permissions.loadDefaults();
         }
 
         function refresh() {
@@ -351,12 +400,12 @@ Page {
         }
     }
 
-    UrlPatterns {
-        id: urlPatterns
-    }
-
     AppModel {
         id: appModel
+
+        Component.onCompleted: {
+            appModel.permissions.loadDefaults()
+        }
 
         onCreated: {
             addDialog.close()
@@ -378,9 +427,9 @@ Page {
             }
             iconImage.source = iconUrl !== "" ? Qt.resolvedUrl(iconUrl) : "";
             if (defaultUrlPatterns !== []) {
-                urlPatterns.clear();
+                appModel.urlPatterns.clear();
                 for (var i=0; i<defaultUrlPatterns.length; ++i) {
-                    urlPatterns.add(defaultUrlPatterns[i]);
+                    appModel.urlPatterns.add(defaultUrlPatterns[i]);
                 }
             }
         }

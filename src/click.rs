@@ -11,6 +11,7 @@ pub struct Package {
     pub theme_color: String,
     pub icon_url: String,
     pub url_patterns: String,
+    pub permissions: Vec<String>,
 }
 
 impl Package {
@@ -71,7 +72,7 @@ pub fn create_package(package: Package) -> Result<(), Box<dyn std::error::Error>
     // TODO: md5sums
     write_file(
         &data.join(Path::new("shortcut.apparmor")),
-        data_apparmor_content(),
+        &data_apparmor_content(&package.permissions),
     )?;
 
     let ext = url::Url::parse(&package.icon_url)
@@ -220,16 +221,20 @@ echo "Use 'click install' instead."
 exit 1"#
 }
 
-fn data_apparmor_content() -> &'static str {
-    r#"{
+fn data_apparmor_content(permissions: &[String]) -> String {
+    format!(
+        r#"{{
     "template": "ubuntu-webapp",
-    "policy_groups": [
-        "networking",
-        "webview"
-    ],
+    "policy_groups": ["networking", "webview", {}],
     "policy_version": 16.04
-}
-"#
+}}
+"#,
+        permissions
+            .iter()
+            .map(|perm| format!("\"{}\"", perm))
+            .collect::<Vec<_>>()
+            .join(", ")
+    )
 }
 
 fn data_desktop_content(
@@ -242,7 +247,7 @@ fn data_desktop_content(
     format!(
         r#"[Desktop Entry]
 Name={}
-Exec=webapp-container --webappUrlPatterns={} --store-session-cookies {}
+Exec=webapp-container --webappUrlPatterns={} --store-session-cookies --enable-media-hub-audio {}
 Icon={}
 Terminal=false
 Type=Application

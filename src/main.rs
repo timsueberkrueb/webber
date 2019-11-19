@@ -28,6 +28,8 @@ fn main() {
     qml_register_type::<model::AppModel>(cstr!("Webber"), 1, 0, cstr!("AppModel"));
     qml_register_type::<model::UrlPatternsModel>(cstr!("Webber"), 1, 0, cstr!("UrlPatternsModel"));
     qml_register_type::<model::UrlPatterns>(cstr!("Webber"), 1, 0, cstr!("UrlPatterns"));
+    qml_register_type::<model::PermissionsModel>(cstr!("Webber"), 1, 0, cstr!("PermissionsModel"));
+    qml_register_type::<model::Permissions>(cstr!("Webber"), 1, 0, cstr!("Permissions"));
 
     let mut engine = QmlEngine::new();
     engine.load_file("qrc:/qml/Main.qml".into());
