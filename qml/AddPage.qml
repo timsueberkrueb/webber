@@ -233,7 +233,7 @@ Page {
                         implicitHeight: contentHeight
                         interactive: false
 
-                        model: urlPatterns
+                        model: urlPatterns.model
                         clip: true
 
                         delegate: Item {
@@ -351,7 +351,7 @@ Page {
         }
     }
 
-    UrlPatternsModel {
+    UrlPatterns {
         id: urlPatterns
     }
 

@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::cell::RefCell;
 
 use qmetaobject::*;
 
@@ -135,114 +135,65 @@ impl AppModel {
     }
 }
 
-#[derive(Default, Clone)]
-struct UrlPattern {
-    url: String,
+#[derive(Default, Clone, SimpleListItem)]
+pub struct UrlPattern {
+    pub url: String,
 }
+
+pub type UrlPatternsModel = SimpleListModel<UrlPattern>;
 
 #[allow(non_snake_case)]
 #[derive(Default, QObject)]
-pub struct UrlPatternsModel {
-    base: qt_base_class!(trait QAbstractListModel),
-    count: qt_property!(i32; READ row_count NOTIFY count_changed),
-    count_changed: qt_signal!(),
-    list: Vec<UrlPattern>,
-
-    setUrl: qt_method!(fn(&mut self, idx: usize, url: String) -> bool),
-    insert_row: qt_method!(fn(&mut self, row: usize) -> bool),
-    remove_row: qt_method!(fn(&mut self, row: usize) -> bool),
-    add: qt_method!(fn(&mut self, url: String)),
-    remove: qt_method!(fn(&mut self, index: u64) -> bool),
-    clear: qt_method!(fn(&mut self)),
+pub struct UrlPatterns {
+    base: qt_base_class!(trait QObject),
+    model: qt_property!(RefCell<UrlPatternsModel>; CONST),
     getPatternsString: qt_method!(fn(&mut self) -> QString),
+    setUrl: qt_method!(fn(&mut self, idx: usize, url: String) -> bool),
+    add: qt_method!(fn(&mut self, url: String)),
+    remove: qt_method!(fn(&mut self, index: usize) -> bool),
+    clear: qt_method!(fn(&mut self)),
 }
 
-impl UrlPatternsModel {
+impl UrlPatterns {
     #[allow(non_snake_case)]
-    fn setUrl(&mut self, idx: usize, url: String) -> bool {
-        if idx > self.list.len() {
+    fn setUrl(&mut self, row: usize, url: String) -> bool {
+        let mut model = self.model.borrow_mut();
+
+        if row > model.row_count() as usize {
             return false;
         }
-        self.list[idx].url = url;
-        let idx = (self as &mut dyn QAbstractListModel).row_index(idx as i32);
-        (self as &mut dyn QAbstractListModel).data_changed(idx, idx);
+        model.change_line(row, UrlPattern { url });
         true
     }
 
     fn add(&mut self, url: String) {
-        let end = self.list.len();
-        (self as &mut dyn QAbstractListModel).begin_insert_rows(end as i32, end as i32);
-        self.list.insert(end, UrlPattern { url });
-        (self as &mut dyn QAbstractListModel).end_insert_rows();
-        self.count_changed();
+        let mut model = self.model.borrow_mut();
+        model.push(UrlPattern { url });
     }
 
-    fn remove(&mut self, index: u64) -> bool {
-        self.remove_row(index as usize)
+    fn remove(&mut self, row: usize) -> bool {
+        let mut model = self.model.borrow_mut();
+        if row > model.row_count() as usize {
+            return false;
+        }
+        model.remove(row);
+        true
     }
 
     fn clear(&mut self) {
-        (self as &mut dyn QAbstractListModel).begin_reset_model();
-        self.list.clear();
-        (self as &mut dyn QAbstractListModel).end_reset_model();
-        self.count_changed();
+        let mut model = self.model.borrow_mut();
+        model.reset_data(Vec::default());
     }
 
     #[allow(non_snake_case)]
     fn getPatternsString(&mut self) -> QString {
         let s = self
-            .list
+            .model
+            .borrow()
             .iter()
             .map(|pat| pat.url.clone())
             .collect::<Vec<_>>()
             .join(",");
         QString::from(s)
-    }
-
-    fn insert_row(&mut self, row: usize) -> bool {
-        if row > self.list.len() {
-            return false;
-        }
-        (self as &mut dyn QAbstractListModel).begin_insert_rows(row as i32, (row + 1) as i32);
-        self.list.insert(row, UrlPattern::default());
-        (self as &mut dyn QAbstractListModel).end_insert_rows();
-        self.count_changed();
-        true
-    }
-
-    fn remove_row(&mut self, row: usize) -> bool {
-        if row > self.list.len() {
-            return false;
-        }
-        (self as &mut dyn QAbstractListModel).begin_remove_rows(row as i32, row as i32);
-        self.list.remove(row);
-        (self as &mut dyn QAbstractListModel).end_remove_rows();
-        self.count_changed();
-        true
-    }
-}
-
-impl QAbstractListModel for UrlPatternsModel {
-    fn row_count(&self) -> i32 {
-        self.list.len() as i32
-    }
-
-    fn data(&self, index: QModelIndex, role: i32) -> QVariant {
-        let idx = index.row() as usize;
-        if idx < self.list.len() {
-            if role == USER_ROLE {
-                QString::from(self.list[idx].url.clone()).into()
-            } else {
-                QVariant::default()
-            }
-        } else {
-            QVariant::default()
-        }
-    }
-
-    fn role_names(&self) -> HashMap<i32, QByteArray> {
-        let mut map = HashMap::new();
-        map.insert(USER_ROLE, "url".into());
-        map
     }
 }

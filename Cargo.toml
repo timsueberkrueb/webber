@@ -6,7 +6,7 @@ edition = "2018"
 build = "src/build.rs"
 
 [dependencies]
-qmetaobject = "0.1"
+qmetaobject = { git = "https://github.com/timsueberkrueb/qmetaobject-rs" } #"0.1"
 cstr = "0.1"
 cpp = "0.5"
 url = "2.1"

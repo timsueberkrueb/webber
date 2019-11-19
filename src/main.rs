@@ -27,6 +27,8 @@ fn main() {
     qml_register_type::<model::WebScraper>(cstr!("Webber"), 1, 0, cstr!("WebScraper"));
     qml_register_type::<model::AppModel>(cstr!("Webber"), 1, 0, cstr!("AppModel"));
     qml_register_type::<model::UrlPatternsModel>(cstr!("Webber"), 1, 0, cstr!("UrlPatternsModel"));
+    qml_register_type::<model::UrlPatterns>(cstr!("Webber"), 1, 0, cstr!("UrlPatterns"));
+
     let mut engine = QmlEngine::new();
     engine.load_file("qrc:/qml/Main.qml".into());
     engine.exec();
