@@ -40,6 +40,10 @@ Page {
                 inputMethodHints: Qt.ImhUrlCharactersOnly
                 onEditingFinished: {
                     if (displayText !== previousText) {
+                        // Prepend https by default
+                        if (displayText.trim().indexOf("http") !== 0) {
+                            text = "https://" + displayText.trim();
+                        }
                         previousText = displayText;
                         d.refresh();
                     }
