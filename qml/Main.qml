@@ -27,40 +27,7 @@ ApplicationWindow {
             bottom: keyboard.top
         }
 
-        initialItem: Page {
-            header: ToolBar {
-                RowLayout {
-                    anchors.fill: parent
-
-                    Label {
-                        text: "Webber"
-                        font.pixelSize: units.dp(16)
-                    }
-
-                    Item { Layout.fillWidth: true }
-
-                    Button {
-                        text: "Add"
-                        onClicked: stackView.push(addPage);
-                    }
-                }
-            }
-
-            ColumnLayout {
-                anchors {
-                    fill: parent
-                    margins: 16
-                }
-
-                spacing: Suru.units.dp(8)
-
-                RowLayout {
-                    Layout.fillWidth: true
-                }
-
-                Item { Layout.fillHeight: true }
-            }
-        }
+        initialItem: MainPage {}
     }
 
     KeyboardPlaceholder {

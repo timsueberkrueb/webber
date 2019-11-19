@@ -8,7 +8,9 @@ qrc!(qml_resources,
         "qml/InstallDialog.qml",
         "qml/KeyboardPlaceholder.qml",
         "qml/Main.qml",
+        "qml/MainPage.qml",
         "qml/qmldir",
+        "assets/icon.svg",
     },
 );
 
