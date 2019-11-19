@@ -38,15 +38,9 @@ Page {
 
                 placeholderText: "Url (e.g. https://example.com)"
                 inputMethodHints: Qt.ImhUrlCharactersOnly
-                onDisplayTextChanged: {
-                    previousText = displayText;
-                    if (displayText !== "") {
-                        scrapeTimer.restart()
-                    }
-                }
                 onEditingFinished: {
                     if (displayText !== previousText) {
-                        scrapeTimer.stop();
+                        previousText = displayText;
                         d.refresh();
                     }
                 }
@@ -333,13 +327,6 @@ Page {
         standardButtons: Dialog.NoButton
         modal: true
         closePolicy: Dialog.NoAutoClose
-    }
-
-    Timer {
-        id: scrapeTimer
-        interval: 800
-        repeat: false
-        onTriggered: scraper.scrape()
     }
 
     QtObject {
