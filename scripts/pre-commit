@@ -1,0 +1,7 @@
+# Pre-commit hook
+# Place into `.git/hooks` or use `git config core.hooksPath scripts`
+# from the root of the repository
+
+cargo test
+cargo clippy -- -Dwarnings
+cargo fmt -- --check
