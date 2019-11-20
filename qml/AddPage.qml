@@ -240,7 +240,7 @@ Page {
                         spacing: Suru.units.gu(1)
 
                         Label {
-                            text: "Visual"
+                            text: "Visuals"
                             font.bold: true
                         }
 
@@ -275,6 +275,37 @@ Page {
                                         regExp: /^#(?:[0-9a-fA-F]{3}){1,2}$/
                                     }
                                 }
+                            }
+                        }
+
+                        Label {
+                            text: "Controls"
+                            font.bold: true
+                        }
+
+                        Column {
+                            Layout.fillWidth: true
+                            spacing: Suru.units.gu(1)
+
+                            RadioButton {
+                                id: radioNoTitleBar
+                                text: "Don't show a title bar"
+                                checked: true
+                            }
+
+                            RadioButton {
+                                id: radioTitleBar
+                                text: "Show title bar"
+                            }
+
+                            RadioButton {
+                                id: radioTitleBarBackForward
+                                text: "Show title bar with back/forward buttons"
+                            }
+
+                            CheckBox {
+                                id: checkFullscreen
+                                text: "Fullscreen"
                             }
                         }
 
@@ -421,12 +452,7 @@ Page {
                 enabled: urlField.text !== "" && nameField.text !== ""
                 onClicked: {
                     addDialog.open();
-                    appModel.create(
-                        urlField.text,
-                        nameField.text,
-                        colorField.text,
-                        scraper.iconUrl
-                    );
+                    appModel.create();
                 }
             }
         }
@@ -478,6 +504,8 @@ Page {
             iconImage.source = "";
             appModel.urlPatterns.clear();
             appModel.permissions.loadDefaults();
+            radioNoTitleBar.checked = true;
+            checkFullscreen.checked = false;
         }
 
         function refresh() {
@@ -489,6 +517,14 @@ Page {
 
     AppModel {
         id: appModel
+
+        url: urlField.text
+        name: nameField.text
+        themeColor: colorField.text
+        iconUrl: scraper.iconUrl
+        enableAddressBar: radioTitleBar.checked
+        enableBackForward: radioTitleBarBackForward.checked
+        enableFullscreen: checkFullscreen.checked
 
         Component.onCompleted: {
             appModel.permissions.loadDefaults()

@@ -12,6 +12,9 @@ pub struct Package {
     pub icon_url: String,
     pub url_patterns: String,
     pub permissions: Vec<String>,
+    pub enable_address_bar: bool,
+    pub enable_back_forward: bool,
+    pub enable_fullscreen: bool,
 }
 
 impl Package {
@@ -84,7 +87,7 @@ pub fn create_package(package: Package) -> Result<(), Box<dyn std::error::Error>
 
     let icon_filename = if let Some(ext) = ext {
         let icon_fname = format!("icon.{}", ext);
-        download_file(package.icon_url, &data.join(Path::new(&icon_fname)))?;
+        download_file(package.icon_url.clone(), &data.join(Path::new(&icon_fname)))?;
         icon_fname
     } else {
         let icon_fname = "icon.svg".to_owned();
@@ -94,13 +97,7 @@ pub fn create_package(package: Package) -> Result<(), Box<dyn std::error::Error>
 
     write_file(
         &data.join(Path::new("shortcut.desktop")),
-        &data_desktop_content(
-            &package.name,
-            &package.url,
-            &package.url_patterns,
-            &icon_filename,
-            &package.theme_color,
-        ),
+        &data_desktop_content(&package, &icon_filename),
     )?;
 
     let control_tar_gz = path.join(Path::new("control.tar.gz"));
@@ -237,13 +234,19 @@ fn data_apparmor_content(permissions: &[String]) -> String {
     )
 }
 
-fn data_desktop_content(
-    title: &str,
-    url: &str,
-    url_patterns: &str,
-    icon_fname: &str,
-    theme_color: &str,
-) -> String {
+fn data_desktop_content(package: &Package, icon_fname: &str) -> String {
+    let mut optional_flags = Vec::new();
+    if package.enable_address_bar {
+        optional_flags.push("--enable-addressbar");
+    }
+    if package.enable_back_forward {
+        optional_flags.push("--enable-back-forward");
+    }
+    if package.enable_fullscreen {
+        optional_flags.push("--fullscreen");
+    }
+    optional_flags.push(&package.url);
+    let flags_and_url = optional_flags.join(" ");
     format!(
         r#"[Desktop Entry]
 Name={}
@@ -254,7 +257,7 @@ Type=Application
 X-Ubuntu-Touch=true
 X-Ubuntu-Splash-Color={}
 "#,
-        title, url_patterns, url, icon_fname, theme_color
+        package.name, package.url_patterns, flags_and_url, icon_fname, package.theme_color
     )
 }
 

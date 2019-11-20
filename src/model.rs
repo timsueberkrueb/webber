@@ -100,21 +100,31 @@ impl WebScraper {
 #[derive(QObject, Default)]
 pub struct AppModel {
     base: qt_base_class!(trait QObject),
-    create: qt_method!(fn(&mut self, url: String, name: String, theme_color: String, icon_url: String)),
+    create: qt_method!(fn(&mut self)),
     created: qt_signal!(),
     urlPatterns: qt_property!(RefCell<UrlPatterns>; CONST),
     permissions: qt_property!(RefCell<Permissions>; CONST),
+    url: qt_property!(String),
+    name: qt_property!(String),
+    themeColor: qt_property!(String),
+    iconUrl: qt_property!(String),
+    enableAddressBar: qt_property!(bool),
+    enableBackForward: qt_property!(bool),
+    enableFullscreen: qt_property!(bool),
 }
 
 impl AppModel {
-    fn create(&mut self, url: String, name: String, theme_color: String, icon_url: String) {
+    fn create(&mut self) {
         let package = click::Package {
-            url,
-            name,
-            icon_url,
-            theme_color,
+            url: self.url.clone(),
+            name: self.name.clone(),
+            icon_url: self.iconUrl.clone(),
+            theme_color: self.themeColor.clone(),
             url_patterns: self.urlPatterns.borrow().get_patterns_string(),
             permissions: self.permissions.borrow().get_enabled(),
+            enable_address_bar: self.enableAddressBar,
+            enable_back_forward: self.enableBackForward,
+            enable_fullscreen: self.enableFullscreen,
         };
 
         let qptr = QPointer::from(&*self);
