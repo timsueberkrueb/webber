@@ -8,6 +8,7 @@ import "."
 
 Page {
     function setUrl(url) {
+        d.loadDefaults();
         urlField.text = url;
         d.refresh();
     }
