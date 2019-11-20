@@ -42,7 +42,7 @@ Page {
                 onEditingFinished: {
                     if (displayText !== previousText) {
                         // Prepend https by default
-                        if (displayText.trim().indexOf("http") !== 0) {
+                        if (displayText.trim() !== "" && displayText.trim().indexOf("http") !== 0) {
                             text = "https://" + displayText.trim();
                         }
                         previousText = displayText;
