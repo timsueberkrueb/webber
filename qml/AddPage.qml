@@ -93,113 +93,24 @@ Page {
                 id: content
 
                 implicitWidth: scrollView.contentWidth
-                implicitHeight: columnLayout.childrenRect.height
+                implicitHeight: column.height
 
-                ColumnLayout {
-                    id: columnLayout
+                Column {
+                    id: column
 
                     width: parent.width
+                    height: childrenRect.height
                     spacing: Suru.units.dp(8)
 
-                    // Essential settings
-                    ColumnLayout {
-                        Layout.fillWidth: true
-                        implicitHeight: childrenRect.height
-
-                        spacing: Suru.units.gu(1)
-
-                        Label {
-                            text: "Properties"
-                            font.bold: true
-                        }
-
-                        Rectangle {
-                            id: failLoadBox
-
-                            visible: scraper.errorString !== "" && urlField.text !== ""
-
-                            Layout.fillWidth: true
-
-                            implicitHeight: childrenRect.height + Suru.units.gu(2)
-
-                            radius: Suru.units.dp(4)
-                            border.width: Suru.units.dp(1)
-                            border.color: Suru.neutralColor
-
-                            Column {
-                                width: parent.width - Suru.units.gu(2)
-                                x: Suru.units.gu(1)
-                                y: Suru.units.gu(1)
-                                spacing: Suru.units.gu(1)
-
-                                Label {
-                                    width: parent.width
-                                    text: scraper.errorString
-                                    wrapMode: Text.WordWrap
-                                    color: Suru.color(Suru.Red)
-                                }
-
-                                RowLayout {
-                                    width: parent.width
-
-                                    Item {
-                                        Layout.fillWidth: true
-                                    }
-
-                                    Button {
-                                        text: "Refresh"
-                                        onClicked: {
-                                            d.refresh();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        GridLayout {
-                            Layout.fillWidth: true
-
-                            columns: 2
-                            columnSpacing: Suru.units.gu(1)
-                            rowSpacing: Suru.units.gu(1)
-
-                            Label {
-                                text: "Name"
-                            }
-
-                            TextField {
-                                id: nameField
-                                Layout.fillWidth: true
-                                placeholderText: "Web app name"
-                            }
-
-                            Label {
-                                text: "Icon"
-                            }
-
-                            Item {
-                                implicitWidth: Suru.units.gu(8)
-                                implicitHeight: Suru.units.gu(8)
-
-                                Image {
-                                    id: iconImage
-
-                                    anchors.fill: parent
-                                    sourceSize.width: Suru.units.gu(8)
-                                    sourceSize.height: Suru.units.gu(8)
-
-                                    BusyIndicator {
-                                        anchors.centerIn: parent
-                                        running: iconImage.status == Image.Loading
-                                    }
-                                }
-
-                            }
-                        }
+                    EssentialSettings {
+                        id: essentialSettings
+                        width: parent.width
+                        url: urlField.text
+                        scraper: scraper
                     }
 
                     ItemDelegate {
-                        Layout.fillWidth: true
+                        width: parent.width
                         implicitHeight: units.gu(5)
 
                         onClicked: optionalSettings.showing = !optionalSettings.showing
@@ -227,206 +138,15 @@ Page {
                         }
                     }
 
-                    // Optional settings
-                    ColumnLayout {
+                    OptionalSettings {
                         id: optionalSettings
 
-                        property bool showing: false
+                        width: parent.width
 
-                        visible: showing
 
-                        Layout.fillWidth: true
-                        height: visible ? childrenRect.height : 0
-                        spacing: Suru.units.gu(1)
-
-                        Label {
-                            text: "Visuals"
-                            font.bold: true
-                        }
-
-                        GridLayout {
-                            Layout.fillWidth: true
-
-                            columns: 2
-                            columnSpacing: Suru.units.gu(1)
-                            rowSpacing: Suru.units.gu(1)
-
-                            Label {
-                                text: "Splash screen color (hex)"
-                            }
-
-                            RowLayout {
-                                Layout.fillWidth: true
-
-                                Rectangle {
-                                    implicitHeight: Suru.units.gu(4)
-                                    implicitWidth: Suru.units.gu(4)
-                                    radius: Suru.units.dp(4)
-                                    border.width: Suru.units.dp(1)
-                                    border.color: Suru.neutralColor
-                                    color: colorField.text
-                                }
-
-                                TextField {
-                                    id: colorField
-                                    Layout.fillWidth: true
-                                    text: "#ffffff"
-                                    validator: RegExpValidator {
-                                        regExp: /^#(?:[0-9a-fA-F]{3}){1,2}$/
-                                    }
-                                }
-                            }
-                        }
-
-                        Label {
-                            text: "Controls"
-                            font.bold: true
-                        }
-
-                        Column {
-                            Layout.fillWidth: true
-                            spacing: Suru.units.gu(1)
-
-                            RadioButton {
-                                id: radioNoTitleBar
-                                text: "Don't show a title bar"
-                                checked: true
-                            }
-
-                            RadioButton {
-                                id: radioTitleBar
-                                text: "Show title bar"
-                            }
-
-                            RadioButton {
-                                id: radioTitleBarBackForward
-                                text: "Show title bar with back/forward buttons"
-                            }
-
-                            CheckBox {
-                                id: checkFullscreen
-                                text: "Fullscreen"
-                            }
-                        }
-
-                        RowLayout {
-                            Layout.fillWidth: true
-
-                            spacing: units.gu(1)
-
-                            Label {
-                                text: "Url patterns"
-                                font.bold: true
-                            }
-
-                            IconButton {
-                                iconName: "help"
-                                onClicked: Qt.openUrlExternally("http://docs.ubports.com/en/latest/appdev/webapp/guide.html#url-patterns")
-                            }
-
-                            Item { Layout.fillWidth: true }
-
-                            Button {
-                                text: "Add"
-                                onClicked: appModel.urlPatterns.add("")
-                            }
-                        }
-
-                        ListView {
-                            id: urlPatternsView
-
-                            Layout.fillWidth: true
-                            implicitHeight: contentHeight
-                            interactive: false
-
-                            model: appModel.urlPatterns.model
-                            clip: true
-
-                            delegate: Item {
-                                width: parent.width
-                                height: Suru.units.gu(5)
-
-                                RowLayout {
-                                    anchors.fill: parent
-
-                                    TextField {
-                                        Layout.fillWidth: true
-                                        text: model.url
-                                        placeholderText: "http://*.example.com/*"
-                                        onEditingFinished: {
-                                            if (text === "") {
-                                                appModel.urlPatterns.remove(index);
-                                            }
-                                            if (text !== "") {
-                                                appModel.urlPatterns.setUrl(index, text);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        RowLayout {
-                            Layout.fillWidth: true
-                            spacing: units.gu(1)
-
-                            Label {
-                                text: "Permissions"
-                                font.bold: true
-                            }
-
-                            IconButton {
-                                iconName: "help"
-                                onClicked: Qt.openUrlExternally("http://docs.ubports.com/en/latest/appdev/platform/apparmor.html")
-                            }
-                        }
-
-                        ListView {
-                            Layout.fillWidth: true
-                            implicitHeight: contentHeight
-                            interactive: false
-
-                            model: appModel.permissions.model
-                            clip: true
-
-                            delegate: ItemDelegate {
-                                width: parent.width
-                                height: Suru.units.gu(5)
-
-                                onClicked: {
-                                    checkbox.toggle();
-                                    appModel.permissions.setEnabled(index, checkbox.checked);
-                                }
-
-                                RowLayout {
-                                    anchors.fill: parent
-
-                                    CheckBox {
-                                        id: checkbox
-                                        checked: model.enabled
-                                        onToggled: {
-                                            appModel.permissions.setEnabled(index, checked);
-                                        }
-
-                                        Connections {
-                                            target: model
-                                            onEnabledChanged: {
-                                                checkbox.checked = model.enabled;
-                                            }
-                                        }
-                                    }
-
-                                    Label {
-                                        text: model.description
-                                    }
-
-                                    Item { Layout.fillWidth: true }
-                                }
-                            }
-                        }
+                        appModel: appModel
                     }
                 }
-
             }
         }
 
@@ -449,7 +169,7 @@ Page {
 
             Button {
                 text: "Create"
-                enabled: urlField.text !== "" && nameField.text !== ""
+                enabled: urlField.text !== "" && essentialSettings.name !== ""
                 onClicked: {
                     addDialog.open();
                     appModel.create();
@@ -496,14 +216,13 @@ Page {
         id: d
 
         function loadDefaults() {
-            nameField.text = "";
-            colorField.text = "#ffffff";
             urlField.text = "";
-            iconImage.source = "";
+
+            essentialSettings.loadDefaults();
+            optionalSettings.loadDefaults();
+
             appModel.urlPatterns.clear();
             appModel.permissions.loadDefaults();
-            radioNoTitleBar.checked = true;
-            checkFullscreen.checked = false;
         }
 
         function refresh() {
@@ -517,12 +236,12 @@ Page {
         id: appModel
 
         url: urlField.text
-        name: nameField.text
-        themeColor: colorField.text
+        name: essentialSettings.name
         iconUrl: scraper.iconUrl
-        enableAddressBar: radioTitleBar.checked
-        enableBackForward: radioTitleBarBackForward.checked
-        enableFullscreen: checkFullscreen.checked
+        themeColor: optionalSettings.themeColor
+        enableAddressBar: optionalSettings.enableAddressBar
+        enableBackForward: optionalSettings.enableBackForward
+        enableFullscreen: optionalSettings.enableFullscreen
 
         Component.onCompleted: {
             appModel.permissions.loadDefaults()
@@ -539,14 +258,14 @@ Page {
         url: urlField.displayText
         onScraped: {
             if (siteName != "") {
-                nameField.text = siteName;
+                essentialSettings.name = siteName;
             } else if (title !== "") {
-                nameField.text = title;
+                essentialSettings.name = title;
             }
-            if (themeColor != "" && colorField.validator.regExp.test(themeColor)) {
-                colorField.text = themeColor;
+            if (themeColor != "" && optionalSettings.isValidColor(themeColor)) {
+                optionalSettings.themeColor= themeColor;
             }
-            iconImage.source = iconUrl !== "" ? Qt.resolvedUrl(iconUrl) : "";
+            essentialSettings.iconUrl = iconUrl !== "" ? Qt.resolvedUrl(iconUrl) : "";
             if (defaultUrlPatterns !== []) {
                 appModel.urlPatterns.clear();
                 for (var i=0; i<defaultUrlPatterns.length; ++i) {

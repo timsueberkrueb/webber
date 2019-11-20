@@ -48,7 +48,7 @@ Dialog {
         ContentPeerModel {
             id: model
 
-            property var activeTransfer
+            property var activeTransfer: null
 
             contentType: ContentType.All
             handler: ContentHandler.Destination
@@ -56,7 +56,7 @@ Dialog {
 
         BusyIndicator {
             anchors.centerIn: parent
-            running: model.activeTransfer
+            running: model.activeTransfer !== null
         }
 
         Component {
