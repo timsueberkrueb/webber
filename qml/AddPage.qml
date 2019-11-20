@@ -486,9 +486,6 @@ Page {
         x: (parent.width - width) / 2
         y: (parent.height - height) / 2
 
-        contentWidth: parent.width - Suru.units.gu(16)
-        contentHeight: parent.height - Suru.units.gu(16)
-
         standardButtons: Dialog.NoButton
         modal: true
         closePolicy: Dialog.NoAutoClose

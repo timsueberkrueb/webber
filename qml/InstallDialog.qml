@@ -11,47 +11,58 @@ Dialog {
     property string clickPath: ""
     property url url: Qt.resolvedUrl("file://" + clickPath)
 
-    x: (parent.width - width) / 2
-    y: (parent.height - height) / 2
+    title: "Exporting ..."
 
-    title: "Install shortcut"
+    onOpened: exportToOpenStore()
+
+    function exportToOpenStore() {
+        var app = "openstore.openstore-team_";
+        var peer = null;
+        for (var i = 0; i < model.peers.length; ++i) {
+            var p = model.peers[i];
+            if (p.appId.indexOf(app) === 0) {
+                peer = p
+                break;
+            }
+        }
+        if (peer !== null) {
+            peer.contentType = ContentType.All;
+            peer.selectionType = ContentTransfer.Single;
+            model.activeTransfer = peer.request();
+            model.activeTransfer.stateChanged.connect(function() {
+                if (model.activeTransfer.state === ContentTransfer.InProgress) {
+                    model.activeTransfer.items = [ resultComponent.createObject(parent, {"url": url}) ];
+                    model.activeTransfer.state = ContentTransfer.Charged;
+                    dialog.close();
+                }
+            });
+        } else {
+            console.error("Failed to select peer");
+        }
+    }
 
     contentItem: Item {
-        implicitWidth: dialog.contentWidth
-        implicitHeight: dialog.contentHeight
+        implicitWidth: Suru.units.dp(128)
+        implicitHeight: Suru.units.dp(128)
 
-        ContentPeerPicker {
-            id: picker
+        ContentPeerModel {
+            id: model
 
             property var activeTransfer
 
-            anchors.fill: parent
-            showTitle: false
             contentType: ContentType.All
             handler: ContentHandler.Destination
-
-            onPeerSelected: {
-                picker.activeTransfer = peer.request()
-                picker.activeTransfer.stateChanged.connect(function() {
-                    if (picker.activeTransfer.state === ContentTransfer.InProgress) {
-                        picker.activeTransfer.items = [ resultComponent.createObject(parent, {"url": url}) ];
-                        picker.activeTransfer.state = ContentTransfer.Charged;
-                        dialog.close()
-                    }
-                })
-            }
-
-            Component {
-                id: resultComponent
-
-                ContentItem {}
-            }
         }
 
-        ContentTransferHint {
-            id: transferHint
-            anchors.fill: parent
-            activeTransfer: picker.activeTransfer
+        BusyIndicator {
+            anchors.centerIn: parent
+            running: model.activeTransfer
+        }
+
+        Component {
+            id: resultComponent
+
+            ContentItem {}
         }
     }
 
