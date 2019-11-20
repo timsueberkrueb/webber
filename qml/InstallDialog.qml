@@ -8,7 +8,8 @@ import "."
 Dialog {
     id: dialog
 
-    property url url: Qt.resolvedUrl("file:///home/phablet/.cache/webber.timsueberkrueb/click-build/shortcut.click")
+    property string clickPath: ""
+    property url url: Qt.resolvedUrl("file://" + clickPath)
 
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2

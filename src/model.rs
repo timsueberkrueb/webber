@@ -1,4 +1,5 @@
 use std::cell::RefCell;
+use std::path::PathBuf;
 
 use qmetaobject::*;
 
@@ -111,6 +112,8 @@ pub struct AppModel {
     enableAddressBar: qt_property!(bool),
     enableBackForward: qt_property!(bool),
     enableFullscreen: qt_property!(bool),
+    clickPath: qt_property!(String; NOTIFY clickPathChanged),
+    clickPathChanged: qt_signal!(),
 }
 
 impl AppModel {
@@ -128,15 +131,17 @@ impl AppModel {
         };
 
         let qptr = QPointer::from(&*self);
-        let set_created = qmetaobject::queued_callback(move |_| {
+        let set_created = qmetaobject::queued_callback(move |path: PathBuf| {
             if let Some(self_) = qptr.as_pinned() {
+                self_.borrow_mut().clickPath = path.to_str().unwrap().to_owned();
+                self_.borrow_mut().clickPathChanged();
                 self_.borrow().created();
             }
         });
 
         std::thread::spawn(move || {
-            click::create_package(package).unwrap();
-            set_created(());
+            let path = click::create_package(package).unwrap();
+            set_created(path);
         });
     }
 }

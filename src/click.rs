@@ -1,7 +1,7 @@
 use std::error::Error;
 use std::fs;
 use std::io::{self, Write};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::Command;
 
 #[derive(Debug)]
@@ -42,7 +42,7 @@ impl Package {
     }
 }
 
-pub fn create_package(package: Package) -> Result<(), Box<dyn std::error::Error>> {
+pub fn create_package(package: Package) -> Result<PathBuf, Box<dyn std::error::Error>> {
     let path = xdg::BaseDirectories::new()?
         .get_cache_home()
         .join("webber.timsueberkrueb/click-build");
@@ -106,7 +106,7 @@ pub fn create_package(package: Package) -> Result<(), Box<dyn std::error::Error>
     create_tar_gz(&control_tar_gz, &control)?;
     create_tar_gz(&data_tar_gz, &data)?;
 
-    let click_path = path.join(Path::new("shortcut.click"));
+    let click_path = path.join(Path::new(&format!("{}.click", package.name)));
 
     create_ar(
         &click_path,
@@ -118,7 +118,7 @@ pub fn create_package(package: Package) -> Result<(), Box<dyn std::error::Error>
         ],
     )?;
 
-    Ok(())
+    Ok(click_path.to_owned())
 }
 
 fn download_file(url: String, target: &Path) -> Result<(), Box<dyn Error>> {

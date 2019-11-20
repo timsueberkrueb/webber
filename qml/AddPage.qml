@@ -492,6 +492,7 @@ Page {
         standardButtons: Dialog.NoButton
         modal: true
         closePolicy: Dialog.NoAutoClose
+        clickPath: appModel.clickPath
     }
 
     QtObject {
