@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Suru 2.2
+import Ubuntu.Components 1.3 as UUITK
 
 Item {
     property var appModel
@@ -60,7 +61,7 @@ Item {
                     color: colorField.text
                 }
 
-                TextField {
+                UUITK.TextField {
                     id: colorField
                     Layout.fillWidth: true
                     text: "#ffffff"
@@ -142,11 +143,17 @@ Item {
                 RowLayout {
                     anchors.fill: parent
 
-                    TextField {
+                    UUITK.TextField {
                         Layout.fillWidth: true
+
+                        signal editingFinished()
+
                         text: model.url
                         placeholderText: "http://*.example.com/*"
                         inputMethodHints: Qt.ImhUrlCharactersOnly
+
+                        onAccepted: editingFinished()
+                        onActiveFocusChanged: if (!activeFocus) editingFinished()
                         onEditingFinished: {
                             if (text === "") {
                                 appModel.urlPatterns.remove(index);

@@ -30,15 +30,18 @@ Page {
                 onClicked: App.pop()
             }
 
-            TextField {
+            UUITK.TextField {
                 id: urlField
 
                 property string previousText: ""
+                signal editingFinished()
 
                 Layout.fillWidth: true
 
                 placeholderText: "Url (e.g. https://example.com)"
                 inputMethodHints: Qt.ImhUrlCharactersOnly
+                onAccepted: editingFinished()
+                onActiveFocusChanged: if (!activeFocus) editingFinished()
                 onEditingFinished: {
                     if (displayText !== previousText) {
                         // Prepend https by default
