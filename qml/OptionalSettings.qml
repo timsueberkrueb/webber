@@ -146,6 +146,7 @@ Item {
                         Layout.fillWidth: true
                         text: model.url
                         placeholderText: "http://*.example.com/*"
+                        inputMethodHints: Qt.ImhUrlCharactersOnly
                         onEditingFinished: {
                             if (text === "") {
                                 appModel.urlPatterns.remove(index);
