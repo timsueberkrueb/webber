@@ -8,11 +8,13 @@ Item {
     id: essentialSettings
 
     readonly property bool useScreenshotIcon: iconSelector.useScreenshotIcon
+    readonly property bool useCustomIcon: iconSelector.useCustomIcon
     property url iconUrl
     property string url
     property var scraper
     property var appModel
     property alias name: nameField.text
+    property url customIconSource
 
     function loadDefaults() {
         nameField.text = "";
@@ -20,6 +22,7 @@ Item {
         iconSelector.loadDefaults();
     }
 
+    signal customIconRequested()
     signal refresh()
 
     onRefresh: iconSelector.setUrl(url)
@@ -108,6 +111,8 @@ Item {
             Layout.fillWidth: true
             defaultIconUrl: iconUrl
             screenshotIconPath: appModel.screenshotIconPath
+            customIconSource: essentialSettings.customIconSource
+            onCustomIconRequested: essentialSettings.customIconRequested()
         }
     }
 }

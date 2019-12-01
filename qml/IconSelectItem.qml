@@ -14,6 +14,8 @@ Column {
     property bool loading: false
     property alias checked: radioButton.checked
 
+    signal iconClicked();
+
     Item {
         anchors.horizontalCenter: parent.horizontalCenter
         implicitWidth: Suru.units.gu(8)
@@ -22,7 +24,10 @@ Column {
         UUITK.UbuntuShape {
             anchors.fill: parent
 
-            source: Image {
+            backgroundColor: iconImage.source === "" ? Suru.neutralColor : "white"
+            source: iconImage.source !== "" ? iconImage : null
+
+            Image {
                 id: iconImage
 
                 sourceSize.width: Suru.units.gu(8)
@@ -34,12 +39,14 @@ Column {
                 anchors.centerIn: parent
                 running: iconImage.status == Image.Loading || iconSelectItem.loading
             }
-
         }
 
         MouseArea {
             anchors.fill: parent
-            onClicked: radioButton.checked = true
+            onClicked: {
+                radioButton.checked = true
+                iconSelectItem.iconClicked();
+            }
         }
     }
 

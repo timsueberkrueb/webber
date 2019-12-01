@@ -112,6 +112,8 @@ Page {
                         url: urlField.text
                         scraper: scraper
                         appModel: appModel
+                        customIconSource: customIconSelector.source
+                        onCustomIconRequested: customIconSelector.open()
                     }
 
                     ItemDelegate {
@@ -183,6 +185,15 @@ Page {
         }
     }
 
+    CustomIconSelector {
+        id: customIconSelector
+
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
+        width: parent.width - units.gu(4)
+        height: parent.height - units.gu(4)
+    }
+
     Dialog {
         id: addDialog
 
@@ -229,6 +240,8 @@ Page {
 
             appModel.urlPatterns.clear();
             appModel.permissions.loadDefaults();
+
+            customIconSelector.source = Qt.resolvedUrl("");
         }
 
         function refresh() {
@@ -250,6 +263,14 @@ Page {
         enableBackForward: optionalSettings.enableBackForward
         enableFullscreen: optionalSettings.enableFullscreen
         useScreenshotIcon: essentialSettings.useScreenshotIcon
+        useCustomIcon: essentialSettings.useCustomIcon
+        customIconPath: {
+            var url = customIconSelector.source.toString();
+            if (url.indexOf("file://") == 0) {
+                url = url.slice("file://".length);
+            }
+            return url;
+        }
 
         Component.onCompleted: {
             appModel.permissions.loadDefaults()

@@ -8,8 +8,12 @@ RowLayout {
     id: iconSelector
 
     readonly property bool useScreenshotIcon: iconScreenshot.checked
+    readonly property bool useCustomIcon: iconCustom.checked
     property string screenshotIconPath
     property url defaultIconUrl: Qt.resolvedUrl("")
+    property url customIconSource
+
+    signal customIconRequested()
 
     function setUrl(url) {
         iconWebView.setUrl(url);
@@ -25,7 +29,8 @@ RowLayout {
     ButtonGroup {
         buttons: [
             iconDefault.radioButton,
-            iconScreenshot.radioButton
+            iconScreenshot.radioButton,
+            iconCustom.radioButton
         ]
     }
 
@@ -42,6 +47,15 @@ RowLayout {
         text: "Screenshot"
         source: iconWebView.source
         loading: iconWebView.loading
+    }
+
+    IconSelectItem {
+        id: iconCustom
+        text: "Custom"
+        source: iconSelector.customIconSource
+        onIconClicked: {
+            iconSelector.customIconRequested();
+        }
     }
 
     IconWebView {

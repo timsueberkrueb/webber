@@ -115,7 +115,9 @@ pub struct AppModel {
     clickPath: qt_property!(String; NOTIFY clickPathChanged),
     clickPathChanged: qt_signal!(),
     screenshotIconPath: qt_property!(String; READ screenshot_icon_path),
+    customIconPath: qt_property!(String),
     useScreenshotIcon: qt_property!(bool),
+    useCustomIcon: qt_property!(bool),
 }
 
 impl AppModel {
@@ -123,7 +125,9 @@ impl AppModel {
         let package = click::Package {
             url: self.url.clone(),
             name: self.name.clone(),
-            icon: if self.useScreenshotIcon {
+            icon: if self.useCustomIcon {
+                click::Icon::Local(self.customIconPath.clone())
+            } else if self.useScreenshotIcon {
                 click::Icon::Local(self.screenshot_icon_path())
             } else {
                 click::Icon::Remote(self.iconUrl.clone())

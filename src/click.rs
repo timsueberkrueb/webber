@@ -101,14 +101,18 @@ pub fn create_package(package: Package) -> Result<PathBuf, Box<dyn std::error::E
             }
         }
         Icon::Local(ref icon_path) => {
-            let ext = Path::new(&icon_path).extension();
-            let icon_fname = if let Some(ext) = ext {
-                format!("icon.{}", ext.to_str().unwrap())
+            if icon_path == "" {
+                None
             } else {
-                "icon".to_owned()
-            };
-            std::fs::copy(icon_path, &data.join(Path::new(&icon_fname)))?;
-            Some(icon_fname)
+                let ext = Path::new(&icon_path).extension();
+                let icon_fname = if let Some(ext) = ext {
+                    format!("icon.{}", ext.to_str().unwrap())
+                } else {
+                    "icon".to_owned()
+                };
+                std::fs::copy(icon_path, &data.join(Path::new(&icon_fname)))?;
+                Some(icon_fname)
+            }
         }
     };
 
