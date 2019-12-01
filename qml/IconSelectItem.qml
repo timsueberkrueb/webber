@@ -24,7 +24,7 @@ Column {
         UUITK.UbuntuShape {
             anchors.fill: parent
 
-            backgroundColor: iconImage.source === "" ? Suru.neutralColor : "white"
+            backgroundColor: iconImage.source == "" ? Suru.neutralColor : "white"
             source: iconImage.source !== "" ? iconImage : null
 
             Image {
