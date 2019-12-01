@@ -114,6 +114,8 @@ pub struct AppModel {
     enableFullscreen: qt_property!(bool),
     clickPath: qt_property!(String; NOTIFY clickPathChanged),
     clickPathChanged: qt_signal!(),
+    screenshotIconPath: qt_property!(String; READ screenshot_icon_path),
+    useScreenshotIcon: qt_property!(bool),
 }
 
 impl AppModel {
@@ -121,7 +123,11 @@ impl AppModel {
         let package = click::Package {
             url: self.url.clone(),
             name: self.name.clone(),
-            icon_url: self.iconUrl.clone(),
+            icon: if self.useScreenshotIcon {
+                click::Icon::Local(self.screenshot_icon_path())
+            } else {
+                click::Icon::Remote(self.iconUrl.clone())
+            },
             theme_color: self.themeColor.clone(),
             url_patterns: self.urlPatterns.borrow().get_patterns_string(),
             permissions: self.permissions.borrow().get_enabled(),
@@ -143,6 +149,17 @@ impl AppModel {
             let path = click::create_package(package).unwrap();
             set_created(path);
         });
+    }
+
+    fn screenshot_icon_path(&self) -> String {
+        let path = xdg::BaseDirectories::new()
+            .unwrap()
+            .get_cache_home()
+            .join("webber.timsueberkrueb");
+        path.join("screenshot-icon.png")
+            .to_str()
+            .unwrap()
+            .to_owned()
     }
 }
 

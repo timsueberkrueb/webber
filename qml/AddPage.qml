@@ -111,6 +111,7 @@ Page {
                         width: parent.width
                         url: urlField.text
                         scraper: scraper
+                        appModel: appModel
                     }
 
                     ItemDelegate {
@@ -221,6 +222,7 @@ Page {
 
         function loadDefaults() {
             urlField.text = "";
+            urlField.previousText = "";
 
             essentialSettings.loadDefaults();
             optionalSettings.loadDefaults();
@@ -232,6 +234,7 @@ Page {
         function refresh() {
             if (urlField.displayText !== "") {
                 scraper.scrape();
+                essentialSettings.refresh();
             }
         }
     }
@@ -246,6 +249,7 @@ Page {
         enableAddressBar: optionalSettings.enableAddressBar
         enableBackForward: optionalSettings.enableBackForward
         enableFullscreen: optionalSettings.enableFullscreen
+        useScreenshotIcon: essentialSettings.useScreenshotIcon
 
         Component.onCompleted: {
             appModel.permissions.loadDefaults()

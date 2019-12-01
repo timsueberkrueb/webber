@@ -71,4 +71,8 @@ fn main() {
         "cargo:rustc-link-lib{}=Qt{}QuickControls2",
         macos_lib_search, macos_lib_framework
     );
+    println!(
+        "cargo:rustc-link-lib{}=Qt{}WebEngine",
+        macos_lib_search, macos_lib_framework
+    );
 }

@@ -17,6 +17,7 @@ fn main() {
         cpp! { {
             #include <QtCore/QCoreApplication>
             #include <QtCore/QString>
+            #include <QtWebEngine/QtWebEngine>
         }}
         cpp! {[]{
             QCoreApplication::setApplicationName(QStringLiteral("webber.timsueberkrueb"));
@@ -32,6 +33,13 @@ fn main() {
     qml_register_type::<model::Permissions>(cstr!("Webber"), 1, 0, cstr!("Permissions"));
 
     let mut engine = QmlEngine::new();
+
+    unsafe {
+        cpp! {[]{
+            QtWebEngine::initialize();
+        }}
+    }
+
     engine.load_file("qrc:/qml/Main.qml".into());
     engine.exec();
 }

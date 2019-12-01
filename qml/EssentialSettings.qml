@@ -2,17 +2,27 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Suru 2.2
+import Ubuntu.Components 1.3 as UUITK
 
 Item {
-    property alias iconUrl: iconImage.source
+    id: essentialSettings
+
+    readonly property bool useScreenshotIcon: iconSelector.useScreenshotIcon
+    property url iconUrl
     property string url
     property var scraper
+    property var appModel
     property alias name: nameField.text
 
     function loadDefaults() {
         nameField.text = "";
-        iconImage.source = "";
+        iconUrl = "";
+        iconSelector.loadDefaults();
     }
+
+    signal refresh()
+
+    onRefresh: iconSelector.setUrl(url)
 
     implicitHeight: column.childrenRect.height
 
@@ -86,29 +96,18 @@ Item {
                 Layout.fillWidth: true
                 placeholderText: "Web app name"
             }
+        }
 
-            Label {
-                text: "Icon"
-            }
+        Label {
+            text: "Icon"
+            font.bold: true
+        }
 
-            Item {
-                implicitWidth: Suru.units.gu(8)
-                implicitHeight: Suru.units.gu(8)
-
-                Image {
-                    id: iconImage
-
-                    anchors.fill: parent
-                    sourceSize.width: Suru.units.gu(8)
-                    sourceSize.height: Suru.units.gu(8)
-
-                    BusyIndicator {
-                        anchors.centerIn: parent
-                        running: iconImage.status == Image.Loading
-                    }
-                }
-
-            }
+        IconSelector {
+            id: iconSelector
+            Layout.fillWidth: true
+            defaultIconUrl: iconUrl
+            screenshotIconPath: appModel.screenshotIconPath
         }
     }
 }

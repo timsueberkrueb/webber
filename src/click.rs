@@ -9,7 +9,7 @@ pub struct Package {
     pub url: String,
     pub name: String,
     pub theme_color: String,
-    pub icon_url: String,
+    pub icon: Icon,
     pub url_patterns: String,
     pub permissions: Vec<String>,
     pub enable_address_bar: bool,
@@ -40,6 +40,12 @@ impl Package {
             .collect::<String>();
         format!("webapp-{}", allowed_chars)
     }
+}
+
+#[derive(Debug)]
+pub enum Icon {
+    Local(String),
+    Remote(String),
 }
 
 pub fn create_package(package: Package) -> Result<PathBuf, Box<dyn std::error::Error>> {
@@ -78,22 +84,39 @@ pub fn create_package(package: Package) -> Result<PathBuf, Box<dyn std::error::E
         &data_apparmor_content(&package.permissions),
     )?;
 
-    let ext = url::Url::parse(&package.icon_url)
-        .ok()
-        .map(|icon| Some(icon.path_segments()?.map(String::from).collect::<Vec<_>>()))
-        .map(|segments| segments?.iter().rev().cloned().next())
-        .map(|last| last?.rsplit('.').map(String::from).next())
-        .unwrap_or_default();
-
-    let icon_filename = if let Some(ext) = ext {
-        let icon_fname = format!("icon.{}", ext);
-        download_file(package.icon_url.clone(), &data.join(Path::new(&icon_fname)))?;
-        icon_fname
-    } else {
-        let icon_fname = "icon.svg".to_owned();
-        write_icon(&data.join(Path::new(&icon_fname)))?;
-        icon_fname
+    let icon_filename = match package.icon {
+        Icon::Remote(ref icon_url) => {
+            let ext = url::Url::parse(&icon_url)
+                .ok()
+                .map(|icon| Some(icon.path_segments()?.map(String::from).collect::<Vec<_>>()))
+                .map(|segments| segments?.iter().rev().cloned().next())
+                .map(|last| last?.rsplit('.').map(String::from).next())
+                .unwrap_or_default();
+            if let Some(ext) = ext {
+                let icon_fname = format!("icon.{}", ext);
+                download_file(&icon_url, &data.join(Path::new(&icon_fname)))?;
+                Some(icon_fname)
+            } else {
+                None
+            }
+        }
+        Icon::Local(ref icon_path) => {
+            let ext = Path::new(&icon_path).extension();
+            let icon_fname = if let Some(ext) = ext {
+                format!("icon.{}", ext.to_str().unwrap())
+            } else {
+                "icon".to_owned()
+            };
+            std::fs::copy(icon_path, &data.join(Path::new(&icon_fname)))?;
+            Some(icon_fname)
+        }
     };
+
+    let icon_filename = icon_filename.unwrap_or_else(|| {
+        let icon_fname = "icon.svg".to_owned();
+        write_icon(&data.join(Path::new(&icon_fname))).expect("Failed to write default icon");
+        icon_fname
+    });
 
     write_file(
         &data.join(Path::new("shortcut.desktop")),
@@ -121,8 +144,8 @@ pub fn create_package(package: Package) -> Result<PathBuf, Box<dyn std::error::E
     Ok(click_path.to_owned())
 }
 
-fn download_file(url: String, target: &Path) -> Result<(), Box<dyn Error>> {
-    let mut resp = reqwest::get(&url)?;
+fn download_file(url: &str, target: &Path) -> Result<(), Box<dyn Error>> {
+    let mut resp = reqwest::get(url)?;
     let mut file = fs::File::create(target)?;
     io::copy(&mut resp, &mut file)?;
     Ok(())
