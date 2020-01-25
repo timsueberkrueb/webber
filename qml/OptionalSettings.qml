@@ -75,6 +75,11 @@ Item {
         }
 
         CheckBox {
+            id: checkFullscreen
+            text: "Fullscreen"
+        }
+
+        CheckBox {
             id: checkDesktopUserAgent
             text: "Enable desktop mode (via user agent)"
         }
@@ -102,11 +107,6 @@ Item {
             RadioButton {
                 id: radioTitleBarBackForward
                 text: "Show title bar with back/forward buttons"
-            }
-
-            CheckBox {
-                id: checkFullscreen
-                text: "Fullscreen"
             }
         }
 
