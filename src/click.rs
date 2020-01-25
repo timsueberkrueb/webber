@@ -125,17 +125,27 @@ impl Package {
     }
 
     fn appname(&self) -> String {
-        let url_part = url::Url::parse(&self.url)
-            .ok()
-            .map(|url| url.host_str().map(String::from))
-            .map(|url| url.unwrap_or_else(|| self.url.clone()))
-            .unwrap_or_else(|| self.url.clone());
+        let url = url::Url::parse(&self.url).ok();
+
+        // Try to use the url host and path to generate a unique appname
+        // The fallback is to use the full url
+        let url_part = match url {
+            Some(url) => {
+                let mut str = url.host_str().map(String::from).unwrap_or_default();
+                if url.path() != "/" {
+                    str.push_str(url.path());
+                }
+                str
+            }
+            None => self.url.clone(),
+        };
+
         // Remove forbidden characters
         let ascii = url_part.to_ascii_lowercase();
         let allowed_chars = ascii
             .chars()
             .filter_map(|c| {
-                if c == '.' || c == '_' {
+                if c == '/' || c == '.' || c == '_' {
                     Some('-')
                 } else if ('a'..'z').contains(&c) || c.is_digit(10) {
                     Some(c)
