@@ -150,7 +150,7 @@ impl AppModel {
         });
 
         std::thread::spawn(move || {
-            let path = click::create_package(package).unwrap();
+            let path = package.create().unwrap();
             set_created(path);
         });
     }

@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::error::Error;
 use std::fs;
 use std::io::{self, Write};
@@ -18,6 +19,111 @@ pub struct Package {
 }
 
 impl Package {
+    pub fn create(&self) -> Result<PathBuf, Box<dyn std::error::Error>> {
+        let path = xdg::BaseDirectories::new()?
+            .get_cache_home()
+            .join("webber.timsueberkrueb/click-build");
+        fs::create_dir_all(&path)?;
+        // Clean up
+        fs::remove_dir_all(&path)?;
+        fs::create_dir(&path)?;
+
+        let control = path.join(Path::new("control"));
+        let data = path.join(Path::new("data"));
+
+        mkdir(&control)?;
+        mkdir(&data)?;
+
+        let click_binary = path.join(Path::new("click_binary"));
+        let debian_binary = path.join(Path::new("debian-binary"));
+
+        write_file(&click_binary, "0.4\n")?;
+        write_file(&debian_binary, "2.0\n")?;
+        write_file(
+            &control.join(Path::new("control")),
+            &control_control_content(&self.appname()),
+        )?;
+
+        let control_manifest = ControlManifest::new(self.appname(), self.name.clone());
+
+        write_file(
+            &control.join(Path::new("manifest")),
+            &control_manifest.to_string()?,
+        )?;
+        write_file(&data.join(Path::new("preinst")), control_preinst_content())?;
+
+        let apparmor = AppArmor::new(self.permissions.clone());
+
+        // TODO: md5sums
+        write_file(
+            &data.join(Path::new("shortcut.apparmor")),
+            &apparmor.to_string()?,
+        )?;
+
+        let icon_filename = match self.icon {
+            Icon::Remote(ref icon_url) => {
+                let ext = url::Url::parse(&icon_url)
+                    .ok()
+                    .map(|icon| Some(icon.path_segments()?.map(String::from).collect::<Vec<_>>()))
+                    .map(|segments| segments?.iter().rev().cloned().next())
+                    .map(|last| last?.rsplit('.').map(String::from).next())
+                    .unwrap_or_default();
+                if let Some(ext) = ext {
+                    let icon_fname = format!("icon.{}", ext);
+                    download_file(&icon_url, &data.join(Path::new(&icon_fname)))?;
+                    Some(icon_fname)
+                } else {
+                    None
+                }
+            }
+            Icon::Local(ref icon_path) => {
+                if icon_path == "" {
+                    None
+                } else {
+                    let ext = Path::new(&icon_path).extension();
+                    let icon_fname = if let Some(ext) = ext {
+                        format!("icon.{}", ext.to_str().unwrap())
+                    } else {
+                        "icon".to_owned()
+                    };
+                    std::fs::copy(icon_path, &data.join(Path::new(&icon_fname)))?;
+                    Some(icon_fname)
+                }
+            }
+        };
+
+        let icon_filename = icon_filename.unwrap_or_else(|| {
+            let icon_fname = "icon.svg".to_owned();
+            write_icon(&data.join(Path::new(&icon_fname))).expect("Failed to write default icon");
+            icon_fname
+        });
+
+        write_file(
+            &data.join(Path::new("shortcut.desktop")),
+            &data_desktop_content(&self, &icon_filename),
+        )?;
+
+        let control_tar_gz = path.join(Path::new("control.tar.gz"));
+        let data_tar_gz = path.join(Path::new("data.tar.gz"));
+
+        create_tar_gz(&control_tar_gz, &control)?;
+        create_tar_gz(&data_tar_gz, &data)?;
+
+        let click_path = path.join(Path::new(&format!("{}.click", self.name)));
+
+        create_ar(
+            &click_path,
+            &[
+                (&debian_binary, "debian-binary"),
+                (&control_tar_gz, "control.tar.gz"),
+                (&data_tar_gz, "data.tar.gz"),
+                (&click_binary, "_click-binary"),
+            ],
+        )?;
+
+        Ok(click_path)
+    }
+
     fn appname(&self) -> String {
         let url_part = url::Url::parse(&self.url)
             .ok()
@@ -48,104 +154,72 @@ pub enum Icon {
     Remote(String),
 }
 
-pub fn create_package(package: Package) -> Result<PathBuf, Box<dyn std::error::Error>> {
-    let path = xdg::BaseDirectories::new()?
-        .get_cache_home()
-        .join("webber.timsueberkrueb/click-build");
-    fs::create_dir_all(&path)?;
-    // Clean up
-    fs::remove_dir_all(&path)?;
-    fs::create_dir(&path)?;
+#[derive(serde::Serialize)]
+struct ControlManifest {
+    architecture: String,
+    description: String,
+    framework: String,
+    hooks: HashMap<String, ManifestHook>,
+    maintainer: String,
+    name: String,
+    title: String,
+    version: String,
+}
 
-    let control = path.join(Path::new("control"));
-    let data = path.join(Path::new("data"));
-
-    mkdir(&control)?;
-    mkdir(&data)?;
-
-    let click_binary = path.join(Path::new("click_binary"));
-    let debian_binary = path.join(Path::new("debian-binary"));
-
-    write_file(&click_binary, "0.4\n")?;
-    write_file(&debian_binary, "2.0\n")?;
-    write_file(
-        &control.join(Path::new("control")),
-        &control_control_content(&package.appname()),
-    )?;
-    write_file(
-        &control.join(Path::new("manifest")),
-        &control_manifest_content(&package.appname(), &package.name),
-    )?;
-    write_file(&data.join(Path::new("preinst")), control_preinst_content())?;
-
-    // TODO: md5sums
-    write_file(
-        &data.join(Path::new("shortcut.apparmor")),
-        &data_apparmor_content(&package.permissions),
-    )?;
-
-    let icon_filename = match package.icon {
-        Icon::Remote(ref icon_url) => {
-            let ext = url::Url::parse(&icon_url)
-                .ok()
-                .map(|icon| Some(icon.path_segments()?.map(String::from).collect::<Vec<_>>()))
-                .map(|segments| segments?.iter().rev().cloned().next())
-                .map(|last| last?.rsplit('.').map(String::from).next())
-                .unwrap_or_default();
-            if let Some(ext) = ext {
-                let icon_fname = format!("icon.{}", ext);
-                download_file(&icon_url, &data.join(Path::new(&icon_fname)))?;
-                Some(icon_fname)
-            } else {
-                None
-            }
+impl ControlManifest {
+    fn new(appname: String, title: String) -> Self {
+        let mut hooks = HashMap::new();
+        hooks.insert(
+            appname.clone(),
+            ManifestHook {
+                apparmor: "shortcut.apparmor".to_owned(),
+                desktop: "shortcut.desktop".to_owned(),
+            },
+        );
+        Self {
+            architecture: "all".to_owned(),
+            description: "Shortcut".to_owned(),
+            framework: "ubuntu-sdk-16.04".to_owned(),
+            hooks,
+            maintainer: "Webber <noreply@ubports.com>".to_owned(),
+            name: format!("{}.webber", appname),
+            title,
+            version: "1.0.0".to_owned(),
         }
-        Icon::Local(ref icon_path) => {
-            if icon_path == "" {
-                None
-            } else {
-                let ext = Path::new(&icon_path).extension();
-                let icon_fname = if let Some(ext) = ext {
-                    format!("icon.{}", ext.to_str().unwrap())
-                } else {
-                    "icon".to_owned()
-                };
-                std::fs::copy(icon_path, &data.join(Path::new(&icon_fname)))?;
-                Some(icon_fname)
-            }
+    }
+
+    fn to_string(&self) -> serde_json::Result<String> {
+        serde_json::to_string(self)
+    }
+}
+
+#[derive(serde::Serialize)]
+struct ManifestHook {
+    apparmor: String,
+    desktop: String,
+}
+
+#[derive(serde::Serialize)]
+struct AppArmor {
+    template: String,
+    policy_groups: Vec<String>,
+    policy_version: String,
+}
+
+impl AppArmor {
+    fn new(mut permissions: Vec<String>) -> Self {
+        let mut policy_groups = vec!["networking".to_owned(), "webview".to_owned()];
+        policy_groups.append(&mut permissions);
+        Self {
+            template: "ubuntu-webapp".to_owned(),
+            policy_groups,
+            policy_version: "16.04".to_owned(),
         }
-    };
+    }
 
-    let icon_filename = icon_filename.unwrap_or_else(|| {
-        let icon_fname = "icon.svg".to_owned();
-        write_icon(&data.join(Path::new(&icon_fname))).expect("Failed to write default icon");
-        icon_fname
-    });
-
-    write_file(
-        &data.join(Path::new("shortcut.desktop")),
-        &data_desktop_content(&package, &icon_filename),
-    )?;
-
-    let control_tar_gz = path.join(Path::new("control.tar.gz"));
-    let data_tar_gz = path.join(Path::new("data.tar.gz"));
-
-    create_tar_gz(&control_tar_gz, &control)?;
-    create_tar_gz(&data_tar_gz, &data)?;
-
-    let click_path = path.join(Path::new(&format!("{}.click", package.name)));
-
-    create_ar(
-        &click_path,
-        &[
-            (&debian_binary, "debian-binary"),
-            (&control_tar_gz, "control.tar.gz"),
-            (&data_tar_gz, "data.tar.gz"),
-            (&click_binary, "_click-binary"),
-        ],
-    )?;
-
-    Ok(click_path.to_owned())
+    fn to_string(&self) -> serde_json::Result<String> {
+        serde_json::to_string(self)
+    }
 }
 
 fn download_file(url: &str, target: &Path) -> Result<(), Box<dyn Error>> {
@@ -215,50 +289,11 @@ Description: Shortcut
     )
 }
 
-fn control_manifest_content(appname: &str, title: &str) -> String {
-    format!(
-        r#"{{
-    "architecture": "all",
-    "description": "Shortcut",
-    "framework": "ubuntu-sdk-16.04",
-    "hooks": {{
-        "{}": {{
-            "apparmor": "shortcut.apparmor",
-            "desktop": "shortcut.desktop"
-        }}
-    }},
-    "installed-size": "30",
-    "maintainer": "Webber <noreply@ubports.com>",
-    "name": "{}.webber",
-    "title": "{}",
-    "version": "1.0.0"
-}}
-"#,
-        appname, appname, title,
-    )
-}
-
 fn control_preinst_content() -> &'static str {
     r#"#! /bin/sh
 echo "Click packages may not be installed directly using dpkg."
 echo "Use 'click install' instead."
 exit 1"#
-}
-
-fn data_apparmor_content(permissions: &[String]) -> String {
-    format!(
-        r#"{{
-    "template": "ubuntu-webapp",
-    "policy_groups": ["networking", "webview", {}],
-    "policy_version": 16.04
-}}
-"#,
-        permissions
-            .iter()
-            .map(|perm| format!("\"{}\"", perm))
-            .collect::<Vec<_>>()
-            .join(", ")
-    )
 }
 
 fn data_desktop_content(package: &Package, icon_fname: &str) -> String {

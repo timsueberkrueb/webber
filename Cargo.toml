@@ -6,7 +6,7 @@ edition = "2018"
 build = "src/build.rs"
 
 [dependencies]
-qmetaobject = { git = "https://github.com/timsueberkrueb/qmetaobject-rs" } #"0.1"
+qmetaobject = { git = "https://github.com/woboq/qmetaobject-rs" }
 cstr = "0.1"
 cpp = "0.5"
 url = "2.1"
@@ -14,6 +14,8 @@ reqwest = "0.9"
 scraper = "0.11"
 ar = "0.8"
 xdg = "2.2"
+serde = "1.0"
+serde_json = "1.0"
 
 [build-dependencies]
 cpp_build = "0.5"
