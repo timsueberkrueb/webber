@@ -262,6 +262,7 @@ Page {
         enableAddressBar: optionalSettings.enableAddressBar
         enableBackForward: optionalSettings.enableBackForward
         enableFullscreen: optionalSettings.enableFullscreen
+        enableDesktopUserAgent: optionalSettings.enableDesktopUserAgent
         useScreenshotIcon: essentialSettings.useScreenshotIcon
         useCustomIcon: essentialSettings.useCustomIcon
         customIconPath: {

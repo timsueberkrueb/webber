@@ -112,6 +112,7 @@ pub struct AppModel {
     enableAddressBar: qt_property!(bool),
     enableBackForward: qt_property!(bool),
     enableFullscreen: qt_property!(bool),
+    enableDesktopUserAgent: qt_property!(bool),
     clickPath: qt_property!(String; NOTIFY clickPathChanged),
     clickPathChanged: qt_signal!(),
     screenshotIconPath: qt_property!(String; READ screenshot_icon_path),
@@ -138,6 +139,7 @@ impl AppModel {
             enable_address_bar: self.enableAddressBar,
             enable_back_forward: self.enableBackForward,
             enable_fullscreen: self.enableFullscreen,
+            enable_desktop_user_agent: self.enableDesktopUserAgent,
         };
 
         let qptr = QPointer::from(&*self);

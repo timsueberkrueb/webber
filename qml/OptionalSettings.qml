@@ -11,11 +11,13 @@ Item {
     property alias enableAddressBar: radioTitleBar.checked
     property alias enableBackForward: radioTitleBarBackForward.checked
     property alias enableFullscreen: checkFullscreen.checked
+    property alias enableDesktopUserAgent: checkDesktopUserAgent.checked
 
     function loadDefaults() {
         colorField.text = "#ffffff";
         radioNoTitleBar.checked = true;
         checkFullscreen.checked = false;
+        checkDesktopUserAgent.checked = false;
     }
 
     function isValidColor(color) {
@@ -34,7 +36,7 @@ Item {
         spacing: Suru.units.gu(1)
 
         Label {
-            text: "Visuals"
+            text: "Visuals & Behavior"
             font.bold: true
         }
 
@@ -70,6 +72,11 @@ Item {
                     }
                 }
             }
+        }
+
+        CheckBox {
+            id: checkDesktopUserAgent
+            text: "Enable desktop mode (via user agent)"
         }
 
         Label {

@@ -5,6 +5,9 @@ use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+const DESKTOP_USER_AGENT: &str =
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/999.9.9999.999 Safari/537.36";
+
 #[derive(Debug)]
 pub struct Package {
     pub url: String,
@@ -16,6 +19,7 @@ pub struct Package {
     pub enable_address_bar: bool,
     pub enable_back_forward: bool,
     pub enable_fullscreen: bool,
+    pub enable_desktop_user_agent: bool,
 }
 
 impl Package {
@@ -316,6 +320,10 @@ fn data_desktop_content(package: &Package, icon_fname: &str) -> String {
     }
     if package.enable_fullscreen {
         optional_flags.push("--fullscreen");
+    }
+    let ua_flag = format!("--user-agent-string={}", DESKTOP_USER_AGENT);
+    if package.enable_desktop_user_agent {
+        optional_flags.push(&ua_flag);
     }
     optional_flags.push(&package.url);
     let flags_and_url = optional_flags.join(" ");
