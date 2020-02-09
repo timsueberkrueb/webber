@@ -94,7 +94,7 @@ Item {
                 text: "Name"
             }
 
-            TextField {
+            UUITK.TextField {
                 id: nameField
                 Layout.fillWidth: true
                 placeholderText: "Web app name"
