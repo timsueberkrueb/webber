@@ -5,6 +5,9 @@ use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+use blake2::digest::{Input, VariableOutput};
+use blake2::VarBlake2s;
+
 const DESKTOP_USER_AGENT: &str =
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/999.9.9999.999 Safari/537.36";
 
@@ -131,21 +134,45 @@ impl Package {
     fn appname(&self) -> String {
         let url = url::Url::parse(&self.url).ok();
 
-        // Try to use the url host and path to generate a unique appname
-        // The fallback is to use the full url
-        let url_part = match url {
-            Some(url) => {
-                let mut str = url.host_str().map(String::from).unwrap_or_default();
-                if url.path() != "/" {
-                    str.push_str(url.path());
-                }
-                str
-            }
-            None => self.url.clone(),
+        // Use the url host and a short hash of the path to generate a reasonably unique appname.
+        // We use a short hash for the url path to ensure we don't exceed the name limits of unix
+        // domain sockets (108 chars as stated here http://man7.org/linux/man-pages/man7/unix.7.html
+        // for unix domain sockets). Note that the socket will be created by the webapp container
+        // and the name will be of the format
+        // "/home/phablet/.local/share/<host-part>-<path-hash>.webber/SingletonSocket"
+        // Also note that we rely on the webapp container to use the short name format (see above).
+        // The long format is
+        // "/home/phablet/.local/share/<host-part>-<path-hash>.webber/<host-part>-<path-hash>/SingletonSocket".
+        // UNIX_SOCKET_MAX_LEN is 107 characters because the string will become null-terminated.
+        const UNIX_SOCKET_MAX_LEN: usize = 107;
+        const SHORT_HASH_LEN: usize = 16;
+        // 41 chars left for the encoded host name
+        // FIXME: len is not yet stable as a const fn
+        let available_len: usize = UNIX_SOCKET_MAX_LEN
+            - "/home/phablet/.local/share/-.webber/SingletonSocket".len()
+            - SHORT_HASH_LEN;
+
+        let (url_host_part, url_path_part) = url
+            .map(|url| {
+                (
+                    url.host_str().map(String::from).unwrap_or_default(),
+                    url.path().to_owned(),
+                )
+            })
+            .unwrap_or_default();
+
+        let url_path_hash = if url_path_part != "/" && url_path_part != "" {
+            // SHORT_HASH_LEN / 2 because we need (at most) two hex digits to encode a byte
+            let mut short_hash =
+                VarBlake2s::new(SHORT_HASH_LEN / 2).expect("Failed to create blake2 hasher");
+            short_hash.input(url_path_part);
+            hex::encode(short_hash.vec_result())
+        } else {
+            String::new()
         };
 
         // Remove forbidden characters
-        let ascii = url_part.to_ascii_lowercase();
+        let ascii = url_host_part.to_ascii_lowercase();
         let allowed_chars = ascii
             .chars()
             .filter_map(|c| {
@@ -158,7 +185,20 @@ impl Package {
                 }
             })
             .collect::<String>();
-        format!("webapp-{}", allowed_chars)
+
+        // Cut final string to allowed available len for host part
+        let ascii_bytes = allowed_chars
+            .into_bytes()
+            .into_iter()
+            .take(available_len)
+            .collect::<Vec<_>>();
+
+        // Note that this should always succeed since we ensure the string only contains a
+        // restricted set of ASCII characters at this point.
+        let final_host_part =
+            String::from_utf8(ascii_bytes).expect("Failed to convert ascii bytes back to utf-8");
+
+        format!("{}-{}", final_host_part, url_path_hash)
     }
 }
 
