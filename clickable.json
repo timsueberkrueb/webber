@@ -3,7 +3,13 @@
   "kill": "webber",
   "dependencies_host": ["pkg-config"],
   "dependencies_target": ["libssl-dev"],
-  "prebuild": "docker run -it -v $(pwd):/build -w /build clickable/ubuntu-sdk:16.04-armhf ./scripts/get_deps.sh",
+  "prebuild": "./scripts/get_deps.sh",
+  "ignore": [
+      "build",
+      "scripts",
+      ".cargo",
+      "src"
+  ],
   "env_vars": {
       "PKG_CONFIG_ALLOW_CROSS": "1"
   }
