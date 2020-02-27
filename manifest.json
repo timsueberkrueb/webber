@@ -1,7 +1,7 @@
 {
     "name": "webber.timsueberkrueb",
     "description": "The Webby Webapp Wrapper",
-    "architecture": "armhf",
+    "architecture": "@CLICK_ARCH@",
     "title": "Webber",
     "hooks": {
         "webber": {

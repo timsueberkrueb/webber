@@ -198,7 +198,11 @@ impl Package {
         let final_host_part =
             String::from_utf8(ascii_bytes).expect("Failed to convert ascii bytes back to utf-8");
 
-        format!("{}-{}", final_host_part, url_path_hash)
+        if url_path_hash.is_empty() {
+            final_host_part
+        } else {
+            format!("{}-{}", final_host_part, url_path_hash)
+        }
     }
 }
 
