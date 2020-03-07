@@ -8,7 +8,7 @@ import Ubuntu.Content 1.3
 Dialog {
     id: dialog
 
-    title: "Import custom icon"
+    title: i18n.tr("Import custom icon")
 
     property url source
     property var activeTransfer

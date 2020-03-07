@@ -236,10 +236,10 @@ pub struct Permission {
 }
 
 impl Permission {
-    fn new(name: &str, description: &str, enabled: bool) -> Self {
+    fn new(name: String, description: String, enabled: bool) -> Self {
         Self {
-            name: name.to_owned(),
-            description: description.to_owned(),
+            name,
+            description,
             enabled,
         }
     }
@@ -252,7 +252,8 @@ pub type PermissionsModel = SimpleListModel<Permission>;
 pub struct Permissions {
     base: qt_base_class!(trait QObject),
     model: qt_property!(RefCell<PermissionsModel>; CONST),
-    loadDefaults: qt_method!(fn(&mut self)),
+    add: qt_method!(fn(&mut self, name: String, description: String, default: bool)),
+    clear: qt_method!(fn(&mut self)),
     setEnabled: qt_method!(fn(&mut self, row: usize, enabled: bool) -> bool),
 }
 
@@ -271,23 +272,14 @@ impl Permissions {
             .collect()
     }
 
-    #[allow(non_snake_case)]
-    pub fn loadDefaults(&mut self) {
-        let perms = vec![
-            Permission::new("audio", "Play audio", true),
-            Permission::new("content_exchange", "Upload files from other apps", true),
-            Permission::new(
-                "content_exchange_source",
-                "Export files to other apps",
-                false,
-            ),
-            Permission::new("keep-display-on", "Keep the screen on", false),
-            Permission::new("location", "Access your location", false),
-            Permission::new("camera", "Access your camera", false),
-            Permission::new("microphone", "Acess your microphone", false),
-            Permission::new("sensores", "Access your sensors", false),
-        ];
-        self.model.borrow_mut().reset_data(perms);
+    pub fn add(&mut self, name: String, description: String, default: bool) {
+        self.model
+            .borrow_mut()
+            .push(Permission::new(name, description, default));
+    }
+
+    pub fn clear(&mut self) {
+        self.model.borrow_mut().reset_data(Vec::new());
     }
 
     #[allow(non_snake_case)]

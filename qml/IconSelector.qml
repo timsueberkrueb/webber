@@ -36,22 +36,25 @@ RowLayout {
 
     IconSelectItem {
         id: iconDefault
-        text: "Default"
-        helpText: "Icon specified in website meta data"
+        /// i18n: Label below the icon selection
+        text: i18n.tr("Default")
+        helpText: i18n.tr("Icon specified in website meta data")
         source: defaultIconUrl
         checked: true
     }
 
     IconSelectItem {
         id: iconScreenshot
-        text: "Screenshot"
+        /// i18n: Label below the icon selection
+        text: i18n.tr("Screenshot")
         source: iconWebView.source
         loading: iconWebView.loading
     }
 
     IconSelectItem {
         id: iconCustom
-        text: "Custom"
+        /// i18n: Label below the icon selection
+        text: i18n.tr("Custom")
         source: iconSelector.customIconSource
         onIconClicked: {
             iconSelector.customIconRequested();

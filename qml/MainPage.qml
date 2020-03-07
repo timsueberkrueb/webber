@@ -31,7 +31,7 @@ Page {
             Item { Layout.fillWidth: true }
 
             Button {
-                text: "Add"
+                text: i18n.tr("Add")
                 onClicked: App.stackView.push(addPage);
             }
         }
@@ -74,15 +74,16 @@ Page {
 
                 Label {
                     width: parent.width
-                    text: "Use the webbrowser app to navigate to a website you like to add as a shortcut. " +
-                          "Use the share option in the menu and select Webber to create the shortcut."
+                    text: i18n.tr("Use the webbrowser app to navigate to a website you like to add as a shortcut.") +
+                          " " +
+                          i18n.tr("Use the share option in the menu and select Webber to create the shortcut.")
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Qt.AlignHCenter
                 }
 
                 Button {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Browse"
+                    text: i18n.tr("Browse")
                     onClicked: Qt.openUrlExternally("application:///morph-browser.desktop")
                 }
             }

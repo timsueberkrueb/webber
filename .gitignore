@@ -2,4 +2,6 @@
 build/
 target/
 lib/
+share/
+po/*.po~
 Cargo.lock

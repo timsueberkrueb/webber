@@ -36,7 +36,7 @@ Item {
         spacing: Suru.units.gu(1)
 
         Label {
-            text: "Properties"
+            text: i18n.tr("Properties")
             font.bold: true
         }
 
@@ -74,7 +74,7 @@ Item {
                     }
 
                     Button {
-                        text: "Refresh"
+                        text: i18n.tr("Refresh")
                         onClicked: {
                             d.refresh();
                         }
@@ -91,28 +91,41 @@ Item {
             rowSpacing: Suru.units.gu(1)
 
             Label {
-                text: "Name"
+                text: i18n.tr("Name")
             }
 
             UUITK.TextField {
                 id: nameField
                 Layout.fillWidth: true
-                placeholderText: "Web app name"
+                placeholderText: i18n.tr("Web app name")
             }
         }
 
         Label {
-            text: "Icon"
+            text: i18n.tr("Icon")
             font.bold: true
         }
 
-        IconSelector {
-            id: iconSelector
+        Flickable {
             Layout.fillWidth: true
-            defaultIconUrl: iconUrl
-            screenshotIconPath: appModel.screenshotIconPath
-            customIconSource: essentialSettings.customIconSource
-            onCustomIconRequested: essentialSettings.customIconRequested()
+            height: iconSelContent.height
+            contentWidth: iconSelContent.width
+            interactive: width < contentWidth
+
+            Item {
+                id: iconSelContent
+
+                height: iconSelector.implicitHeight
+                width: iconSelector.width
+
+                IconSelector {
+                    id: iconSelector
+                    defaultIconUrl: iconUrl
+                    screenshotIconPath: appModel.screenshotIconPath
+                    customIconSource: essentialSettings.customIconSource
+                    onCustomIconRequested: essentialSettings.customIconRequested()
+                }
+            }
         }
     }
 }

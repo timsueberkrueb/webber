@@ -5,6 +5,10 @@ extern crate cpp;
 #[macro_use]
 extern crate qmetaobject;
 
+use std::env;
+use std::path::PathBuf;
+
+use gettextrs::{bindtextdomain, textdomain};
 use qmetaobject::*;
 
 mod click;
@@ -13,8 +17,10 @@ mod model;
 mod qrc;
 
 fn main() {
+    init_gettext();
+
     unsafe {
-        cpp! { {
+        cpp! {{
             #include <QtCore/QCoreApplication>
             #include <QtCore/QString>
             #include <QtWebEngine/QtWebEngine>
@@ -42,4 +48,20 @@ fn main() {
 
     engine.load_file("qrc:/qml/Main.qml".into());
     engine.exec();
+}
+
+fn init_gettext() {
+    let domain = "webber.timsueberkrueb";
+    textdomain(domain);
+
+    let app_dir = env::var("APP_DIR").expect("Failed to read the APP_DIR environment variable");
+
+    let mut app_dir_path = PathBuf::from(app_dir);
+    if !app_dir_path.is_absolute() {
+        app_dir_path = PathBuf::from("/usr");
+    }
+
+    let path = app_dir_path.join("share/locale");
+
+    bindtextdomain(domain, path.to_str().unwrap());
 }

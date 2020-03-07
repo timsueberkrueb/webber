@@ -36,7 +36,7 @@ Item {
         spacing: Suru.units.gu(1)
 
         Label {
-            text: "Visuals & Behavior"
+            text: i18n.tr("Visuals & Behavior")
             font.bold: true
         }
 
@@ -48,7 +48,7 @@ Item {
             rowSpacing: Suru.units.gu(1)
 
             Label {
-                text: "Splash screen color (hex)"
+                text: i18n.tr("Splash screen color (hex)")
             }
 
             RowLayout {
@@ -76,16 +76,16 @@ Item {
 
         CheckBox {
             id: checkFullscreen
-            text: "Fullscreen"
+            text: i18n.tr("Fullscreen")
         }
 
         CheckBox {
             id: checkDesktopUserAgent
-            text: "Enable desktop mode (via user agent)"
+            text: i18n.tr("Enable desktop mode (via user agent)")
         }
 
         Label {
-            text: "Controls"
+            text: i18n.tr("Controls")
             font.bold: true
         }
 
@@ -95,18 +95,18 @@ Item {
 
             RadioButton {
                 id: radioNoTitleBar
-                text: "Don't show a title bar"
+                text: i18n.tr("Don't show a title bar")
                 checked: true
             }
 
             RadioButton {
                 id: radioTitleBar
-                text: "Show title bar"
+                text: i18n.tr("Show title bar")
             }
 
             RadioButton {
                 id: radioTitleBarBackForward
-                text: "Show title bar with back/forward buttons"
+                text: i18n.tr("Show title bar with back/forward buttons")
             }
         }
 
@@ -116,7 +116,7 @@ Item {
             spacing: units.gu(1)
 
             Label {
-                text: "Url patterns"
+                text: i18n.tr("Url patterns")
                 font.bold: true
             }
 
@@ -128,7 +128,7 @@ Item {
             Item { Layout.fillWidth: true }
 
             Button {
-                text: "Add"
+                text: i18n.tr("Add")
                 onClicked: appModel.urlPatterns.add("")
             }
         }
@@ -179,7 +179,7 @@ Item {
             spacing: units.gu(1)
 
             Label {
-                text: "Permissions"
+                text: i18n.tr("Permissions")
                 font.bold: true
             }
 

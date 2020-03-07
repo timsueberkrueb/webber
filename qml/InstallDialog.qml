@@ -11,7 +11,7 @@ Dialog {
     property string clickPath: ""
     property url url: Qt.resolvedUrl("file://" + clickPath)
 
-    title: "Exporting ..."
+    title: i18n.tr("Exporting ...")
 
     onOpened: exportToOpenStore()
 

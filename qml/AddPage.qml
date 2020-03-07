@@ -39,7 +39,7 @@ Page {
 
                 Layout.fillWidth: true
 
-                placeholderText: "Url (e.g. https://example.com)"
+                placeholderText: i18n.tr("Url (e.g. https://example.com)")
                 inputMethodHints: Qt.ImhUrlCharactersOnly
                 onAccepted: editingFinished()
                 onActiveFocusChanged: if (!activeFocus) editingFinished()
@@ -137,7 +137,7 @@ Page {
                             }
 
                             Label {
-                                text: "Customize"
+                                text: i18n.tr("Customize")
                                 font.bold: true
                             }
 
@@ -168,14 +168,14 @@ Page {
             Layout.fillWidth: true
 
             Button {
-                text: "Reset"
+                text: i18n.tr("Reset")
                 onClicked: d.loadDefaults()
             }
 
             Item { Layout.fillWidth: true }
 
             Button {
-                text: "Create"
+                text: i18n.tr("Create")
                 enabled: urlField.text !== "" && essentialSettings.name !== ""
                 onClicked: {
                     addDialog.open();
@@ -200,7 +200,7 @@ Page {
         x: (parent.width - width) / 2
         y: (parent.height - height) / 2
 
-        title: "Creating shortcut ..."
+        title: i18n.tr("Creating shortcut ...")
         contentItem: Item {
             implicitWidth: Suru.units.dp(128)
             implicitHeight: Suru.units.dp(128)
@@ -239,9 +239,29 @@ Page {
             optionalSettings.loadDefaults();
 
             appModel.urlPatterns.clear();
-            appModel.permissions.loadDefaults();
+            loadPermissions();
 
             customIconSelector.source = Qt.resolvedUrl("");
+        }
+
+        function loadPermissions() {
+            var perms = [
+                ["audio", i18n.tr("Play audio"), true],
+                ["content_exchange", i18n.tr("Upload files from other apps"), true],
+                ["content_exchange_source",i18n.tr("Export files to other apps"), false],
+                ["keep-display-on", i18n.tr("Keep the screen on"), false],
+                ["location", i18n.tr("Access your location"), false],
+                ["camera", i18n.tr("Access your camera"), false],
+                ["microphone", i18n.tr("Acess your microphone"), false],
+                ["sensores", i18n.tr("Access your sensors"), false]
+            ];
+
+            appModel.permissions.clear();
+
+            for (var i=0; i<perms.length; ++i) {
+                var perm = perms[i];
+                appModel.permissions.add(perm[0], perm[1], perm[2]);
+            }
         }
 
         function refresh() {
