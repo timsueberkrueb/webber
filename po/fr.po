@@ -18,7 +18,7 @@ msgstr ""
 
 #: qml/AddPage.qml:42
 msgid "Url (e.g. https://example.com)"
-msgstr "Lien (ex : https://exemple.com)"
+msgstr "Lien (ex : https://example.com)"
 
 #: qml/AddPage.qml:140
 msgid "Customize"
