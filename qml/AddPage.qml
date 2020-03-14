@@ -39,7 +39,8 @@ Page {
 
                 Layout.fillWidth: true
 
-                placeholderText: i18n.tr("Url (e.g. https://example.com)")
+                /// i18n: %1 is a placeholder for an example url. Do not change the %1!
+                placeholderText: i18n.tr("Url (e.g. %1)").arg("https://example.com")
                 inputMethodHints: Qt.ImhUrlCharactersOnly
                 onAccepted: editingFinished()
                 onActiveFocusChanged: if (!activeFocus) editingFinished()
