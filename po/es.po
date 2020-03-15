@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Tim Süberkrüb <dev@timsueberkrueb.io>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-15 10:43+0100\n"
+"PO-Revision-Date: 2020-03-15 10:44+0100\n"
+"Last-Translator: Tim Süberkrüb <dev@timsueberkrueb.io>\n"
+"Language-Team: UBports Spanish Team \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. i18n: %1 is a placeholder for an example url. Do not change the %1!
+#: qml/AddPage.qml:43
+msgid "Url (e.g. %1)"
+msgstr "Url (p.e. %1)"
+
+#: qml/AddPage.qml:141
+msgid "Customize"
+msgstr "Personalizar"
+
+#: qml/AddPage.qml:172
+msgid "Reset"
+msgstr "Reset"
+
+#: qml/AddPage.qml:179
+msgid "Create"
+msgstr "Crear"
+
+#: qml/AddPage.qml:204
+msgid "Creating shortcut ..."
+msgstr "Creando atajo..."
+
+#: qml/AddPage.qml:250
+msgid "Play audio"
+msgstr "Reproducir audio"
+
+#: qml/AddPage.qml:251
+msgid "Upload files from other apps"
+msgstr "Subir ficheros desde otras aplicaciones"
+
+#: qml/AddPage.qml:252
+msgid "Export files to other apps"
+msgstr "Exportar ficheros a otras aplicaciones"
+
+#: qml/AddPage.qml:253
+msgid "Keep the screen on"
+msgstr "Mantener pantalla encendida"
+
+#: qml/AddPage.qml:254
+msgid "Access your location"
+msgstr "Acceder a su localización"
+
+#: qml/AddPage.qml:255
+msgid "Access your camera"
+msgstr "Acceder a su cámara"
+
+#: qml/AddPage.qml:256
+msgid "Acess your microphone"
+msgstr "Acceder a su micrófono"
+
+#: qml/AddPage.qml:257
+msgid "Access your sensors"
+msgstr "Acceder a sus sensores"
+
+#: qml/InstallDialog.qml:14
+msgid "Exporting ..."
+msgstr "Exportando..."
+
+#: qml/MainPage.qml:34 qml/OptionalSettings.qml:131
+msgid "Add"
+msgstr "Añadir"
+
+#: qml/MainPage.qml:77
+msgid ""
+"Use the webbrowser app to navigate to a website you like to add as a "
+"shortcut."
+msgstr ""
+"Usar el navegador para navegar a una página a la que has elegido crear un "
+"atajo."
+
+#: qml/MainPage.qml:79
+msgid ""
+"Use the share option in the menu and select Webber to create the shortcut."
+msgstr ""
+"Utilizar la opción de compartir en el menú y seleccionar Webber para crear "
+"un atajo."
+
+#: qml/MainPage.qml:86
+msgid "Browse"
+msgstr "Navegar"
+
+#: qml/OptionalSettings.qml:39
+msgid "Visuals & Behavior"
+msgstr "Gráficos y comportamiento"
+
+#: qml/OptionalSettings.qml:51
+msgid "Splash screen color (hex)"
+msgstr "Color de la pantalla de inicio (hex)"
+
+#: qml/OptionalSettings.qml:79
+msgid "Fullscreen"
+msgstr "Pantalla completa"
+
+#: qml/OptionalSettings.qml:84
+msgid "Enable desktop mode (via user agent)"
+msgstr "Habilitar modo escritorio (vía «user agent»)"
+
+#: qml/OptionalSettings.qml:88
+msgid "Controls"
+msgstr "Controles"
+
+#: qml/OptionalSettings.qml:98
+msgid "Don't show a title bar"
+msgstr "No mostrar la barra de título"
+
+#: qml/OptionalSettings.qml:104
+msgid "Show title bar"
+msgstr "Mostrar barra de título"
+
+#: qml/OptionalSettings.qml:109
+msgid "Show title bar with back/forward buttons"
+msgstr "Mostrar barra de título con botones de página anterior/siguiente"
+
+#: qml/OptionalSettings.qml:119
+msgid "Url patterns"
+msgstr "Patrones de Url"
+
+#: qml/OptionalSettings.qml:182
+msgid "Permissions"
+msgstr "Permisos"
+
+#. i18n: Label below the icon selection
+#: qml/IconSelector.qml:40
+msgid "Default"
+msgstr "Por defecto"
+
+#: qml/IconSelector.qml:41
+msgid "Icon specified in website meta data"
+msgstr "Icono especificado en los metadatos del sitio web"
+
+#. i18n: Label below the icon selection
+#: qml/IconSelector.qml:49
+msgid "Screenshot"
+msgstr "Pantallazo"
+
+#. i18n: Label below the icon selection
+#: qml/IconSelector.qml:57
+msgid "Custom"
+msgstr "Personalizado"
+
+#: qml/EssentialSettings.qml:39
+msgid "Properties"
+msgstr "Propiedades"
+
+#: qml/EssentialSettings.qml:77
+msgid "Refresh"
+msgstr "Actualizar"
+
+#: qml/EssentialSettings.qml:94
+msgid "Name"
+msgstr "Nombre"
+
+#: qml/EssentialSettings.qml:100
+msgid "Web app name"
+msgstr "Nombre de la Webapp"
+
+#: qml/EssentialSettings.qml:105
+msgid "Icon"
+msgstr "Icono"
+
+#: qml/CustomIconSelector.qml:11
+msgid "Import custom icon"
+msgstr "Importar icono personalizado"
+
+#~ msgid "Url (e.g. https://example.com)"
+#~ msgstr "Url (p.e. https://ejemplo.com)"
