@@ -8,6 +8,8 @@ use std::process::Command;
 use blake2::digest::{Input, VariableOutput};
 use blake2::VarBlake2s;
 
+use deunicode::deunicode;
+
 const DESKTOP_USER_AGENT: &str =
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/999.9.9999.999 Safari/537.36";
 
@@ -116,7 +118,7 @@ impl Package {
         create_tar_gz(&control_tar_gz, &control)?;
         create_tar_gz(&data_tar_gz, &data)?;
 
-        let click_path = path.join(Path::new(&format!("{}.click", self.name)));
+        let click_path = path.join(Path::new(&format!("{}.click", self.package_name())));
 
         create_ar(
             &click_path,
@@ -129,6 +131,27 @@ impl Package {
         )?;
 
         Ok(click_path)
+    }
+
+    fn package_name(&self) -> String {
+        let stripped_name = deunicode(&self.name)
+            .chars()
+            .filter_map(|c|
+                if ('a'..='z').contains(&c)
+                    || ('A'..='Z').contains(&c)
+                    || c.is_digit(10)
+                    || c == ' ' || c == '-' || c == '.' {
+                    Some(c)
+                } else {
+                    None
+                }
+            )
+            .collect::<String>();
+        if stripped_name.is_empty() {
+            "Webapp".to_owned()
+        } else {
+            stripped_name
+        }
     }
 
     fn appname(&self) -> String {
@@ -178,7 +201,7 @@ impl Package {
             .filter_map(|c| {
                 if c == '/' || c == '.' || c == '_' {
                     Some('-')
-                } else if ('a'..'z').contains(&c) || c.is_digit(10) {
+                } else if ('a'..='z').contains(&c) || c.is_digit(10) {
                     Some(c)
                 } else {
                     None
