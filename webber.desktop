@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Webber
-Exec=webber %U
+Exec=webber --disable-gpu --disable-viz-display-compositor %U
 Icon=assets/icon.svg
 Terminal=false
 Type=Application
