@@ -10,7 +10,7 @@
             "content-hub": "content-hub.json"
         }
     },
-    "version": "0.5.6",
+    "version": "0.5.7",
     "maintainer": "Tim Süberkrüb <dev@timsueberkrueb.io>",
     "framework" : "ubuntu-sdk-16.04"
 }
