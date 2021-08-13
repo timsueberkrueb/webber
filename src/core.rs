@@ -68,7 +68,7 @@ impl ScrapeResult {
                     .map(|el| el.value().attr("href").unwrap_or_default().to_owned())
                     .unwrap_or_default()
             });
-        if icon_url != "" {
+        if !icon_url.is_empty() {
             if let Ok(url) = url.join(&icon_url) {
                 icon_url = url.to_string();
             }

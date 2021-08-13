@@ -73,7 +73,7 @@ impl Package {
 
         let icon_filename = match self.icon {
             Icon::Remote(ref icon_url) => {
-                let ext = url::Url::parse(&icon_url)
+                let ext = url::Url::parse(icon_url)
                     .ok()
                     .map(|icon| Some(icon.path_segments()?.map(String::from).collect::<Vec<_>>()))
                     .map(|segments| segments?.iter().rev().cloned().next())
@@ -81,14 +81,14 @@ impl Package {
                     .unwrap_or_default();
                 if let Some(ext) = ext {
                     let icon_fname = format!("icon.{}", ext);
-                    download_file(&icon_url, &data.join(Path::new(&icon_fname)))?;
+                    download_file(icon_url, &data.join(Path::new(&icon_fname)))?;
                     Some(icon_fname)
                 } else {
                     None
                 }
             }
             Icon::Local(ref icon_path) => {
-                if icon_path == "" {
+                if icon_path.is_empty() {
                     None
                 } else {
                     let ext = Path::new(&icon_path).extension();
@@ -111,7 +111,7 @@ impl Package {
 
         write_file(
             &data.join(Path::new("shortcut.desktop")),
-            &data_desktop_content(&self, &icon_filename),
+            &data_desktop_content(self, &icon_filename),
         )?;
 
         let control_tar_gz = path.join(Path::new("control.tar.gz"));
@@ -144,18 +144,13 @@ impl Package {
     fn package_name(&self) -> String {
         let stripped_name = deunicode(&self.name)
             .chars()
-            .filter_map(|c| {
-                if ('a'..='z').contains(&c)
-                    || ('A'..='Z').contains(&c)
+            .filter(|c| {
+                ('a'..='z').contains(c)
+                    || ('A'..='Z').contains(c)
                     || c.is_digit(10)
-                    || c == ' '
-                    || c == '-'
-                    || c == '.'
-                {
-                    Some(c)
-                } else {
-                    None
-                }
+                    || *c == ' '
+                    || *c == '-'
+                    || *c == '.'
             })
             .collect::<String>();
         if stripped_name.is_empty() {
@@ -194,7 +189,7 @@ impl Package {
             })
             .unwrap_or_default();
 
-        let url_path_hash = if url_path_part != "/" && url_path_part != "" {
+        let url_path_hash = if url_path_part != "/" && !url_path_part.is_empty() {
             // SHORT_HASH_LEN / 2 because we need (at most) two hex digits to encode a byte
             let mut short_hash =
                 VarBlake2b::new(SHORT_HASH_LEN / 2).expect("Failed to create blake2 hasher");
@@ -325,7 +320,7 @@ fn create_ar(filepath: &Path, files: &[(&Path, &str)]) -> io::Result<()> {
     let mut archive = ar::Builder::new(file);
     for (src, target) in files {
         let mut file = fs::File::open(src)?;
-        archive.append_file(&target.as_bytes(), &mut file)?;
+        archive.append_file(target.as_bytes(), &mut file)?;
     }
     Ok(())
 }
