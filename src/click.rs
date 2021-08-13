@@ -180,31 +180,46 @@ impl Package {
             - "/home/phablet/.local/share/-.webber/SingletonSocket".len()
             - SHORT_HASH_LEN;
 
-        let (url_host_part, url_path_part) = url
+        let (url_host_part, url_path_part, url_port) = url
             .map(|url| {
                 (
                     url.host_str().map(String::from).unwrap_or_default(),
                     url.path().to_owned(),
+                    url.port(),
                 )
             })
             .unwrap_or_default();
 
-        let url_path_hash = if url_path_part != "/" && !url_path_part.is_empty() {
-            // SHORT_HASH_LEN / 2 because we need (at most) two hex digits to encode a byte
-            let mut short_hash =
-                VarBlake2b::new(SHORT_HASH_LEN / 2).expect("Failed to create blake2 hasher");
-            short_hash.update(url_path_part);
-            hex::encode(short_hash.finalize_boxed())
-        } else {
-            String::new()
+        // If the url contains a port number, include it in the main appname part
+        let main_part = match url_port {
+            Some(port) => format!("{}-{}", url_host_part, port),
+            None => url_host_part,
         };
 
+        // Generate the short hash for the url path part
+        let url_path_hash =
+            if url_path_part != "/" && !url_path_part.is_empty() || url_port.is_some() {
+                // SHORT_HASH_LEN / 2 because we need (at most) two hex digits to encode a byte
+                let mut short_hash =
+                    VarBlake2b::new(SHORT_HASH_LEN / 2).expect("Failed to create blake2 hasher");
+                short_hash.update(url_path_part);
+                // If the url contains a port number, also include it in the hash.
+                // This is needed to support the edge case where the main part is too long and gets trimmed such that
+                // the port number is no longer included.
+                if let Some(port) = url_port {
+                    short_hash.update(port.to_le_bytes())
+                }
+                hex::encode(short_hash.finalize_boxed())
+            } else {
+                String::new()
+            };
+
         // Remove forbidden characters
-        let ascii = url_host_part.to_ascii_lowercase();
+        let ascii = main_part.to_ascii_lowercase();
         let allowed_chars = ascii
             .chars()
             .filter_map(|c| {
-                if c == '/' || c == '.' || c == '_' {
+                if c == '/' || c == '.' || c == '_' || c == '-' {
                     Some('-')
                 } else if ('a'..='z').contains(&c) || c.is_digit(10) {
                     Some(c)
