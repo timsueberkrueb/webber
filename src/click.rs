@@ -5,8 +5,10 @@ use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use blake2::digest::{Input, VariableOutput};
-use blake2::VarBlake2s;
+use reqwest::blocking as reqwest;
+
+use blake2::digest::{Update, VariableOutput};
+use blake2::VarBlake2b;
 
 use deunicode::deunicode;
 
@@ -136,16 +138,19 @@ impl Package {
     fn package_name(&self) -> String {
         let stripped_name = deunicode(&self.name)
             .chars()
-            .filter_map(|c|
+            .filter_map(|c| {
                 if ('a'..='z').contains(&c)
                     || ('A'..='Z').contains(&c)
                     || c.is_digit(10)
-                    || c == ' ' || c == '-' || c == '.' {
+                    || c == ' '
+                    || c == '-'
+                    || c == '.'
+                {
                     Some(c)
                 } else {
                     None
                 }
-            )
+            })
             .collect::<String>();
         if stripped_name.is_empty() {
             "Webapp".to_owned()
@@ -170,8 +175,7 @@ impl Package {
         const UNIX_SOCKET_MAX_LEN: usize = 107;
         const SHORT_HASH_LEN: usize = 16;
         // 41 chars left for the encoded host name
-        // FIXME: len is not yet stable as a const fn
-        let available_len: usize = UNIX_SOCKET_MAX_LEN
+        const AVAILABLE_LEN: usize = UNIX_SOCKET_MAX_LEN
             - "/home/phablet/.local/share/-.webber/SingletonSocket".len()
             - SHORT_HASH_LEN;
 
@@ -187,9 +191,9 @@ impl Package {
         let url_path_hash = if url_path_part != "/" && url_path_part != "" {
             // SHORT_HASH_LEN / 2 because we need (at most) two hex digits to encode a byte
             let mut short_hash =
-                VarBlake2s::new(SHORT_HASH_LEN / 2).expect("Failed to create blake2 hasher");
-            short_hash.input(url_path_part);
-            hex::encode(short_hash.vec_result())
+                VarBlake2b::new(SHORT_HASH_LEN / 2).expect("Failed to create blake2 hasher");
+            short_hash.update(url_path_part);
+            hex::encode(short_hash.finalize_boxed())
         } else {
             String::new()
         };
@@ -213,7 +217,7 @@ impl Package {
         let ascii_bytes = allowed_chars
             .into_bytes()
             .into_iter()
-            .take(available_len)
+            .take(AVAILABLE_LEN)
             .collect::<Vec<_>>();
 
         // Note that this should always succeed since we ensure the string only contains a

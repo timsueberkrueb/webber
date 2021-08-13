@@ -1,4 +1,6 @@
 use std::string::ToString;
+
+use reqwest::blocking as reqwest;
 use url::Url;
 
 pub fn validate_url(url: String) -> Result<Url, String> {
