@@ -135,6 +135,12 @@ impl Package {
         Ok(click_path)
     }
 
+    pub fn sanitize(&mut self) {
+        // Remove leading (and trailing) whitespace (if any) because Ubuntu touch's
+        // app grid has problems displaying apps whose names include leading whitespace
+        self.name = self.name.trim().to_string();
+    }
+
     fn package_name(&self) -> String {
         let stripped_name = deunicode(&self.name)
             .chars()

@@ -123,7 +123,7 @@ pub struct AppModel {
 
 impl AppModel {
     fn create(&mut self) {
-        let package = click::Package {
+        let mut package = click::Package {
             url: self.url.clone(),
             name: self.name.clone(),
             icon: if self.useCustomIcon {
@@ -141,6 +141,7 @@ impl AppModel {
             enable_fullscreen: self.enableFullscreen,
             enable_desktop_user_agent: self.enableDesktopUserAgent,
         };
+        package.sanitize();
 
         let qptr = QPointer::from(&*self);
         let set_created = qmetaobject::queued_callback(move |path: PathBuf| {

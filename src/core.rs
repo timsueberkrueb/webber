@@ -36,14 +36,18 @@ impl ScrapeResult {
             .select(&title_sel)
             .next()
             .map(|el| el.inner_html())
-            .unwrap_or_default();
+            .unwrap_or_default()
+            .trim()
+            .to_string();
         let og_name_sel =
             scraper::Selector::parse("html > head > meta[property='og:site_name']").unwrap();
         let site_name = html
             .select(&og_name_sel)
             .next()
             .map(|el| el.value().attr("content").unwrap_or_default().to_owned())
-            .unwrap_or_default();
+            .unwrap_or_default()
+            .trim()
+            .to_string();
         let theme_color_sel =
             scraper::Selector::parse("html > head > meta[name='theme-color']").unwrap();
         let theme_color = html
