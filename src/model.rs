@@ -98,8 +98,8 @@ impl WebScraper {
                         let m = res
                             .manifest_url
                             .as_ref()
-                            .map(|url| Manifest::fetch_and_resolve(url))
-                            .map(|m| m.ok())
+                            .map(Manifest::fetch_and_resolve)
+                            .map(Result::ok)
                             .flatten();
 
                         if let Some(m) = m {

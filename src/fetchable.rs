@@ -7,5 +7,5 @@ pub trait Fetchable {
     type Error;
 
     fn fetch(url: &Url)
-        -> Result<<Self as Fetchable>::Out<Unresolved>, <Self as Fetchable>::Error>;
+        -> Result<Self::Out<Unresolved>, Self::Error>;
 }
