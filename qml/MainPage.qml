@@ -7,25 +7,27 @@ import "."
 
 Page {
     header: ToolBar {
+        height: Suru.units.gu(6)
+
+        background: Rectangle {
+            color: "#80a3fa"
+        }
+
         RowLayout {
             anchors.fill: parent
 
             spacing: units.gu(1)
 
-            UUITK.UbuntuShape {
-                implicitWidth: Suru.units.gu(4)
-                implicitHeight: Suru.units.gu(4)
-
-                source: Image {
-                    source: Qt.resolvedUrl("qrc:///assets/icon.svg")
-                    sourceSize.width: Suru.units.gu(4)
-                    sourceSize.height: Suru.units.gu(4)
-                }
+            Image {
+                source: Qt.resolvedUrl("qrc:///assets/webber_spider.svg")
+                sourceSize.width: Suru.units.gu(4)
+                sourceSize.height: Suru.units.gu(4)
             }
 
             Label {
                 text: "Webber"
-                font.pixelSize: units.dp(16)
+                color: "white"
+                font: Suru.units.fontHeadingTwo
             }
 
             Item { Layout.fillWidth: true }

@@ -16,6 +16,7 @@ qrc!(qml_resources,
         "qml/OptionalSettings.qml",
         "qml/qmldir",
         "assets/icon.svg",
+        "assets/webber_spider.svg",
     },
 );
 
