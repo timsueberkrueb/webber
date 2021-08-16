@@ -2,7 +2,7 @@
 
 Webber installs local shortcuts for webpages on Ubuntu touch.
 
-[![OpenStore](https://open-store.io/badges/en_US.svg)](https://open-store.io/app/webber.timsueberkrueb)
+<a href="https://open-store.io/app/webber.timsueberkrueb"><img width="256" src="https://open-store.io/badges/en_US.svg" alt="OpenStore" /></a>
 
 ## Build using clickable
 
