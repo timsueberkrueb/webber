@@ -1,10 +1,15 @@
 use std::cell::RefCell;
 use std::path::PathBuf;
 
+use csscolorparser::Color;
+use url::Url;
+
 use qmetaobject::*;
 
 use crate::click;
-use crate::core;
+use crate::fetch_and_resolve::*;
+use crate::pwa::Manifest;
+use crate::scraper::{self, ScrapedSite};
 
 #[allow(non_snake_case)]
 #[derive(QObject, Default)]
@@ -30,7 +35,7 @@ impl WebScraper {
     fn scrape(&mut self) {
         let url = self.url.to_string();
 
-        match core::validate_url(url) {
+        match scraper::validate_url(url) {
             Ok(url) => {
                 self.errorString = QString::default();
                 self.errorStringChanged();
@@ -57,12 +62,17 @@ impl WebScraper {
             }
         });
         let qptr = QPointer::from(&*self);
-        let set_scrape_result = qmetaobject::queued_callback(move |res: core::ScrapeResult| {
+        let set_scrape_result = qmetaobject::queued_callback(move |res: ScrapedSite<Resolved>| {
             if let Some(self_) = qptr.as_pinned() {
-                self_.borrow_mut().title = QString::from(res.title);
-                self_.borrow_mut().siteName = QString::from(res.site_name);
-                self_.borrow_mut().themeColor = QString::from(res.theme_color);
-                self_.borrow_mut().iconUrl = QString::from(res.icon_url);
+                let preferred_icon = res.icons.first();
+                let white = Color::from_rgb_u8(255, 255, 255);
+
+                self_.borrow_mut().title = QString::from(res.title.unwrap_or_default());
+                self_.borrow_mut().siteName = QString::from(res.site_name.unwrap_or_default());
+                self_.borrow_mut().themeColor =
+                    QString::from(res.theme_color.unwrap_or(white).to_hex_string());
+                self_.borrow_mut().iconUrl =
+                    QString::from(preferred_icon.map(Url::as_str).unwrap_or_default());
                 let mut list = QVariantList::default();
                 for pat in res.default_url_patterns {
                     list.push(QVariant::from(QString::from(pat)));
@@ -83,8 +93,21 @@ impl WebScraper {
 
         std::thread::spawn(move || {
             if let Ok(lock) = mutex.try_lock() {
-                match core::scrape_url(url) {
-                    Ok(res) => set_scrape_result(res),
+                match ScrapedSite::fetch_and_resolve(&url) {
+                    Ok(mut res) => {
+                        let m = res
+                            .manifest_url
+                            .as_ref()
+                            .map(|url| Manifest::fetch_and_resolve(url))
+                            .map(|m| m.ok())
+                            .flatten();
+
+                        if let Some(m) = m {
+                            res = res.supplemented(m);
+                        }
+
+                        set_scrape_result(res);
+                    }
                     Err(err) => {
                         let msg = format!("Failed to load site: {}", err);
                         set_error_string(QString::from(msg));

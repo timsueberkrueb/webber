@@ -10,7 +10,7 @@ qmetaobject = { version = "0.2.3", features = ["webengine"] }
 qttypes = { version = "0.2.3", features = ["qtwebengine", "qtquick", "qtquickcontrols2"] }
 cstr = "0.2"
 cpp = "0.5"
-url = "2"
+url = { version = "2", features = ["serde"] }
 reqwest = { version = "0.11", features = ["blocking"] }
 scraper = "0.12"
 ar = "0.8"
@@ -21,6 +21,8 @@ hex = "0.4"
 blake2 = "0.9"
 gettext-rs = "0.7"
 deunicode = "1"
+csscolorparser = { version = "0.5", features = ["serde"] }
+language-tags = { version = "0.3", features = ["serde"] }
 
 [build-dependencies]
 cpp_build = "0.5.6"

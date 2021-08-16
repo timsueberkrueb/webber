@@ -1,3 +1,5 @@
+#![feature(generic_associated_types)]
+
 #[macro_use]
 extern crate cstr;
 #[macro_use]
@@ -10,9 +12,14 @@ use gettextrs::{bindtextdomain, textdomain};
 use qmetaobject::*;
 
 mod click;
-mod core;
+mod fetch_and_resolve;
+mod fetchable;
 mod model;
+mod pwa;
 mod qrc;
+mod resolvable;
+mod scraper;
+mod serde_utils;
 
 fn main() {
     init_gettext();
