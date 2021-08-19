@@ -24,6 +24,14 @@ mod serde_utils;
 fn main() {
     init_gettext();
 
+    std::env::set_var("QTWEBENGINE_CHROMIUM_FLAGS", "--disable-gpu --disable-viz-display-compositor --enable-features=OverlayScrollbar,OverlayScrollbarFlashAfterAnyScrollUpdate,OverlayScrollbarFlashWhenMouseEnter");
+
+    unsafe {
+        cpp! {[]{
+            QtWebEngine::initialize();
+        }}
+    }
+
     unsafe {
         cpp! {{
             #include <QtCore/QCoreApplication>
@@ -31,6 +39,7 @@ fn main() {
             #include <QtWebEngine/QtWebEngine>
         }}
         cpp! {[]{
+            QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
             QCoreApplication::setApplicationName(QStringLiteral("webber.timsueberkrueb"));
         }}
     }
@@ -44,12 +53,6 @@ fn main() {
     qml_register_type::<model::Permissions>(cstr!("Webber"), 1, 0, cstr!("Permissions"));
 
     let mut engine = QmlEngine::new();
-
-    unsafe {
-        cpp! {[]{
-            QtWebEngine::initialize();
-        }}
-    }
 
     engine.load_file("qrc:/qml/Main.qml".into());
     engine.exec();

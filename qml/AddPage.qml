@@ -10,17 +10,11 @@ Page {
     function setUrl(url) {
         d.loadDefaults();
         urlField.text = url;
+        urlField.forceActiveFocus();
         d.refresh();
     }
 
     visible: false
-
-    onVisibleChanged: {
-        if (visible) {
-            d.loadDefaults();
-            urlField.forceActiveFocus();
-        }
-    }
 
     header: ToolBar {
         RowLayout {
@@ -115,6 +109,7 @@ Page {
                         appModel: appModel
                         customIconSource: customIconSelector.source
                         onCustomIconRequested: customIconSelector.open()
+                        onScreenshotRequested: screenshotDialog.open()
                     }
 
                     ItemDelegate {
@@ -189,14 +184,19 @@ Page {
     CustomIconSelector {
         id: customIconSelector
 
+        parent: App.dialogContainer
+
         x: (parent.width - width) / 2
         y: (parent.height - height) / 2
+
         width: parent.width - units.gu(4)
         height: parent.height - units.gu(4)
     }
 
     Dialog {
         id: addDialog
+
+        parent: App.dialogContainer
 
         x: (parent.width - width) / 2
         y: (parent.height - height) / 2
@@ -220,6 +220,8 @@ Page {
     InstallDialog {
         id: installDialog
 
+        parent: App.dialogContainer
+
         x: (parent.width - width) / 2
         y: (parent.height - height) / 2
 
@@ -227,6 +229,25 @@ Page {
         modal: true
         closePolicy: Dialog.NoAutoClose
         clickPath: appModel.clickPath
+    }
+
+    ScreenshotDialog {
+        id: screenshotDialog
+
+        parent: App.dialogContainer
+
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
+
+        screenshotPath: appModel.screenshotIconPath
+        onScreenshotMade: essentialSettings.screenshotMade()
+        onClosed: Qt.inputMethod.hide()
+
+        width: parent.width - Suru.units.gu(4)
+        height: parent.height - Suru.units.gu(4)
+
+        modal: true
+        closePolicy: Dialog.NoAutoClose
     }
 
     QtObject {
@@ -267,6 +288,7 @@ Page {
 
         function refresh() {
             if (urlField.displayText !== "") {
+                screenshotDialog.url = urlField.text;
                 scraper.scrape();
                 essentialSettings.refresh();
             }

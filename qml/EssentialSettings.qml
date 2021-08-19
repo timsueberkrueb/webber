@@ -23,9 +23,11 @@ Item {
     }
 
     signal customIconRequested()
+    signal screenshotRequested()
+    signal screenshotMade()
     signal refresh()
 
-    onRefresh: iconSelector.setUrl(url)
+    onScreenshotMade: iconSelector.screenshotMade()
 
     implicitHeight: column.childrenRect.height
 
@@ -124,6 +126,7 @@ Item {
                     screenshotIconPath: appModel.screenshotIconPath
                     customIconSource: essentialSettings.customIconSource
                     onCustomIconRequested: essentialSettings.customIconRequested()
+                    onScreenshotRequested: essentialSettings.screenshotRequested()
                 }
             }
         }

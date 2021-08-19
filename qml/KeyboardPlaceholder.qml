@@ -1,6 +1,7 @@
 // Borrowed from Teleports, MessageListPage.qml
 
 import QtQuick 2.0
+import Ubuntu.Components 1.3
 import QtQuick.Controls.Suru 2.2
 
 Item {

@@ -49,6 +49,7 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
+        App.dialogContainer = stackView;
         App.stackView = stackView;
         root.show();
     }

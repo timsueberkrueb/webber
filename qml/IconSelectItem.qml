@@ -10,6 +10,7 @@ Column {
     readonly property var radioButton: radioButton
     property alias text: radioButton.text
     property string helpText: ""
+    property string placeholderIconName: ""
     property alias source: iconImage.source
     property bool loading: false
     property alias checked: radioButton.checked
@@ -25,7 +26,7 @@ Column {
             anchors.fill: parent
 
             backgroundColor: iconImage.source == "" ? Suru.neutralColor : "white"
-            source: iconImage.source !== "" ? iconImage : null
+            source: iconImage.source != "" && iconImage.status === Image.Ready ? iconImage : null
 
             Image {
                 id: iconImage
@@ -35,7 +36,17 @@ Column {
                 cache: false
             }
 
+            UUITK.Icon {
+                anchors.centerIn: parent
+                visible: placeholderIconName !== "" && iconImage.source == ""
+                name: placeholderIconName
+                width: Suru.units.gu(4)
+                height: Suru.units.gu(4)
+                color: "white"
+            }
+
             BusyIndicator {
+                id: busyIndicator
                 anchors.centerIn: parent
                 running: iconImage.status == Image.Loading || iconSelectItem.loading
             }

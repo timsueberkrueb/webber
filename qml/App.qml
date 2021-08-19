@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick 2.0
 
 QtObject {
+    property var dialogContainer: null
     property var stackView: null
 
     function pop() {

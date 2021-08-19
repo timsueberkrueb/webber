@@ -34,7 +34,10 @@ Page {
 
             Button {
                 text: i18n.tr("Add")
-                onClicked: App.stackView.push(addPage);
+                onClicked: {
+                    App.stackView.push(addPage);
+                    addPage.setUrl("");
+                }
             }
         }
     }
