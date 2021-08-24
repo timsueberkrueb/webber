@@ -6,8 +6,8 @@ use std::path::{Path, PathBuf};
 
 use reqwest::blocking as reqwest;
 
-use flate2::Compression;
 use flate2::write::GzEncoder;
+use flate2::Compression;
 
 use blake2::digest::{Update, VariableOutput};
 use blake2::VarBlake2b;
@@ -392,7 +392,7 @@ fn data_desktop_content(package: &Package, icon_fname: &str) -> String {
         optional_flags.push("--fullscreen");
     }
     let ua_flag = format!("--user-agent-string={}", shell_escape(&package.user_agent));
-    if package.user_agent != "" {
+    if !package.user_agent.is_empty() {
         optional_flags.push(&ua_flag);
     }
     optional_flags.push(&package.url);
