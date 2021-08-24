@@ -23,6 +23,7 @@ gettext-rs = "0.7"
 deunicode = "1"
 csscolorparser = { version = "0.5", features = ["serde"] }
 language-tags = { version = "0.3", features = ["serde"] }
+snailquote = "0.3"
 
 [build-dependencies]
 cpp_build = "0.5.6"

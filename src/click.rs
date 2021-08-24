@@ -12,8 +12,7 @@ use blake2::VarBlake2b;
 
 use deunicode::deunicode;
 
-const DESKTOP_USER_AGENT: &str =
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/999.9.9999.999 Safari/537.36";
+use snailquote::escape as shell_escape;
 
 #[derive(Debug)]
 pub struct Package {
@@ -26,7 +25,7 @@ pub struct Package {
     pub enable_address_bar: bool,
     pub enable_back_forward: bool,
     pub enable_fullscreen: bool,
-    pub enable_desktop_user_agent: bool,
+    pub user_agent: String,
 }
 
 impl Package {
@@ -408,23 +407,28 @@ fn data_desktop_content(package: &Package, icon_fname: &str) -> String {
     if package.enable_fullscreen {
         optional_flags.push("--fullscreen");
     }
-    let ua_flag = format!("--user-agent-string={}", DESKTOP_USER_AGENT);
-    if package.enable_desktop_user_agent {
+    let ua_flag = format!("--user-agent-string={}", shell_escape(&package.user_agent));
+    if package.user_agent != "" {
         optional_flags.push(&ua_flag);
     }
     optional_flags.push(&package.url);
     let flags_and_url = optional_flags.join(" ");
+
+    let exec = format!("webapp-container --webappUrlPatterns={} --store-session-cookies --enable-media-hub-audio {}",
+        shell_escape(&package.url_patterns), flags_and_url
+    );
+
     format!(
         r#"[Desktop Entry]
 Name={}
-Exec=webapp-container --webappUrlPatterns={} --store-session-cookies --enable-media-hub-audio {}
+Exec={}
 Icon={}
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true
 X-Ubuntu-Splash-Color={}
 "#,
-        package.name, package.url_patterns, flags_and_url, icon_fname, package.theme_color
+        package.name, exec, icon_fname, package.theme_color
     )
 }
 

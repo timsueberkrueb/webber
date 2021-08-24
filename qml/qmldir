@@ -1,2 +1,4 @@
 module Webber
 singleton App 1.0 App.qml
+singleton UserAgent 1.0 UserAgent.qml
+RadioButton 1.0 RadioButton.qml

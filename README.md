@@ -43,4 +43,8 @@ Thanks to everyone who has contributed code or translations!
 
 ## License
 
-Licensed under the terms of the GNU General Public License version 3 or, at your option, any later version.
+Files in this project are, unless noted otherwise, licensed under the terms of the GNU General
+Public License version 3 or, at your option, any later version.
+
+The file `qml/UserAgent.qml` is licensed under the terms of the GNU General Public License version 3
+as stated in its license header.
