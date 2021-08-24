@@ -13,6 +13,8 @@ cpp = "0.5"
 url = { version = "2", features = ["serde"] }
 reqwest = { version = "0.11", features = ["blocking"] }
 scraper = "0.12"
+flate2 = "1"
+tar = { git = "https://github.com/timsueberkrueb/tar-rs" }
 ar = "0.8"
 xdg = "2"
 serde = { version = "1", features = ["derive"] }

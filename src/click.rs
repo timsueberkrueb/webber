@@ -3,9 +3,11 @@ use std::error::Error;
 use std::fs;
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
-use std::process::Command;
 
 use reqwest::blocking as reqwest;
+
+use flate2::Compression;
+use flate2::write::GzEncoder;
 
 use blake2::digest::{Update, VariableOutput};
 use blake2::VarBlake2b;
@@ -340,29 +342,11 @@ fn create_ar(filepath: &Path, files: &[(&Path, &str)]) -> io::Result<()> {
 }
 
 fn create_tar_gz(filepath: &Path, dir: &Path) -> io::Result<()> {
-    // FIXME: We cannot use the `tar` crate as for some reason the filepaths
-    // need to start with ./ and this seem to get normalized away in Rust paths.
-    // This workaround should be okay because we control the filepath, but it is ugly
-    // nevertheless.
-    Command::new(
-        std::env::current_exe()
-            .unwrap()
-            .parent()
-            .unwrap()
-            .join("tar"),
-    )
-    .args(&[
-        "--transform",
-        &format!(
-            "flags=r;s|{}|.|",
-            dir.file_name().unwrap().to_str().unwrap()
-        ),
-        "-czf",
-        filepath.to_str().unwrap(),
-        dir.file_name().unwrap().to_str().unwrap(),
-    ])
-    .current_dir(&dir.join(".."))
-    .output()?;
+    let archive = std::fs::File::create(filepath)?;
+    let enc = GzEncoder::new(archive, Compression::default());
+    let mut tar = tar::Builder::new(enc);
+    tar.append_dir_all("./.", dir)?;
+    tar.finish()?;
     Ok(())
 }
 

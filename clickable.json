@@ -3,7 +3,6 @@
   "kill": "webber",
   "dependencies_host": ["pkg-config"],
   "dependencies_target": ["libssl-dev"],
-  "prebuild": "./scripts/get_deps.sh",
   "image_setup": {
     "run": [
         "rustup install nightly-2021-08-13",
