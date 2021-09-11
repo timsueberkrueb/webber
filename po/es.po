@@ -2,40 +2,41 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Tim Süberkrüb <dev@timsueberkrueb.io>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-11 11:56+0000\n"
-"PO-Revision-Date: 2020-03-15 10:44+0100\n"
-"Last-Translator: Tim Süberkrüb <dev@timsueberkrueb.io>\n"
-"Language-Team: UBports Spanish Team \n"
-"Language: es\n"
+"POT-Creation-Date: 2021-09-11 12:25+0000\n"
+"PO-Revision-Date: 2021-09-11 16:19+0200\n"
+"Language-Team: UBports Spanish Team\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+"Last-Translator: j2g2rp\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 
 #: qml/AboutDialog.qml:13
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #: qml/AboutDialog.qml:100
 msgid "Webapp shortcut creator for Ubuntu touch"
-msgstr ""
+msgstr "Creador de atajos Webapp para Ubuntu touch"
 
 #: qml/AboutDialog.qml:115
 msgid "Rate"
-msgstr ""
+msgstr "Puntuar"
 
 #: qml/AboutDialog.qml:121
 msgid "Contribute"
-msgstr ""
+msgstr "Contribuir"
 
 #: qml/AboutDialog.qml:127
 msgid "Report bug"
-msgstr ""
+msgstr "Reportar un fallo"
 
 #. i18n: %1 is a placeholder for an example url. Do not change the %1!
 #: qml/AddPage.qml:37 qml/MiniBrowserBar.qml:61
@@ -92,17 +93,17 @@ msgstr "Acceder a sus sensores"
 
 #: qml/SelectIconDialog.qml:18
 msgid "Select icon"
-msgstr ""
+msgstr "Seleccionar un icono"
 
 #: qml/SelectIconDialog.qml:43
 msgid ""
 "No icons found in the website metadata, sorry! You could try to use a "
 "screenshot or custom icon instead."
-msgstr ""
+msgstr "¡No se han encontrado iconos en los metadatos del sitio, lo sentimos!"
 
 #: qml/SelectIconDialog.qml:155 qml/TutorialDialog.qml:89 qml/HelpDialog.qml:44
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: qml/MainPage.qml:38 qml/OptionalSettings.qml:255
 msgid "Add"
@@ -114,7 +115,7 @@ msgstr "Propiedades"
 
 #: qml/EssentialSettings.qml:79
 msgid "Refresh"
-msgstr "Actualizar"
+msgstr "Recargar"
 
 #: qml/EssentialSettings.qml:96
 msgid "Name"
@@ -122,7 +123,7 @@ msgstr "Nombre"
 
 #: qml/EssentialSettings.qml:102
 msgid "Web app name"
-msgstr "Nombre de la Webapp"
+msgstr "Nombre de la aplicación web"
 
 #: qml/EssentialSettings.qml:107
 msgid "Icon"
@@ -134,7 +135,7 @@ msgstr "Gráficos y comportamiento"
 
 #: qml/OptionalSettings.qml:55
 msgid "Splash screen color (hex)"
-msgstr "Color de la pantalla de inicio (hex)"
+msgstr "Color de pantalla de arranque (hex)"
 
 #: qml/OptionalSettings.qml:83
 msgid "Fullscreen"
@@ -154,11 +155,11 @@ msgstr "Mostrar barra de título"
 
 #: qml/OptionalSettings.qml:108
 msgid "Show title bar with back/forward buttons"
-msgstr "Mostrar barra de título con botones de página anterior/siguiente"
+msgstr "Mostrar barra de título con los botones atrás/adelante"
 
 #: qml/OptionalSettings.qml:117
 msgid "Browser Identifier (User-Agent header)"
-msgstr ""
+msgstr "Identificador del navegador (Cabecera User-Agent)"
 
 #: qml/OptionalSettings.qml:124
 msgid ""
@@ -170,30 +171,38 @@ msgid ""
 "User-Agent header</a> that your website accepts and copy it into the text "
 "field below."
 msgstr ""
+"La cabecera de User-Agent es una cadena de texto en un formato específico "
+"que los navegadores envían para identificarse a sí mismos. Esto contiene "
+"información técnica a cerca del navegador, el sistema operativo y el "
+"fabricante. Desafortunadamente algunos sitios web restringen el acceso o "
+"características basándose en la cabecera del User-Agent. Una solución <a "
+"href=\"%1\">que es una mala práctica</a>, puede <a href=\"%2\">elegir una "
+"cabecera de User-Agent que sea común </a> que el sitio web acepte y copiarla "
+"en el campo de texto siguiente."
 
 #: qml/OptionalSettings.qml:133
 msgid "User-Agent header"
-msgstr ""
+msgstr "Cabecera de User-Agent"
 
 #: qml/OptionalSettings.qml:157
 msgid "Auto (default)"
-msgstr ""
+msgstr "Auto (Predefinida)"
 
 #: qml/OptionalSettings.qml:176
 msgid "Mobile"
-msgstr ""
+msgstr "Móvil"
 
 #: qml/OptionalSettings.qml:195
 msgid "Desktop"
-msgstr ""
+msgstr "Escritorio"
 
 #: qml/OptionalSettings.qml:213
 msgid "Custom User-Agent header"
-msgstr ""
+msgstr "Cabecera de User-Agent personalizda"
 
 #: qml/OptionalSettings.qml:243
 msgid "Url patterns"
-msgstr "Patrones de Url"
+msgstr "Patrones Url"
 
 #: qml/OptionalSettings.qml:306
 msgid "Permissions"
@@ -201,32 +210,34 @@ msgstr "Permisos"
 
 #: qml/TutorialDialog.qml:11
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: qml/TutorialDialog.qml:34
 msgid ""
 "Hey, welcome! Webber helps you to create shortcuts for your favorite "
 "websites. It's easy!"
 msgstr ""
+"¡Hola, Bienvenido! Webber le ayuda a crear atajos para sus sitios web "
+"favoritos ¡Es sencillo!"
 
 #: qml/TutorialDialog.qml:40 qml/StaticMainPageContent.qml:41
 msgid ""
 "Use the webbrowser app to navigate to a website you like to add as a "
 "shortcut."
 msgstr ""
-"Usar el navegador para navegar a una página a la que has elegido crear un "
+"Utilizar el navegador para acceder al sitio web del que quiere crear el "
 "atajo."
 
 #: qml/TutorialDialog.qml:55 qml/StaticMainPageContent.qml:43
 msgid ""
 "Use the share option in the menu and select Webber to create the shortcut."
 msgstr ""
-"Utilizar la opción de compartir en el menú y seleccionar Webber para crear "
-"un atajo."
+"Utilice la opción para compartir en el menú y seleccione Webber para crear "
+"el atajo."
 
 #: qml/TutorialDialog.qml:61
 msgid "That's it! Enjoy!"
-msgstr ""
+msgstr "¡Así se hace! ¡Disfrute!"
 
 #: qml/TutorialDialog.qml:79 qml/StaticMainPageContent.qml:50
 msgid "Browse"
@@ -234,16 +245,16 @@ msgstr "Navegar"
 
 #: qml/HelpDialog.qml:37
 msgid "Learn more"
-msgstr ""
+msgstr "Aprender mas"
 
 #. i18n: Label below the icon selection
 #: qml/IconSelector.qml:41
 msgid "Default"
-msgstr "Por defecto"
+msgstr "Predefinido"
 
 #: qml/IconSelector.qml:42
 msgid "Icon specified in website meta data"
-msgstr "Icono especificado en los metadatos del sitio web"
+msgstr "Icono especificado en los metadatos del sitio"
 
 #. i18n: Label below the icon selection
 #: qml/IconSelector.qml:60 qml/ScreenshotDialog.qml:112
@@ -261,10 +272,4 @@ msgstr "Exportando..."
 
 #: qml/CustomIconSelector.qml:11
 msgid "Import custom icon"
-msgstr "Importar icono personalizado"
-
-#~ msgid "Enable desktop mode (via user agent)"
-#~ msgstr "Habilitar modo escritorio (vía «user agent»)"
-
-#~ msgid "Url (e.g. https://example.com)"
-#~ msgstr "Url (p.e. https://ejemplo.com)"
+msgstr "Importar un icono personalizado"
