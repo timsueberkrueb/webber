@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-14 21:15+0100\n"
-"PO-Revision-Date: 2020-03-14 21:18+0100\n"
+"POT-Creation-Date: 2021-09-11 11:56+0000\n"
+"PO-Revision-Date: 2021-09-11 14:17+0200\n"
 "Last-Translator: Tim Süberkrüb <dev@timsueberkrueb.io>\n"
 "Language-Team: German <>\n"
 "Language: de\n"
@@ -16,70 +16,212 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 3.0\n"
+
+#: qml/AboutDialog.qml:13
+msgid "About"
+msgstr "Über"
+
+#: qml/AboutDialog.qml:100
+msgid "Webapp shortcut creator for Ubuntu touch"
+msgstr "Web-App Shortcut-Tool für Ubuntu Touch"
+
+#: qml/AboutDialog.qml:115
+msgid "Rate"
+msgstr "Bewerten"
+
+#: qml/AboutDialog.qml:121
+msgid "Contribute"
+msgstr "Beitragen"
+
+#: qml/AboutDialog.qml:127
+msgid "Report bug"
+msgstr "Fehler melden"
 
 #. i18n: %1 is a placeholder for an example url. Do not change the %1!
-#: qml/AddPage.qml:43
+#: qml/AddPage.qml:37 qml/MiniBrowserBar.qml:61
 msgid "Url (e.g. %1)"
 msgstr "Url (z.B. %1)"
 
-#: qml/AddPage.qml:141
+#: qml/AddPage.qml:138
 msgid "Customize"
 msgstr "Anpassen"
 
-#: qml/AddPage.qml:172
+#: qml/AddPage.qml:169 qml/ScreenshotDialog.qml:105
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: qml/AddPage.qml:179
+#: qml/AddPage.qml:176
 msgid "Create"
 msgstr "Erstellen"
 
-#: qml/AddPage.qml:204
+#: qml/AddPage.qml:210
 msgid "Creating shortcut ..."
 msgstr "Erstelle Shortcut ..."
 
-#: qml/AddPage.qml:250
+#: qml/AddPage.qml:278
 msgid "Play audio"
 msgstr "Audio abspielen"
 
-#: qml/AddPage.qml:251
+#: qml/AddPage.qml:279
 msgid "Upload files from other apps"
 msgstr "Dateien aus anderen Apps hochladen"
 
-#: qml/AddPage.qml:252
+#: qml/AddPage.qml:280
 msgid "Export files to other apps"
 msgstr "Dateien zu anderen Apps exportieren"
 
-#: qml/AddPage.qml:253
+#: qml/AddPage.qml:281
 msgid "Keep the screen on"
 msgstr "Display anlassen"
 
-#: qml/AddPage.qml:254
+#: qml/AddPage.qml:282
 msgid "Access your location"
 msgstr "Position bestimmen"
 
-#: qml/AddPage.qml:255
+#: qml/AddPage.qml:283
 msgid "Access your camera"
 msgstr "Kamera verwenden"
 
-#: qml/AddPage.qml:256
+#: qml/AddPage.qml:284
 msgid "Acess your microphone"
 msgstr "Mikrophon verwenden"
 
-#: qml/AddPage.qml:257
+#: qml/AddPage.qml:285
 msgid "Access your sensors"
 msgstr "Sensoren verwenden"
 
-#: qml/InstallDialog.qml:14
-msgid "Exporting ..."
-msgstr "Exportiere ..."
+#: qml/SelectIconDialog.qml:18
+msgid "Select icon"
+msgstr "Symbol auswählen"
 
-#: qml/MainPage.qml:34 qml/OptionalSettings.qml:131
+#: qml/SelectIconDialog.qml:43
+msgid ""
+"No icons found in the website metadata, sorry! You could try to use a "
+"screenshot or custom icon instead."
+msgstr ""
+"In den Website-Metadaten wurden leider keine Symbole gefunden. Du könntest "
+"stattdessen einen Screenshot oder ein eigenes Bild als Symbol verwenden."
+
+#: qml/SelectIconDialog.qml:155 qml/TutorialDialog.qml:89 qml/HelpDialog.qml:44
+msgid "Close"
+msgstr "Schließen"
+
+#: qml/MainPage.qml:38 qml/OptionalSettings.qml:255
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: qml/MainPage.qml:77
+#: qml/EssentialSettings.qml:41
+msgid "Properties"
+msgstr "Eigenschaften"
+
+#: qml/EssentialSettings.qml:79
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+#: qml/EssentialSettings.qml:96
+msgid "Name"
+msgstr "Name"
+
+#: qml/EssentialSettings.qml:102
+msgid "Web app name"
+msgstr "Name der Web-App"
+
+#: qml/EssentialSettings.qml:107
+msgid "Icon"
+msgstr "Symbol"
+
+#: qml/OptionalSettings.qml:43
+msgid "Visuals & Behavior"
+msgstr "Visuelles & Verhalten"
+
+#: qml/OptionalSettings.qml:55
+msgid "Splash screen color (hex)"
+msgstr "Farbe des Startbildschirms (hex)"
+
+#: qml/OptionalSettings.qml:83
+msgid "Fullscreen"
+msgstr "Vollbildmodus"
+
+#: qml/OptionalSettings.qml:87
+msgid "Controls"
+msgstr "Steuerung"
+
+#: qml/OptionalSettings.qml:97
+msgid "Don't show a title bar"
+msgstr "Titelleiste verbergen"
+
+#: qml/OptionalSettings.qml:103
+msgid "Show title bar"
+msgstr "Titelleiste anzeigen"
+
+#: qml/OptionalSettings.qml:108
+msgid "Show title bar with back/forward buttons"
+msgstr "Titelleiste mit Vor- und Zurückknöpfen anzeigen"
+
+#: qml/OptionalSettings.qml:117
+msgid "Browser Identifier (User-Agent header)"
+msgstr "Browser-Identifizierung (User-Agent header)"
+
+#: qml/OptionalSettings.qml:124
+msgid ""
+"The User-Agent header is a string of text in a specific format that browsers "
+"send to servers to identify themselves. It contains technical information "
+"about the browser, operating system and vendor. Unfortunately, some websites "
+"restrict access or features based on the User-Agent header. To workaround "
+"this <a href=\"%1\">bad practice</a>, you can <a href=\"%2\">choose a common "
+"User-Agent header</a> that your website accepts and copy it into the text "
+"field below."
+msgstr ""
+"Der User-Agent-Header ist eine Zeichenfolge in einem bestimmten Format, die "
+"Browser an Server senden, um sich zu identifizieren. Er enthält technische "
+"Informationen über den Browser, das Betriebssystem und den Hersteller. "
+"Leider schränken einige Websites den Zugriff oder Funktionen basierend auf "
+"dem User-Agent-Header ein. Um diese <a href=\"%1\">schlechte Praxis</a>zu "
+"umgehen, kannst du einen <a href=\"%2\">eigenen User-Agent-Header setzen,</"
+"a> den deine Website akzeptiert, und ihn in das Textfeld unten kopieren."
+
+#: qml/OptionalSettings.qml:133
+msgid "User-Agent header"
+msgstr "User-Agent header"
+
+#: qml/OptionalSettings.qml:157
+msgid "Auto (default)"
+msgstr "Auto (standard)"
+
+#: qml/OptionalSettings.qml:176
+msgid "Mobile"
+msgstr "Mobil"
+
+#: qml/OptionalSettings.qml:195
+msgid "Desktop"
+msgstr "Desktop"
+
+#: qml/OptionalSettings.qml:213
+msgid "Custom User-Agent header"
+msgstr "Benutzerdefinierter User-Agent header"
+
+#: qml/OptionalSettings.qml:243
+msgid "Url patterns"
+msgstr "Url-Muster"
+
+#: qml/OptionalSettings.qml:306
+msgid "Permissions"
+msgstr "Berechtigungen"
+
+#: qml/TutorialDialog.qml:11
+msgid "Tutorial"
+msgstr "Anleitung"
+
+#: qml/TutorialDialog.qml:34
+msgid ""
+"Hey, welcome! Webber helps you to create shortcuts for your favorite "
+"websites. It's easy!"
+msgstr ""
+"Hey, willkommen! Webber hilft dir Verknüpfungen für deine Lieblings-"
+"Webseiten zu erstellen."
+
+#: qml/TutorialDialog.qml:40 qml/StaticMainPageContent.qml:41
 msgid ""
 "Use the webbrowser app to navigate to a website you like to add as a "
 "shortcut."
@@ -87,99 +229,54 @@ msgstr ""
 "Navigiere mit der Webbrowser-App zu der Website, die du als Shortcut "
 "hinzufügen möchtest."
 
-#: qml/MainPage.qml:79
+#: qml/TutorialDialog.qml:55 qml/StaticMainPageContent.qml:43
 msgid ""
 "Use the share option in the menu and select Webber to create the shortcut."
 msgstr ""
 "Verwende die Teilen-Option in dem Webbrowser-Menu und wähle Webber, um einen "
 "Shortcut zu erstellen."
 
-#: qml/MainPage.qml:86
+#: qml/TutorialDialog.qml:61
+msgid "That's it! Enjoy!"
+msgstr "Das ist alles! Viel Spaß!"
+
+#: qml/TutorialDialog.qml:79 qml/StaticMainPageContent.qml:50
 msgid "Browse"
 msgstr "Los geht's"
 
-#: qml/OptionalSettings.qml:39
-msgid "Visuals & Behavior"
-msgstr "Visuelles & Verhalten"
-
-#: qml/OptionalSettings.qml:51
-msgid "Splash screen color (hex)"
-msgstr "Farbe des Startbildschirms (hex)"
-
-#: qml/OptionalSettings.qml:79
-msgid "Fullscreen"
-msgstr "Vollbildmodus"
-
-#: qml/OptionalSettings.qml:84
-msgid "Enable desktop mode (via user agent)"
-msgstr "Aktiviere Desktopmodus (mittels User-Agent)"
-
-#: qml/OptionalSettings.qml:88
-msgid "Controls"
-msgstr "Steuerung"
-
-#: qml/OptionalSettings.qml:98
-msgid "Don't show a title bar"
-msgstr "Titelleiste verbergen"
-
-#: qml/OptionalSettings.qml:104
-msgid "Show title bar"
-msgstr "Titelleiste anzeigen"
-
-#: qml/OptionalSettings.qml:109
-msgid "Show title bar with back/forward buttons"
-msgstr "Titelleiste mit Vor- und Zurückknöpfen anzeigen"
-
-#: qml/OptionalSettings.qml:119
-msgid "Url patterns"
-msgstr "Url-Muster"
-
-#: qml/OptionalSettings.qml:182
-msgid "Permissions"
-msgstr "Berechtigungen"
+#: qml/HelpDialog.qml:37
+msgid "Learn more"
+msgstr "Mehr erfahren"
 
 #. i18n: Label below the icon selection
-#: qml/IconSelector.qml:40
+#: qml/IconSelector.qml:41
 msgid "Default"
 msgstr "Standard"
 
-#: qml/IconSelector.qml:41
+#: qml/IconSelector.qml:42
 msgid "Icon specified in website meta data"
 msgstr "Symbol aus Website-Metadaten"
 
 #. i18n: Label below the icon selection
-#: qml/IconSelector.qml:49
+#: qml/IconSelector.qml:60 qml/ScreenshotDialog.qml:112
 msgid "Screenshot"
 msgstr "Screenshot"
 
 #. i18n: Label below the icon selection
-#: qml/IconSelector.qml:57
+#: qml/IconSelector.qml:68
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: qml/EssentialSettings.qml:39
-msgid "Properties"
-msgstr "Eigenschaften"
-
-#: qml/EssentialSettings.qml:77
-msgid "Refresh"
-msgstr "Aktualisieren"
-
-#: qml/EssentialSettings.qml:94
-msgid "Name"
-msgstr "Name"
-
-#: qml/EssentialSettings.qml:100
-msgid "Web app name"
-msgstr "Name der Web-App"
-
-#: qml/EssentialSettings.qml:105
-msgid "Icon"
-msgstr "Symbol"
+#: qml/InstallDialog.qml:14
+msgid "Exporting ..."
+msgstr "Exportiere ..."
 
 #: qml/CustomIconSelector.qml:11
 msgid "Import custom icon"
 msgstr "Eigenes Symbol wählen"
+
+#~ msgid "Enable desktop mode (via user agent)"
+#~ msgstr "Aktiviere Desktopmodus (mittels User-Agent)"
 
 #~ msgid "Url (e.g. https://example.com)"
 #~ msgstr "Url (z.B. https://example.com)"
