@@ -127,12 +127,6 @@ AdaptiveDialog {
                     text: "🐛 %1".arg(i18n.tr("Report bug"))
                     onClicked: Qt.openUrlExternally("https://github.com/timsueberkrueb/webber/issues/new")
                 }
-
-                Button {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: i18n.tr("Close")
-                    onClicked: dialog.close()
-                }
             }
         }
     }
