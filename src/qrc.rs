@@ -1,5 +1,7 @@
 qrc!(qml_resources,
     "/" {
+        "qml/AboutDialog.qml",
+        "qml/AdaptiveDialog.qml",
         "qml/AddPage.qml",
         "qml/App.qml",
         "qml/ContentImport.qml",
@@ -23,10 +25,18 @@ qrc!(qml_resources,
         "qml/ScreenshotAreaCorner.qml",
         "qml/ScreenshotDialog.qml",
         "qml/ScreenshotSelector.qml",
+        "qml/SelectIconDialog.qml",
+        "qml/StaticMainPageContent.qml",
+        "qml/TutorialDialog.qml",
         "qml/UserAgent.qml",
+        "qml/WebberAnimation.qml",
         "assets/icon.svg",
         "assets/webber_spider.svg",
-    },
+        "assets/swing_anim.gif",
+        "assets/drop_anim.gif",
+        "assets/hi_anim.gif",
+        "assets/tutorial_browser_share.jpg",
+    }
 );
 
 pub fn load() {

@@ -1,17 +1,19 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.2
 import QtQuick.Controls.Suru 2.2
+import QtGraphicalEffects 1.0
 import Ubuntu.Components 1.3 as UUITK
+import Webber 1.0
 import "."
 
 Page {
+    id: mainPage
+
     header: ToolBar {
         height: Suru.units.gu(6)
 
-        background: Rectangle {
-            color: "#80a3fa"
-        }
+        background: Rectangle { color: App.themeColor }
 
         RowLayout {
             anchors.fill: parent
@@ -42,56 +44,37 @@ Page {
         }
     }
 
-    Item {
+    StaticMainPageContent {
+        anchors.fill: parent
+    }
+
+    RoundButton {
         anchors {
-            fill: parent
-            margins: 16
+            left: parent.left
+            bottom: parent.bottom
+            margins: Suru.units.dp(32)
         }
 
-        Item {
-            anchors.centerIn: parent
-            width: parent.width - units.gu(4)
-            height: column.height
+        contentItem: UUITK.Icon { name: "help" }
+        onClicked: tutorialDialog.open()
+    }
 
-            Column {
-                id: column
-
-                spacing: Suru.units.gu(2)
-                width: parent.width
-                height: childrenRect.height
-
-                Row {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: Suru.units.gu(2)
-
-                    UUITK.Icon {
-                        width: Suru.units.gu(10)
-                        height: Suru.units.gu(10)
-                        name: "webbrowser-app-symbolic"
-                    }
-
-                    UUITK.Icon {
-                        width: Suru.units.gu(10)
-                        height: Suru.units.gu(10)
-                        name: "share"
-                    }
-                }
-
-                Label {
-                    width: parent.width
-                    text: i18n.tr("Use the webbrowser app to navigate to a website you like to add as a shortcut.") +
-                          " " +
-                          i18n.tr("Use the share option in the menu and select Webber to create the shortcut.")
-                    wrapMode: Text.WordWrap
-                    horizontalAlignment: Qt.AlignHCenter
-                }
-
-                Button {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: i18n.tr("Browse")
-                    onClicked: Qt.openUrlExternally("application:///morph-browser.desktop")
-                }
-            }
+    RoundButton {
+        anchors {
+            right: parent.right
+            bottom: parent.bottom
+            margins: Suru.units.dp(32)
         }
+
+        contentItem: UUITK.Icon { name: "info" }
+        onClicked: aboutDialog.open()
+    }
+
+    TutorialDialog {
+        id: tutorialDialog
+    }
+
+    AboutDialog {
+        id: aboutDialog
     }
 }

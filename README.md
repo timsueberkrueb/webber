@@ -37,7 +37,7 @@ Rust nightly is required until the following nightly features stabilize:
 
 ## Credits
 
-Thanks to Hendrik Süberkrüb for creating the application icon.
+Thanks to Hendrik Süberkrüb for creating the application icon and Webber animation.
 
 Thanks to everyone who has contributed code or translations!
 
@@ -48,3 +48,6 @@ Public License version 3 or, at your option, any later version.
 
 The file `qml/UserAgent.qml` is licensed under the terms of the GNU General Public License version 3
 as stated in its license header.
+
+The file `src/qt/qmetaobject_rust.hpp` is licensed under the terms of the MIT License as stated in
+its license header.

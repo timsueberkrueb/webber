@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+use std::hash::Hash;
 use std::string::ToString;
 
 use csscolorparser::Color;
@@ -28,6 +30,7 @@ impl ScrapedSite<Resolved> {
             .map(|icon| icon.src)
             .collect::<Vec<_>>();
         icons.extend(self.icons.into_iter());
+        icons.prune_duplicates();
 
         let mut url_patterns = self.default_url_patterns;
 
@@ -35,7 +38,12 @@ impl ScrapedSite<Resolved> {
             let scope_url = scope_url.join("/").unwrap_or(scope_url);
             if let Some(host_str) = scope_url.host_str() {
                 let scope_str = format!("https?://{}{}*", host_str, scope_url.path());
-                url_patterns = vec![scope_str];
+                // Some sites' scope is actually insufficient (e.g. their scope is https://example.com/ but
+                // they redirect to https://m.example.com). Hence we don't replace the default patterns,
+                // but instead just add the scope pattern:
+                if !url_patterns.contains(&scope_str) {
+                    url_patterns.push(scope_str);
+                }
             }
         }
 
@@ -93,12 +101,20 @@ impl ScrapedSite<Unresolved> {
             .and_then(|el| el.value().attr("content"))
             .and_then(|c| c.parse().ok());
 
-        let favicon_sel = scraper::Selector::parse("html > head > link[rel='icon']").unwrap();
+        let favicon_sel = scraper::Selector::parse("html > head > link[rel~='icon']").unwrap();
+        let shortcut_sel = scraper::Selector::parse("html > head > link[rel~='shortcut']").unwrap();
         let apple_icon_sel =
-            scraper::Selector::parse("html > head > link[rel='apple-touch-icon']").unwrap();
+            scraper::Selector::parse("html > head > link[rel~='apple-touch-icon']").unwrap();
+        let opengraph_sel =
+            scraper::Selector::parse("html > head > meta[property~='og:image']").unwrap();
 
         let favicon_url = html
             .select(&favicon_sel)
+            .next()
+            .and_then(|el| el.value().attr("href").map(String::from));
+
+        let shortcut_icon_url = html
+            .select(&shortcut_sel)
             .next()
             .and_then(|el| el.value().attr("href").map(String::from));
 
@@ -107,7 +123,17 @@ impl ScrapedSite<Unresolved> {
             .next()
             .and_then(|el| el.value().attr("href").map(String::from));
 
-        let icons = LossyVec::from(vec![favicon_url, apple_icon_url]);
+        let open_graph_images = html
+            .select(&opengraph_sel)
+            .map(|el| el.value().attr("content").map(String::from));
+
+        let mut icons = vec![apple_icon_url];
+        icons.push(shortcut_icon_url);
+        icons.extend(open_graph_images);
+        icons.push(favicon_url);
+        icons.prune_duplicates();
+
+        let icons = LossyVec::from(icons);
 
         let mut default_url_patterns = Vec::new();
 
@@ -159,4 +185,22 @@ impl Resolvable for ScrapedSite<Unresolved> {
 pub fn validate_url(url: String) -> Result<Url, String> {
     let url = Url::parse(&url).map_err(|err| err.to_string())?;
     Ok(url)
+}
+
+trait PruneDuplicates {
+    fn prune_duplicates(&mut self);
+}
+
+impl<T: Eq + Hash + Clone> PruneDuplicates for Vec<T> {
+    fn prune_duplicates(&mut self) {
+        let mut seen = HashSet::new();
+        self.retain(|el| {
+            if seen.contains(el) {
+                false
+            } else {
+                seen.insert(el.clone());
+                true
+            }
+        });
+    }
 }

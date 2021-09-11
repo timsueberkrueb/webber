@@ -3,6 +3,7 @@ pragma Singleton
 import QtQuick 2.0
 
 QtObject {
+    readonly property color themeColor: "#80a3fa"
     property var dialogContainer: null
     property var stackView: null
     property var helpDialog: null

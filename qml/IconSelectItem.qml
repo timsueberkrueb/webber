@@ -11,7 +11,8 @@ Column {
     property alias text: radioButton.text
     property string helpText: ""
     property string placeholderIconName: ""
-    property alias source: iconImage.source
+    property string source: ""
+    property string sourcePrefix: ""
     property bool loading: false
     property alias checked: radioButton.checked
 
@@ -26,14 +27,14 @@ Column {
             anchors.fill: parent
 
             backgroundColor: iconImage.source == "" ? Suru.neutralColor : "white"
-            source: iconImage.source != "" && iconImage.status === Image.Ready ? iconImage : null
+            aspect: UUITK.UbuntuShape.Inset
 
-            Image {
+            source: Image {
                 id: iconImage
-
                 sourceSize.width: Suru.units.gu(8)
                 sourceSize.height: Suru.units.gu(8)
                 cache: false
+                source: iconSelectItem.source !== "" ? iconSelectItem.sourcePrefix + iconSelectItem.source : ""
             }
 
             UUITK.Icon {

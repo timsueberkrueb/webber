@@ -12,6 +12,7 @@ WebEngineView {
     property rect screenshotArea
 
     zoomFactor: (units.gridUnit / 8)
+    profile: WebEngineProfile { offTheRecord: true }
 
     signal screenshotMade(url source)
 

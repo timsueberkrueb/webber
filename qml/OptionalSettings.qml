@@ -31,7 +31,7 @@ Item {
     implicitHeight: visible ? column.childrenRect.height : 0
     visible: showing
 
-    ColumnLayout {
+    Column {
         id: column
 
         width: parent.width
@@ -45,7 +45,7 @@ Item {
         }
 
         GridLayout {
-            Layout.fillWidth: true
+            width: parent.width
 
             columns: 2
             columnSpacing: Suru.units.gu(1)
@@ -89,7 +89,7 @@ Item {
         }
 
         Column {
-            Layout.fillWidth: true
+            width: parent.width
             spacing: Suru.units.gu(1)
 
             RadioButton {
@@ -110,7 +110,7 @@ Item {
         }
 
         RowLayout {
-            Layout.fillWidth: true
+            width: parent.width
             spacing: units.gu(1)
 
             Label {
@@ -132,10 +132,12 @@ and copy it into the text field below.")
                 iconName: "help"
                 onClicked: App.showHelp(i18n.tr("User-Agent header"), helpText, "https://user-agents.net")
             }
+
+            Item { Layout.fillWidth: true }
         }
 
-        GridLayout {
-            Layout.fillWidth: true
+        Grid {
+            width: parent.width
 
             columns: 2
             columnSpacing: 0
@@ -203,7 +205,7 @@ and copy it into the text field below.")
             }
 
             Item {
-                Layout.fillWidth: true
+                width: parent.width
                 implicitHeight: customUAField.implicitHeight
 
                 UUITK.TextField {
@@ -233,7 +235,7 @@ and copy it into the text field below.")
         }
 
         RowLayout {
-            Layout.fillWidth: true
+            width: parent.width
 
             spacing: units.gu(1)
 
@@ -258,7 +260,7 @@ and copy it into the text field below.")
         ListView {
             id: urlPatternsView
 
-            Layout.fillWidth: true
+            width: parent.width
             implicitHeight: contentHeight
             interactive: false
 
@@ -297,7 +299,7 @@ and copy it into the text field below.")
         }
 
         RowLayout {
-            Layout.fillWidth: true
+            width: parent.width
             spacing: units.gu(1)
 
             Label {
@@ -309,10 +311,12 @@ and copy it into the text field below.")
                 iconName: "help"
                 onClicked: Qt.openUrlExternally("http://docs.ubports.com/en/latest/appdev/platform/apparmor.html")
             }
+
+            Item { Layout.fillWidth: true }
         }
 
         ListView {
-            Layout.fillWidth: true
+            width: parent.width
             implicitHeight: contentHeight
             interactive: false
 

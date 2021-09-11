@@ -9,7 +9,7 @@ Item {
 
     readonly property bool useScreenshotIcon: iconSelector.useScreenshotIcon
     readonly property bool useCustomIcon: iconSelector.useCustomIcon
-    property url iconUrl
+    property string iconUrl
     property string url
     property var scraper
     property var appModel
@@ -18,10 +18,10 @@ Item {
 
     function loadDefaults() {
         nameField.text = "";
-        iconUrl = "";
         iconSelector.loadDefaults();
     }
 
+    signal selectIconRequested()
     signal customIconRequested()
     signal screenshotRequested()
     signal screenshotMade()
@@ -31,7 +31,7 @@ Item {
 
     implicitHeight: column.childrenRect.height
 
-    ColumnLayout {
+    Column {
         id: column
         width: parent.width
 
@@ -47,7 +47,7 @@ Item {
 
             visible: scraper.errorString !== "" && url !== ""
 
-            Layout.fillWidth: true
+            width: parent.width
 
             implicitHeight: childrenRect.height + Suru.units.gu(2)
 
@@ -86,7 +86,7 @@ Item {
         }
 
         GridLayout {
-            Layout.fillWidth: true
+            width: parent.width
 
             columns: 2
             columnSpacing: Suru.units.gu(1)
@@ -109,7 +109,7 @@ Item {
         }
 
         Flickable {
-            Layout.fillWidth: true
+            width: parent.width
             height: iconSelContent.height
             contentWidth: iconSelContent.width
             interactive: width < contentWidth
@@ -125,6 +125,7 @@ Item {
                     defaultIconUrl: iconUrl
                     screenshotIconPath: appModel.screenshotIconPath
                     customIconSource: essentialSettings.customIconSource
+                    onSelectIconRequested: essentialSettings.selectIconRequested()
                     onCustomIconRequested: essentialSettings.customIconRequested()
                     onScreenshotRequested: essentialSettings.screenshotRequested()
                 }

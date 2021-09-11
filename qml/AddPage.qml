@@ -105,9 +105,11 @@ Page {
                         id: essentialSettings
                         width: parent.width
                         url: urlField.text
+                        iconUrl: selectIconDialog.selectedIconUrl
                         scraper: scraper
                         appModel: appModel
                         customIconSource: customIconSelector.source
+                        onSelectIconRequested: selectIconDialog.open()
                         onCustomIconRequested: customIconSelector.open()
                         onScreenshotRequested: screenshotDialog.open()
                     }
@@ -193,6 +195,10 @@ Page {
         height: parent.height - units.gu(4)
     }
 
+    SelectIconDialog {
+        id: selectIconDialog
+    }
+
     Dialog {
         id: addDialog
 
@@ -264,6 +270,7 @@ Page {
             loadPermissions();
 
             customIconSelector.source = Qt.resolvedUrl("");
+            selectIconDialog.resetSelected();
         }
 
         function loadPermissions() {
@@ -300,7 +307,7 @@ Page {
 
         url: urlField.text
         name: essentialSettings.name
-        iconUrl: scraper.iconUrl
+        iconUrl: selectIconDialog.selectedIconUrl
         themeColor: optionalSettings.themeColor
         enableAddressBar: optionalSettings.enableAddressBar
         enableBackForward: optionalSettings.enableBackForward
@@ -338,11 +345,17 @@ Page {
             if (themeColor != "" && optionalSettings.isValidColor(themeColor)) {
                 optionalSettings.themeColor= themeColor;
             }
-            essentialSettings.iconUrl = iconUrl !== "" ? Qt.resolvedUrl(iconUrl) : "";
             if (defaultUrlPatterns !== []) {
                 appModel.urlPatterns.clear();
                 for (var i=0; i<defaultUrlPatterns.length; ++i) {
                     appModel.urlPatterns.add(defaultUrlPatterns[i]);
+                }
+            }
+
+            if (icons !== []) {
+                IconModel.clear();
+                for (var i=0; i<icons.length; ++i) {
+                    IconModel.add(icons[i]);
                 }
             }
         }

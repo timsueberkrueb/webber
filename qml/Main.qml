@@ -50,19 +50,6 @@ ApplicationWindow {
 
     HelpDialog {
         id: helpDialog
-
-        parent: App.dialogContainer
-
-        x: (parent.width - width) / 2
-        y: (parent.height - height) / 2
-
-        onClosed: Qt.inputMethod.hide()
-
-        width: parent.width - Suru.units.gu(4)
-        height: Math.min(implicitHeight, parent.height - Suru.units.gu(4))
-
-        modal: true
-        closePolicy: Dialog.NoAutoClose
     }
 
     Component.onCompleted: {

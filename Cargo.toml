@@ -6,8 +6,8 @@ edition = "2018"
 build = "src/build.rs"
 
 [dependencies]
-qmetaobject = { version = "0.2.3", features = ["webengine"] }
-qttypes = { version = "0.2.3", features = ["qtwebengine", "qtquick", "qtquickcontrols2"] }
+qmetaobject = { git = "https://github.com/timsueberkrueb/qmetaobject-rs.git", features = ["webengine"] }
+qttypes = { git = "https://github.com/timsueberkrueb/qmetaobject-rs.git", features = ["qtwebengine", "qtquick", "qtquickcontrols2"] }
 cstr = "0.2"
 cpp = "0.5"
 url = { version = "2", features = ["serde"] }

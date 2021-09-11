@@ -9,10 +9,11 @@ RowLayout {
 
     readonly property bool useScreenshotIcon: iconScreenshot.checked
     readonly property bool useCustomIcon: iconCustom.checked
-    property url defaultIconUrl: Qt.resolvedUrl("")
+    property string defaultIconUrl
     property string screenshotIconPath
     property url customIconSource
 
+    signal selectIconRequested()
     signal screenshotRequested()
     signal customIconRequested()
     signal screenshotMade()
@@ -41,7 +42,9 @@ RowLayout {
         helpText: i18n.tr("Icon specified in website meta data")
         placeholderIconName: "stock_website"
         source: defaultIconUrl
+        sourcePrefix: "image://webber-icons/"
         checked: true
+        onIconClicked: iconSelector.selectIconRequested()
     }
 
     IconSelectItem {

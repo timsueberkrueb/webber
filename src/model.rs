@@ -21,6 +21,7 @@ pub struct WebScraper {
     title: qt_property!(QString; NOTIFY scraped),
     themeColor: qt_property!(QString; NOTIFY scraped),
     iconUrl: qt_property!(QString; NOTIFY scraped),
+    icons: qt_property!(QVariant; NOTIFY scraped),
     defaultUrlPatterns: qt_property!(QVariant; NOTIFY scraped),
     scraped: qt_signal!(),
     busy: qt_property!(bool; NOTIFY busyChanged),
@@ -73,6 +74,13 @@ impl WebScraper {
                     QString::from(res.theme_color.unwrap_or(white).to_hex_string());
                 self_.borrow_mut().iconUrl =
                     QString::from(preferred_icon.map(Url::as_str).unwrap_or_default());
+
+                let mut icons = QVariantList::default();
+                for icon in res.icons {
+                    icons.push(QVariant::from(QString::from(icon.as_str())));
+                }
+                self_.borrow_mut().icons = QVariant::from(icons);
+
                 let mut list = QVariantList::default();
                 for pat in res.default_url_patterns {
                     list.push(QVariant::from(QString::from(pat)));
