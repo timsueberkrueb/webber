@@ -6,11 +6,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-11 11:56+0000\n"
-"PO-Revision-Date: 2020-03-15 10:34+0100\n"
-"Last-Translator: Tim Süberkrüb <dev@timsueberkrueb.io>\n"
+"POT-Creation-Date: 2021-09-11 12:25+0000\n"
+"PO-Revision-Date: 2021-09-12 17:43+0200\n"
+"Last-Translator: Anne017 <anneonyme017@openmailbox.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,23 +18,23 @@ msgstr ""
 
 #: qml/AboutDialog.qml:13
 msgid "About"
-msgstr ""
+msgstr "À propos"
 
 #: qml/AboutDialog.qml:100
 msgid "Webapp shortcut creator for Ubuntu touch"
-msgstr ""
+msgstr "Créateur de raccourcis vers des applications Web pour Ubuntu Touch"
 
 #: qml/AboutDialog.qml:115
 msgid "Rate"
-msgstr ""
+msgstr "Noter"
 
 #: qml/AboutDialog.qml:121
 msgid "Contribute"
-msgstr ""
+msgstr "Contribuer"
 
 #: qml/AboutDialog.qml:127
 msgid "Report bug"
-msgstr ""
+msgstr "Signaler un problème"
 
 #. i18n: %1 is a placeholder for an example url. Do not change the %1!
 #: qml/AddPage.qml:37 qml/MiniBrowserBar.qml:61
@@ -91,17 +91,20 @@ msgstr "Accéder à vos capteurs"
 
 #: qml/SelectIconDialog.qml:18
 msgid "Select icon"
-msgstr ""
+msgstr "Sélectionner une icône"
 
 #: qml/SelectIconDialog.qml:43
 msgid ""
 "No icons found in the website metadata, sorry! You could try to use a "
 "screenshot or custom icon instead."
 msgstr ""
+"Aucune icône trouvée dans les métadonnées du site internet, désolé ! Vous "
+"pouvez essayer d'utiliser une capture d'écran ou une icône personnalisée à "
+"la place."
 
 #: qml/SelectIconDialog.qml:155 qml/TutorialDialog.qml:89 qml/HelpDialog.qml:44
 msgid "Close"
-msgstr ""
+msgstr "Fermer"
 
 #: qml/MainPage.qml:38 qml/OptionalSettings.qml:255
 msgid "Add"
@@ -157,7 +160,7 @@ msgstr "Afficher la barre de titre avec les boutons précédent/suivant"
 
 #: qml/OptionalSettings.qml:117
 msgid "Browser Identifier (User-Agent header)"
-msgstr ""
+msgstr "Identifiant de navigateur (en-tête d'agent utilisateur)"
 
 #: qml/OptionalSettings.qml:124
 msgid ""
@@ -169,26 +172,35 @@ msgid ""
 "User-Agent header</a> that your website accepts and copy it into the text "
 "field below."
 msgstr ""
+"L'en-tête de l'agent utilisateur est une chaîne de texte dans un format "
+"spécifique que les navigateurs envoient aux serveurs pour s'identifier. Il "
+"contient des informations techniques sur le navigateur, le système "
+"d'exploitation et le fournisseur. Malheureusement, certains sites internet "
+"restreignent l'accès ou les fonctionnalités en fonction de l'en-tête de "
+"l'agent utilisateur. Pour contourner cette <a href=\"%1\">mauvaise pratique</"
+"a>, vous pouvez <a href=\"%2\">choisir un en-tête d'agent utilisateur "
+"commun</a> que votre site internet accepte et le copier dans le champ de "
+"texte ci-dessous."
 
 #: qml/OptionalSettings.qml:133
 msgid "User-Agent header"
-msgstr ""
+msgstr "En-tête d'agent utilisateur"
 
 #: qml/OptionalSettings.qml:157
 msgid "Auto (default)"
-msgstr ""
+msgstr "Automatique (par défaut)"
 
 #: qml/OptionalSettings.qml:176
 msgid "Mobile"
-msgstr ""
+msgstr "Mobile"
 
 #: qml/OptionalSettings.qml:195
 msgid "Desktop"
-msgstr ""
+msgstr "Bureau"
 
 #: qml/OptionalSettings.qml:213
 msgid "Custom User-Agent header"
-msgstr ""
+msgstr "En-tête d'agent utilisateur personnalisé"
 
 #: qml/OptionalSettings.qml:243
 msgid "Url patterns"
@@ -200,13 +212,15 @@ msgstr "Permissions"
 
 #: qml/TutorialDialog.qml:11
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutoriel"
 
 #: qml/TutorialDialog.qml:34
 msgid ""
 "Hey, welcome! Webber helps you to create shortcuts for your favorite "
 "websites. It's easy!"
 msgstr ""
+"Bonjour ! Webber vous aide à créer des raccourcis vers vos sites internet "
+"favoris. C'est simple !"
 
 #: qml/TutorialDialog.qml:40 qml/StaticMainPageContent.qml:41
 msgid ""
@@ -225,7 +239,7 @@ msgstr ""
 
 #: qml/TutorialDialog.qml:61
 msgid "That's it! Enjoy!"
-msgstr ""
+msgstr "C'est tout ! Profitez !"
 
 #: qml/TutorialDialog.qml:79 qml/StaticMainPageContent.qml:50
 msgid "Browse"
@@ -233,7 +247,7 @@ msgstr "Ouvrir le navigateur"
 
 #: qml/HelpDialog.qml:37
 msgid "Learn more"
-msgstr ""
+msgstr "En savoir plus"
 
 #. i18n: Label below the icon selection
 #: qml/IconSelector.qml:41
