@@ -7,36 +7,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-11 11:56+0000\n"
-"PO-Revision-Date: 2020-07-13 17:12+0200\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"POT-Creation-Date: 2021-09-11 12:25+0000\n"
+"PO-Revision-Date: 2021-09-12 14:45+0200\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: qml/AboutDialog.qml:13
 msgid "About"
-msgstr ""
+msgstr "Over"
 
 #: qml/AboutDialog.qml:100
 msgid "Webapp shortcut creator for Ubuntu touch"
-msgstr ""
+msgstr "Maak webapp-snelkoppelingen op Ubuntu Touch"
 
 #: qml/AboutDialog.qml:115
 msgid "Rate"
-msgstr ""
+msgstr "Beoordelen"
 
 #: qml/AboutDialog.qml:121
 msgid "Contribute"
-msgstr ""
+msgstr "Bijdragen"
 
 #: qml/AboutDialog.qml:127
 msgid "Report bug"
-msgstr ""
+msgstr "Bug melden"
 
 #. i18n: %1 is a placeholder for an example url. Do not change the %1!
 #: qml/AddPage.qml:37 qml/MiniBrowserBar.qml:61
@@ -57,7 +57,7 @@ msgstr "Maken"
 
 #: qml/AddPage.qml:210
 msgid "Creating shortcut ..."
-msgstr "Bezig met maken van snelkoppeling..."
+msgstr "Bezig met maken van snelkoppeling…"
 
 #: qml/AddPage.qml:278
 msgid "Play audio"
@@ -93,17 +93,19 @@ msgstr "Mag je sensors gebruiken"
 
 #: qml/SelectIconDialog.qml:18
 msgid "Select icon"
-msgstr ""
+msgstr "Kies een pictogram"
 
 #: qml/SelectIconDialog.qml:43
 msgid ""
 "No icons found in the website metadata, sorry! You could try to use a "
 "screenshot or custom icon instead."
 msgstr ""
+"Er zijn geen pictogrammen aangetroffen in de websitegegevens - gebruik een "
+"schermfoto of aangepast pictogram."
 
 #: qml/SelectIconDialog.qml:155 qml/TutorialDialog.qml:89 qml/HelpDialog.qml:44
 msgid "Close"
-msgstr ""
+msgstr "Sluiten"
 
 #: qml/MainPage.qml:38 qml/OptionalSettings.qml:255
 msgid "Add"
@@ -155,11 +157,11 @@ msgstr "Titelbalk"
 
 #: qml/OptionalSettings.qml:108
 msgid "Show title bar with back/forward buttons"
-msgstr "Titelbalk met knoppen 'Vorige' en 'Volgende'"
+msgstr "Titelbalk met knoppen ‘Vorige’ en ‘Volgende’"
 
 #: qml/OptionalSettings.qml:117
 msgid "Browser Identifier (User-Agent header)"
-msgstr ""
+msgstr "Browseridentificatie (gebruikersagent)"
 
 #: qml/OptionalSettings.qml:124
 msgid ""
@@ -171,26 +173,33 @@ msgid ""
 "User-Agent header</a> that your website accepts and copy it into the text "
 "field below."
 msgstr ""
+"De gebruikersagent is een tekenreeks die browsers gebruiken om zichzelf "
+"kenbaar te maken aan servers. Deze tekenreeks bestaat uit technische "
+"informatie over je browser, besturingssysteem en toestelfabrikant. Helaas "
+"beperken sommige websites zich tot bepaalde gebruikersagenten. Om dit <a "
+"href=\"%1\">vervelende gedrag</a> te omzeilen, kun je een <a href="
+"\"%2\">gebruikersagent kiezen</a> die wél geaccepteerd wordt en in "
+"onderstaand tekstveld plakken."
 
 #: qml/OptionalSettings.qml:133
 msgid "User-Agent header"
-msgstr ""
+msgstr "Gebruikersagent"
 
 #: qml/OptionalSettings.qml:157
 msgid "Auto (default)"
-msgstr ""
+msgstr "Automatisch (standaard)"
 
 #: qml/OptionalSettings.qml:176
 msgid "Mobile"
-msgstr ""
+msgstr "Mobiel"
 
 #: qml/OptionalSettings.qml:195
 msgid "Desktop"
-msgstr ""
+msgstr "Computer"
 
 #: qml/OptionalSettings.qml:213
 msgid "Custom User-Agent header"
-msgstr ""
+msgstr "Aangepaste gebruikersagent"
 
 #: qml/OptionalSettings.qml:243
 msgid "Url patterns"
@@ -198,17 +207,19 @@ msgstr "URL-patronen"
 
 #: qml/OptionalSettings.qml:306
 msgid "Permissions"
-msgstr "Machtigingen"
+msgstr "Bevoegdheden"
 
 #: qml/TutorialDialog.qml:11
 msgid "Tutorial"
-msgstr ""
+msgstr "Uitleg"
 
 #: qml/TutorialDialog.qml:34
 msgid ""
 "Hey, welcome! Webber helps you to create shortcuts for your favorite "
 "websites. It's easy!"
 msgstr ""
+"Hoi, welkom in Webber! Met deze app kun je heel gemakkelijk snelkoppelingen "
+"(webapps) maken van je favoriete sites."
 
 #: qml/TutorialDialog.qml:40 qml/StaticMainPageContent.qml:41
 msgid ""
@@ -221,11 +232,11 @@ msgstr ""
 #: qml/TutorialDialog.qml:55 qml/StaticMainPageContent.qml:43
 msgid ""
 "Use the share option in the menu and select Webber to create the shortcut."
-msgstr "Open het menu, druk op 'Delen' en kies Webber."
+msgstr "Open het menu, druk op ‘Delen’ en kies Webber."
 
 #: qml/TutorialDialog.qml:61
 msgid "That's it! Enjoy!"
-msgstr ""
+msgstr "Veel plezier met Webber!"
 
 #: qml/TutorialDialog.qml:79 qml/StaticMainPageContent.qml:50
 msgid "Browse"
@@ -233,7 +244,7 @@ msgstr "Browser openen"
 
 #: qml/HelpDialog.qml:37
 msgid "Learn more"
-msgstr ""
+msgstr "Meer informatie"
 
 #. i18n: Label below the icon selection
 #: qml/IconSelector.qml:41
@@ -242,7 +253,7 @@ msgstr "Standaard"
 
 #: qml/IconSelector.qml:42
 msgid "Icon specified in website meta data"
-msgstr "Pictogram uit de website-metagegevens"
+msgstr "Pictogram uit websitegegevens"
 
 #. i18n: Label below the icon selection
 #: qml/IconSelector.qml:60 qml/ScreenshotDialog.qml:112
@@ -256,7 +267,7 @@ msgstr "Aangepast"
 
 #: qml/InstallDialog.qml:14
 msgid "Exporting ..."
-msgstr "Bezig met exporteren..."
+msgstr "Bezig met exporteren…"
 
 #: qml/CustomIconSelector.qml:11
 msgid "Import custom icon"
