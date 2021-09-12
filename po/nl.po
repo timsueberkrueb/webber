@@ -232,7 +232,7 @@ msgstr ""
 #: qml/TutorialDialog.qml:55 qml/StaticMainPageContent.qml:43
 msgid ""
 "Use the share option in the menu and select Webber to create the shortcut."
-msgstr "Open het menu, druk op ‘Delen’ en kies Webber."
+msgstr "Open daarna het menu, druk op ‘Delen’ en kies Webber."
 
 #: qml/TutorialDialog.qml:61
 msgid "That's it! Enjoy!"
