@@ -1,1 +1,281 @@
+# Arabic translations for PACKAGE package.
+# Copyright (C) 2020 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Tim Süberkrüb <dev@timsueberkrueb.io>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-06 10:40+0000\n"
+"PO-Revision-Date: 2021-10-06 15:05+0000\n"
+"Last-Translator: HEROBRINE7GAMER <tapermeerkat77@gmail.com>\n"
+"Language-Team: Arabic <>\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0\n"
 
+#: qml/AboutDialog.qml:13
+msgid "About"
+msgstr "حول"
+
+#: qml/AboutDialog.qml:100
+msgid "Webapp shortcut creator for Ubuntu touch"
+msgstr "صانع اختصارات تطبيقات الإنترنت لأوبونتو توتش"
+
+#: qml/AboutDialog.qml:115
+msgid "Rate"
+msgstr "تقييم"
+
+#: qml/AboutDialog.qml:121
+msgid "Contribute"
+msgstr "ساهم"
+
+#: qml/AboutDialog.qml:127
+msgid "Report bug"
+msgstr "أبلغ عن خطأ"
+
+#. i18n: %1 is a placeholder for an example url. Do not change the %1!
+#: qml/AddPage.qml:37 qml/MiniBrowserBar.qml:61
+msgid "Url (e.g. %1)"
+msgstr "(%1مثال. )الرابط"
+
+#: qml/AddPage.qml:138
+msgid "Customize"
+msgstr "تخصيص"
+
+#: qml/AddPage.qml:169 qml/ScreenshotDialog.qml:105
+msgid "Reset"
+msgstr "إعادة تعيين"
+
+#: qml/AddPage.qml:176
+msgid "Create"
+msgstr "أنشئ"
+
+#: qml/AddPage.qml:210
+msgid "Creating shortcut ..."
+msgstr "إنشاء الإختصارات"
+
+#: qml/AddPage.qml:278
+msgid "Play audio"
+msgstr "شغل الصوت"
+
+#: qml/AddPage.qml:279
+msgid "Upload files from other apps"
+msgstr "تحميل الملفات من تطبيقات أخرى"
+
+#: qml/AddPage.qml:280
+msgid "Export files to other apps"
+msgstr "تصدير الملفات إلى تطبيقات أخرى"
+
+#: qml/AddPage.qml:281
+msgid "Keep the screen on"
+msgstr "أبق الشاشة مشغلة"
+
+#: qml/AddPage.qml:282
+msgid "Access your location"
+msgstr "الوصول إلى موقعك"
+
+#: qml/AddPage.qml:283
+msgid "Access your camera"
+msgstr "الوصول إلى الكاميرا"
+
+#: qml/AddPage.qml:284
+msgid "Acess your microphone"
+msgstr "الوصول إلى الميكروفون"
+
+#: qml/AddPage.qml:285
+msgid "Access your sensors"
+msgstr "الوصول إلى الحساسات"
+
+#: qml/SelectIconDialog.qml:18
+msgid "Select icon"
+msgstr "اختر أيقونة"
+
+#: qml/SelectIconDialog.qml:43
+msgid ""
+"No icons found in the website metadata, sorry! You could try to use a "
+"screenshot or custom icon instead."
+msgstr ""
+"لم يتم العثور على أيقونة في معلومات الموقع، عذرا! يمكنك أن تجرب استخدام"
+"لقطة شاشة أو أيقونة خاصة."
+
+#: qml/SelectIconDialog.qml:155 qml/TutorialDialog.qml:89 qml/HelpDialog.qml:44
+msgid "Close"
+msgstr "أغلق"
+
+#: qml/MainPage.qml:38 qml/OptionalSettings.qml:255
+msgid "Add"
+msgstr "أضف"
+
+#: qml/EssentialSettings.qml:41
+msgid "Properties"
+msgstr "الخصائص"
+
+#: qml/EssentialSettings.qml:79
+msgid "Refresh"
+msgstr "تحديث"
+
+#: qml/EssentialSettings.qml:96
+msgid "Name"
+msgstr "الإسم"
+
+#: qml/EssentialSettings.qml:102
+msgid "Web app name"
+msgstr "اسم تطبيق الإنترنت"
+
+#: qml/EssentialSettings.qml:107
+msgid "Icon"
+msgstr "أيقونة"
+
+#: qml/OptionalSettings.qml:43
+msgid "Visuals & Behavior"
+msgstr "البصريات والسلوك"
+
+#: qml/OptionalSettings.qml:55
+msgid "Splash screen color (hex)"
+msgstr "لون الشاشة الرئيسية (hex)"
+
+#: qml/OptionalSettings.qml:83
+msgid "Fullscreen"
+msgstr "الشاشة الكاملة"
+
+#: qml/OptionalSettings.qml:87
+msgid "Controls"
+msgstr "عناصر التحكم"
+
+#: qml/OptionalSettings.qml:97
+msgid "Don't show a title bar"
+msgstr "لا تظهر شريط العنوان"
+
+#: qml/OptionalSettings.qml:103
+msgid "Show title bar"
+msgstr "أظهر شريط العنوان"
+
+#: qml/OptionalSettings.qml:108
+msgid "Show title bar with back/forward buttons"
+msgstr "أظهر شريط العنوان مع أزرار أمام/خلف"
+
+#: qml/OptionalSettings.qml:117
+msgid "Browser Identifier (User-Agent header)"
+msgstr "معرف المتصفح (User-Agent header)"
+
+#: qml/OptionalSettings.qml:124
+msgid ""
+"The User-Agent header is a string of text in a specific format that browsers "
+"send to servers to identify themselves. It contains technical information "
+"about the browser, operating system and vendor. Unfortunately, some websites "
+"restrict access or features based on the User-Agent header. To workaround "
+"this <a href=\"%1\">bad practice</a>, you can <a href=\"%2\">choose a common "
+"User-Agent header</a> that your website accepts and copy it into the text "
+"field below."
+msgstr ""
+"معرف المتصفح هو نص في حالة محددة تقوم المتصفحات "
+"بإرساله إلى الخوادم لتعريف أنفسهم. تحتوي على معلومات تقنية "
+"عن المتصفح، نظام التشغيل و الموزع. لسوء الحظ، بعض المواقع "
+"تحظر الدخول أو الميزات حسب عنوان عميل المستخدم. الحل البديل "
+"لهذا <a href=\"%1\">تمرين سيئ</a> يمكنك <a href=\"%2\">أن تختار"
+"عنوان عميل مستخدم شائع</a> يقبله الموقع وانسخه في "
+"حقل الكتابة في الأسفل."
+
+#: qml/OptionalSettings.qml:133
+msgid "User-Agent header"
+msgstr "عنوان عميل المستخدم"
+
+#: qml/OptionalSettings.qml:157
+msgid "Auto (default)"
+msgstr "آليا (الافتراضي)"
+
+#: qml/OptionalSettings.qml:176
+msgid "Mobile"
+msgstr "الهاتف"
+
+#: qml/OptionalSettings.qml:195
+msgid "Desktop"
+msgstr "سطج المكتب"
+
+#: qml/OptionalSettings.qml:213
+msgid "Custom User-Agent header"
+msgstr "عنوان عميل المستخدم الخاص"
+
+#: qml/OptionalSettings.qml:243
+msgid "Url patterns"
+msgstr "أنماط الروابط"
+
+#: qml/OptionalSettings.qml:306
+msgid "Permissions"
+msgstr "الأذونات"
+
+#: qml/TutorialDialog.qml:11
+msgid "Tutorial"
+msgstr "البرنامج التعليمي"
+
+#: qml/TutorialDialog.qml:34
+msgid ""
+"Hey, welcome! Webber helps you to create shortcuts for your favorite "
+"websites. It's easy!"
+msgstr ""
+"أهلا بك! ويبر يساعدك على إنشاء إختصارات لمواقعك "
+"المفضلة. إنه سهل!"
+
+#: qml/TutorialDialog.qml:40 qml/StaticMainPageContent.qml:41
+msgid ""
+"Use the webbrowser app to navigate to a website you like to add as a "
+"shortcut."
+msgstr ""
+"استخدم متصفح الإنترنت للوصول إلى موقع تريد إضافته "
+"كاختصار."
+
+#: qml/TutorialDialog.qml:55 qml/StaticMainPageContent.qml:43
+msgid ""
+"Use the share option in the menu and select Webber to create the shortcut."
+msgstr ""
+"استخدم خيار المشاركة في القائمة واختر ويبر لإنشاء الاختصار."
+
+#: qml/TutorialDialog.qml:61
+msgid "That's it! Enjoy!"
+msgstr "هذا هو! استمتع!"
+
+#: qml/TutorialDialog.qml:79 qml/StaticMainPageContent.qml:50
+msgid "Browser"
+msgstr "تصفح"
+
+#: qml/HelpDialog.qml:37
+msgid "Learn more"
+msgstr "اعرف المزيد"
+
+#. i18n: Label below the icon selection
+#: qml/IconSelector.qml:41
+msgid "Default"
+msgstr "افتراضي"
+
+#: qml/IconSelector.qml:42
+msgid "Icon specified in website meta data"
+msgstr "الأيقونة محددة في بيانات الموقع"
+
+#. i18n: Label below the icon selection
+#: qml/IconSelector.qml:60 qml/ScreenshotDialog.qml:112
+msgid "Screenshot"
+msgstr "لقطة الشاشة"
+
+#. i18n: Label below the icon selection
+#: qml/IconSelector.qml:68
+msgid "Custom"
+msgstr "مخصصة"
+
+#: qml/InstallDialog.qml:14
+msgid "Exporting ..."
+msgstr "تصدير ..."
+
+#: qml/CustomIconSelector.qml:11
+msgid "Import custom icon"
+msgstr "استورد أيقونة مخصصة"
+
+#~ msgid "Enable desktop mode (via user agent)"
+#~ msgstr "مكن وضع سطح المكتب (باستخدام عميل المستخدم)"
+
+#~ msgid "Url (e.g. https://example.com)"
+#~ msgstr "الرابط (مثل. https://example.com)"
