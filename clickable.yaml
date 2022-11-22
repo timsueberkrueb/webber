@@ -1,0 +1,19 @@
+clickable_minimum_required: 7.6.0
+
+builder: rust
+rust_channel: nightly-2022-11-22
+kill: webber
+
+dependencies_host:
+- pkg-config
+dependencies_target:
+- libssl-dev
+env_vars:
+  PKG_CONFIG_ALLOW_CROSS: '1'
+
+install_root_data:
+- manifest.json
+- webber.desktop
+- webber.apparmor
+- content-hub.json
+- assets
