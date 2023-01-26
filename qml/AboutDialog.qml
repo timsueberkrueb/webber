@@ -97,7 +97,7 @@ AdaptiveDialog {
             }
 
             Label {
-                text: i18n.tr("Webapp shortcut creator for Ubuntu touch")
+                text: i18n.tr("Webapp shortcut creator for Ubuntu Touch")
                 horizontalAlignment: Text.AlignHCenter
                 width: parent.width
                 wrapMode: Text.WordWrap

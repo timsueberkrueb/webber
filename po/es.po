@@ -23,8 +23,8 @@ msgid "About"
 msgstr "Acerca de"
 
 #: qml/AboutDialog.qml:100
-msgid "Webapp shortcut creator for Ubuntu touch"
-msgstr "Creador de atajos Webapp para Ubuntu touch"
+msgid "Webapp shortcut creator for Ubuntu Touch"
+msgstr "Creador de atajos Webapp para Ubuntu Touch"
 
 #: qml/AboutDialog.qml:115
 msgid "Rate"

@@ -1,12 +1,12 @@
 # Webber
 
-Webber installs local shortcuts for webpages on Ubuntu touch.
+Webber installs local shortcuts for webpages on Ubuntu Touch.
 
 <a href="https://open-store.io/app/webber.timsueberkrueb"><img width="256" src="https://open-store.io/badges/en_US.svg" alt="OpenStore" /></a>
 
 ## Build using clickable
 
-Install [clickable](https://clickable-ut.dev), the build tool for Ubuntu touch apps.
+Install [clickable](https://clickable-ut.dev), the build tool for Ubuntu Touch apps.
 
 To build and start the application on your phone, run:
 

@@ -137,7 +137,7 @@ impl Package {
     }
 
     pub fn sanitize(&mut self) {
-        // Remove leading (and trailing) whitespace (if any) because Ubuntu touch's
+        // Remove leading (and trailing) whitespace (if any) because Ubuntu Touch's
         // app grid has problems displaying apps whose names include leading whitespace
         self.name = self.name.trim().to_string();
     }
