@@ -281,7 +281,7 @@ impl ControlManifest {
         Self {
             architecture: "all".to_owned(),
             description: "Shortcut".to_owned(),
-            framework: "ubuntu-sdk-16.04".to_owned(),
+            framework: "ubuntu-sdk-20.04".to_owned(),
             hooks,
             maintainer: "Webber <noreply@ubports.com>".to_owned(),
             name: format!("{}.webber", appname),
@@ -315,7 +315,7 @@ impl AppArmor {
         Self {
             template: "ubuntu-webapp".to_owned(),
             policy_groups,
-            policy_version: "16.04".to_owned(),
+            policy_version: "20.04".to_owned(),
         }
     }
 
@@ -409,8 +409,8 @@ Exec={}
 Icon={}
 Terminal=false
 Type=Application
-X-Ubuntu-Touch=true
-X-Ubuntu-Splash-Color={}
+X-Lomiri-Touch=true
+X-Lomiri-Splash-Color={}
 "#,
         package.name, exec, icon_fname, package.theme_color
     )

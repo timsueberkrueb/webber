@@ -2,6 +2,7 @@ clickable_minimum_required: 7.6.0
 
 builder: rust
 rust_channel: nightly-2022-11-22
+framework: ubuntu-sdk-20.04
 kill: webber
 
 dependencies_host:
