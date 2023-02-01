@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import Ubuntu.Content 1.3
+import Lomiri.Content 1.3
 
 QtObject {
     id: contentImport

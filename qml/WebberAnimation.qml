@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls.Suru 2.2
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 
 Item {
     id: item

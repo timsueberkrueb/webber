@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.8
 import QtQuick.Controls.Suru 2.2
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 import Webber 1.0
 
 AdaptiveDialog {
@@ -42,7 +42,7 @@ AdaptiveDialog {
                 wrapMode: Text.WordWrap
             }
 
-            UUITK.UbuntuShape {
+            LUITK.LomiriShape {
                 width: Suru.units.dp(256)
                 height: Suru.units.dp(128)
                 backgroundColor: "white"

@@ -2,7 +2,7 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Suru 2.2
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 import "."
 
 Item {
@@ -67,7 +67,7 @@ Item {
                     color: colorField.text
                 }
 
-                UUITK.TextField {
+                LUITK.TextField {
                     id: colorField
                     Layout.fillWidth: true
                     text: "#ffffff"
@@ -208,7 +208,7 @@ and copy it into the text field below.")
                 width: parent.width
                 implicitHeight: customUAField.implicitHeight
 
-                UUITK.TextField {
+                LUITK.TextField {
                     id: customUAField
                     placeholderText: i18n.tr("Custom User-Agent header")
                     enabled: radioCustomUA.checked
@@ -274,7 +274,7 @@ and copy it into the text field below.")
                 RowLayout {
                     anchors.fill: parent
 
-                    UUITK.TextField {
+                    LUITK.TextField {
                         Layout.fillWidth: true
 
                         signal editingFinished()

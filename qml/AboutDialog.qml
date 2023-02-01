@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.8
 import QtQuick.Controls.Suru 2.2
 import QtGraphicalEffects 1.0
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 import Webber 1.0
 import "."
 

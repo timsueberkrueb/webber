@@ -2,8 +2,8 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Suru 2.2
-import Ubuntu.Components 1.3 as UUITK
-import Ubuntu.Content 1.3
+import Lomiri.Components 1.3 as LUITK
+import Lomiri.Content 1.3
 
 Dialog {
     id: dialog

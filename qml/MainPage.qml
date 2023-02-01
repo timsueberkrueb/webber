@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Suru 2.2
 import QtGraphicalEffects 1.0
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 import Webber 1.0
 import "."
 
@@ -55,7 +55,7 @@ Page {
             margins: Suru.units.dp(32)
         }
 
-        contentItem: UUITK.Icon { name: "help" }
+        contentItem: LUITK.Icon { name: "help" }
         onClicked: tutorialDialog.open()
     }
 
@@ -66,7 +66,7 @@ Page {
             margins: Suru.units.dp(32)
         }
 
-        contentItem: UUITK.Icon { name: "info" }
+        contentItem: LUITK.Icon { name: "info" }
         onClicked: aboutDialog.open()
     }
 
