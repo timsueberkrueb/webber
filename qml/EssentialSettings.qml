@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Suru 2.2
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 
 Item {
     id: essentialSettings
@@ -96,7 +96,7 @@ Item {
                 text: i18n.tr("Name")
             }
 
-            UUITK.TextField {
+            LUITK.TextField {
                 id: nameField
                 Layout.fillWidth: true
                 placeholderText: i18n.tr("Web app name")

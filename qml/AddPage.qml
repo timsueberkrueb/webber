@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Suru 2.2
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 import Webber 1.0
 import "."
 
@@ -25,7 +25,7 @@ Page {
                 onClicked: App.pop()
             }
 
-            UUITK.TextField {
+            LUITK.TextField {
                 id: urlField
 
                 property string previousText: ""
@@ -128,7 +128,7 @@ Page {
 
                             spacing: units.gu(1)
 
-                            UUITK.Icon {
+                            LUITK.Icon {
                                 name: optionalSettings.showing ? "up" : "down"
                                 width: units.gu(3)
                                 height: units.gu(3)

@@ -23,7 +23,7 @@ msgid "About"
 msgstr "Over"
 
 #: qml/AboutDialog.qml:100
-msgid "Webapp shortcut creator for Ubuntu touch"
+msgid "Webapp shortcut creator for Ubuntu Touch"
 msgstr "Maak webapp-snelkoppelingen op Ubuntu Touch"
 
 #: qml/AboutDialog.qml:115

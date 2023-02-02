@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.8
 import QtQuick.Controls.Suru 2.2
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 import Webber 1.0
 
 AdaptiveDialog {
@@ -73,8 +73,8 @@ AdaptiveDialog {
                     readonly property bool isSelected: iconsView.currentIndex === index
                     readonly property bool isSVG: model.url.toLowerCase().endsWith(".svg")
 
-                    UUITK.UbuntuShape {
-                        id: ubuntuShape
+                    LUITK.LomiriShape {
+                        id: lomiriShape
 
                         anchors {
                             left: parent.left
@@ -86,7 +86,7 @@ AdaptiveDialog {
                         backgroundColor: "white"
                         width: Suru.units.gu(8)
                         height: Suru.units.gu(8)
-                        aspect: isSelected ? UUITK.UbuntuShape.Flat : UUITK.UbuntuShape.Inset
+                        aspect: isSelected ? LUITK.LomiriShape.Flat : LUITK.LomiriShape.Inset
 
                         source: Image {
                             id: iconImage
@@ -105,7 +105,7 @@ AdaptiveDialog {
 
                     Rectangle {
                         anchors {
-                            top: ubuntuShape.bottom
+                            top: lomiriShape.bottom
                             horizontalCenter: parent.horizontalCenter
                             topMargin: Suru.units.gu(1)
                         }

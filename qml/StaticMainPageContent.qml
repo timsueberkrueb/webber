@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Suru 2.2
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 import "."
 
 Item {
@@ -23,13 +23,13 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: Suru.units.gu(2)
 
-                UUITK.Icon {
+                LUITK.Icon {
                     width: Suru.units.gu(10)
                     height: Suru.units.gu(10)
                     name: "webbrowser-app-symbolic"
                 }
 
-                UUITK.Icon {
+                LUITK.Icon {
                     width: Suru.units.gu(10)
                     height: Suru.units.gu(10)
                     name: "share"

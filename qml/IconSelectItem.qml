@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Suru 2.2
-import Ubuntu.Components 1.3 as UUITK
+import Lomiri.Components 1.3 as LUITK
 
 Column {
     id: iconSelectItem
@@ -23,11 +23,11 @@ Column {
         implicitWidth: Suru.units.gu(8)
         implicitHeight: Suru.units.gu(8)
 
-        UUITK.UbuntuShape {
+        LUITK.LomiriShape {
             anchors.fill: parent
 
             backgroundColor: iconImage.source == "" ? Suru.neutralColor : "white"
-            aspect: UUITK.UbuntuShape.Inset
+            aspect: LUITK.LomiriShape.Inset
 
             source: Image {
                 id: iconImage
@@ -37,7 +37,7 @@ Column {
                 source: iconSelectItem.source !== "" ? iconSelectItem.sourcePrefix + iconSelectItem.source : ""
             }
 
-            UUITK.Icon {
+            LUITK.Icon {
                 anchors.centerIn: parent
                 visible: placeholderIconName !== "" && iconImage.source == ""
                 name: placeholderIconName
