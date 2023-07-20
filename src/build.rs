@@ -25,7 +25,7 @@ fn gettext() {
     let source_files = source_files();
 
     let mut child = Command::new("xgettext")
-        .args(&[
+        .args([
             &format!("--output={}", pot_file),
             "--qt",
             "--keyword=tr",
@@ -41,7 +41,7 @@ fn gettext() {
 
     for po_file in po_files() {
         let mut child = Command::new("msgmerge")
-            .args(&["--update", po_file.to_str().unwrap(), pot_file])
+            .args(["--update", po_file.to_str().unwrap(), pot_file])
             .spawn()
             .unwrap();
 
@@ -57,7 +57,7 @@ fn gettext() {
         let mo_file = format!("{}/webber.timsueberkrueb.mo", mo_dir);
 
         let mut child = Command::new("msgfmt")
-            .args(&[po_file.to_str().unwrap(), "-o", &mo_file])
+            .args([po_file.to_str().unwrap(), "-o", &mo_file])
             .spawn()
             .unwrap();
 
