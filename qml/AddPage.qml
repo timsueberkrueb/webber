@@ -282,7 +282,7 @@ Page {
                 ["location", i18n.tr("Access your location"), false],
                 ["camera", i18n.tr("Access your camera"), false],
                 ["microphone", i18n.tr("Acess your microphone"), false],
-                ["sensores", i18n.tr("Access your sensors"), false]
+                ["sensors", i18n.tr("Access your sensors"), false]
             ];
 
             appModel.permissions.clear();
