@@ -82,11 +82,7 @@ fn main() {
                 .borrow()
                 .image_loaded
                 .to_cpp_representation(&*provider.borrow()),
-            |url: &String, size: &QSize| {
-                icon_model
-                    .borrow_mut()
-                    .image_loaded(url.clone(), *size)
-            },
+            |url: &String, size: &QSize| icon_model.borrow_mut().image_loaded(url.clone(), *size),
         );
     }
 
