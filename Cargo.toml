@@ -11,7 +11,7 @@ qttypes = { git = "https://github.com/timsueberkrueb/qmetaobject-rs.git", featur
 cstr = "0.2"
 cpp = "0.5"
 url = { version = "2", features = ["serde"] }
-reqwest = { version = "0.11", features = ["blocking"] }
+reqwest = { version = "0.11", features = ["blocking", "cookies"] }
 scraper = "0.12"
 flate2 = "1"
 tar = { git = "https://github.com/timsueberkrueb/tar-rs" }
