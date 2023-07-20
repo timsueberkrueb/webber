@@ -18,3 +18,4 @@ install_root_data:
 - webber.apparmor
 - content-hub.json
 - assets
+- share
