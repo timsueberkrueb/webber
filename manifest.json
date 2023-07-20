@@ -10,7 +10,7 @@
             "content-hub": "content-hub.json"
         }
     },
-    "version": "0.6.0",
+    "version": "0.6.2",
     "maintainer": "Tim Süberkrüb <dev@timsueberkrueb.io>",
     "framework" : "ubuntu-sdk-20.04"
 }
