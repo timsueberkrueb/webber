@@ -1,9 +1,13 @@
 use std::collections::HashMap;
 use std::error::Error;
 use std::fs;
-use std::io::{self, Write};
+use std::io::{self, Read, Write};
+use std::os::linux::fs::MetadataExt as _;
+use std::os::unix::fs::MetadataExt as _;
 use std::path::{Path, PathBuf};
+use std::time::{SystemTime, UNIX_EPOCH};
 
+use ar_archive_writer::NewArchiveMember;
 use reqwest::blocking as reqwest;
 
 use flate2::write::GzEncoder;
@@ -332,12 +336,31 @@ fn download_file(url: &str, target: &Path) -> Result<(), Box<dyn Error>> {
 }
 
 fn create_ar(filepath: &Path, files: &[(&Path, &str)]) -> io::Result<()> {
-    let file = fs::File::create(filepath)?;
-    let mut archive = ar::Builder::new(file);
+    let mut file = fs::File::create(filepath)?;
+    let mut new_members = Vec::new();
     for (src, target) in files {
         let mut file = fs::File::open(src)?;
-        archive.append_file(target.as_bytes(), &mut file)?;
+        let mut contents = Vec::new();
+        file.read_to_end(&mut contents)?;
+        let metadata = file.metadata()?;
+        new_members.push(NewArchiveMember {
+            buf: Box::new(contents),
+            get_symbols: |_, _| Ok(false),
+            member_name: target.to_string(),
+            mtime: metadata.st_mtime() as u64,
+            uid: metadata.st_uid(),
+            gid: metadata.st_gid(),
+            perms: metadata.mode(),
+        });
     }
+    ar_archive_writer::write_archive_to_stream(
+        &mut file,
+        &new_members,
+        false,
+        ar_archive_writer::ArchiveKind::Gnu,
+        true,
+        false,
+    )?;
     Ok(())
 }
 
