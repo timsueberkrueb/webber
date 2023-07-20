@@ -5,7 +5,6 @@ use std::io::{self, Read, Write};
 use std::os::linux::fs::MetadataExt as _;
 use std::os::unix::fs::MetadataExt as _;
 use std::path::{Path, PathBuf};
-use std::time::{SystemTime, UNIX_EPOCH};
 
 use ar_archive_writer::NewArchiveMember;
 use reqwest::blocking as reqwest;
