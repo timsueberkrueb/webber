@@ -3,7 +3,6 @@ use std::hash::Hash;
 use std::string::ToString;
 
 use csscolorparser::Color;
-use reqwest::blocking as reqwest;
 use url::Url;
 
 use crate::fetchable::*;
@@ -63,7 +62,14 @@ impl Fetchable for ScrapedSite<Unresolved> {
     type Error = String;
 
     fn fetch(url: &Url) -> Result<ScrapedSite<Unresolved>, String> {
-        let body = reqwest::get(url.as_ref())
+        let client = reqwest::blocking::ClientBuilder::new()
+            .cookie_store(true)
+            .build()
+            .map_err(|err| err.to_string())?;
+
+        let body = client
+            .get(url.as_ref())
+            .send()
             .map_err(|err| err.to_string())?
             .text()
             .map_err(|err| err.to_string())?;
